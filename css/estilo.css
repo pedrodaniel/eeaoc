@@ -1,0 +1,700 @@
+body {
+	margin:0;
+	padding:0;
+	font-family:Helvetica, sans-serif;
+	font-size:16px;
+}
+a img {
+	border:0;
+}
+#content {
+	width:995px;
+	margin:0 auto;
+}
+#top {
+	float:left;
+	width:100%;
+	margin-bottom: 14px;
+}
+#top .top-c {
+	border: 1px solid #E0E0E0;
+	float: left;
+	padding-bottom: 7px;
+	padding-left: 11px;
+	padding-right: 11px;
+}
+#header {
+	width:100%;
+	float:left;
+	background:url(../img/header-bottom.png) no-repeat center bottom;
+	padding-bottom: 17px;
+}
+#header .contenedor {
+	width: 971px;
+	margin:6px auto 0;
+}
+#logo {
+	float: left;
+	margin-top: 24px;
+}
+#header .header-right {
+	float:right;
+}
+#header .header-right .hrl {
+    float: left;
+    margin-right: 70px;
+    padding-top: 98px;
+}
+#header .header-right .hrl p {
+	color:#387C2B;
+	margin:0;
+	font-size: 10px;
+}
+#header .header-right .hrr {
+	float: left;
+}
+#header .header-right .hrr .hrr-l {
+	border-right: 1px solid #E0E0E0;
+	float: left;
+	margin-right: 5px;
+	padding-right: 14px;
+	padding-top: 69px;
+}
+#header .header-right .hrr .hrr-r {
+	float: left;
+	margin-right: 7px;
+	margin-top: 59px;
+}
+#nav {
+	margin: 0 auto;
+	width: 970px;
+}
+#nav ul {
+	float: right;
+	list-style: none outside none;
+	margin: 3px 0 0;
+	padding: 0;
+}
+#nav ul.camino {
+	float:left;
+}
+#nav ul li {
+	float: left;
+	font-size: 14px;
+    margin-left: 9px;
+    margin-right: 9px;
+}
+#nav ul li:hover a {
+	color:#000;
+}
+#nav ul li.activo a {
+	color:#fff;
+}
+#nav ul li.ulti a {
+	color:#fff;
+}
+#nav ul li.ulti {
+	margin-right:0;
+	background:#44866A;
+}
+#nav ul li.ulti.inicio {
+	margin-left:0;
+}
+#nav ul li.ant {
+	background: url("../img/ant.png") no-repeat scroll right 5px transparent;
+	font-size: 12px;
+	line-height: 1.4;
+	padding-right: 3px;
+}
+#nav ul li.ant a {
+	color:#939598;
+}
+#nav ul li a {
+	color: #BEC0C2;
+	float: left;
+	font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+	padding-top: 1px;
+	text-decoration: none;
+}
+#main {
+	float:left;
+	width:100%;
+	border: 1px solid #E0E0E0;
+	margin-bottom:10px;
+}
+#home #main {
+	border:0;
+	margin-bottom: 30px;
+}
+#home #main .center-h {
+	border: 1px solid #E0E0E0;
+}
+#main .center-h {
+	float: left;
+	padding: 9px 11px 8px;
+}
+#main .center-h .center-h-c {
+	margin:0 auto;
+}
+#main .center-h .chl {
+	width:667px;
+	float:left;
+}
+#main .center-h .chr {
+	background: url("../img/destacado.png") no-repeat scroll 0 bottom transparent;
+	float: right;
+	height: 222px;
+	width: 261px;
+	margin-left: 43px;
+}
+#main .center-h .chl .box {
+	background:#E6E7E8;
+	width:100%;
+	height:219px;
+}
+#main.g .center-h .chl .box {
+	height:125px;
+}
+#main .bottom-h {
+	float: left;
+	padding-bottom: 8px;
+	padding-top: 6px;
+	width: 100%;
+}
+#main .bottom-h .bottom-h-c {
+	width: 97%;
+	margin:0 auto;
+}
+#home #main .bottom-h .bhl {
+	width:667px;
+}
+#main .bottom-h .bhl {
+	width:100%;
+	float:left;
+}
+#main .bottom-h .bhl ul.right {
+	float: right;
+	margin-top: -20px;
+}
+#main .bottom-h .bhl ul.right li {
+	background: url("../img/vinieta-rr.png") no-repeat scroll right 2px transparent;
+	*background: url("../img/vinieta-rr.png") no-repeat scroll right 7px transparent;
+	font-size: 11px;
+	margin-bottom: 2px;
+	padding-left: 0;
+	padding-right: 14px;
+	text-align: right;
+}
+#main .bottom-h .bhr {
+    float: left;
+    margin-left: 44px;
+    width: 254px;
+}
+.list-cont h1 {
+	color: #A7A9AC;
+	font-size: 32px;
+	margin: 0;
+}
+#home .list-cont ul {
+	float:inherit;
+}
+.list-cont ul {
+	list-style:none;
+	margin:0;
+	padding:0;
+	float:left;
+}
+.list-cont ul li {
+	background: url("../img/vinieta.png") no-repeat scroll 3px center transparent;
+	color: #000000;
+	font-size: 13px;
+	font-weight: bold;
+	padding-left: 17px;
+}
+ul li.act a {
+	color:#000 !important;
+}
+.list-cont ul li a {
+	color: #BCBEC0;
+	text-decoration:none;
+}
+.list-cont ul li a:hover {
+	color:#000;
+}
+.list-cont .box-gris {
+	background: none repeat scroll 0 0 #E6E7E8;
+	float: right;
+	margin-top: 30px;
+	padding: 10px;
+	width: 204px;
+}
+.list-cont .box-gris p {
+	margin:0;
+	font-size:20px;
+	color:#A7A9AC;
+}
+#footer {
+	float:left;
+	width:100%;
+}
+#secciones {
+	border: 1px solid #E0E0E0;
+	float: left;
+	padding-bottom: 10px;
+	padding-top: 9px;
+	width: 100%;
+}
+#secciones .secciones-c {
+	width:971px;
+	margin:0 auto;
+}
+#secciones ul {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+#secciones ul li {
+	background: none repeat scroll 0 0 #0DB14B;
+	float: left;
+	font-size: 12px;
+	font-weight: bold;
+	width: 193px;
+	margin-right: 1px;
+}
+#secciones ul li.sc-c {
+	background: none repeat scroll 0 0 #8DC63F;
+}
+#secciones ul li.sc-g {
+	background: none repeat scroll 0 0 #E8CD60;
+}
+#secciones ul li.sc-gr {
+	background: none repeat scroll 0 0 #F8A07C;
+}
+#secciones ul li.sc-a {
+	background: none repeat scroll 0 0 #C3CCDA;
+}
+#secciones ul li a {
+	color: #000000;
+	float: left;
+	height: 21px;
+	padding-left: 10px;
+	padding-top: 8px;
+	text-decoration: none;
+	width: 183px;
+}
+#secciones ul li a:hover {
+	color:#777;
+}
+#footer .menu-footer {
+	float:left;
+	width:100%;
+	margin-bottom: 5px;
+}
+#footer .menu-footer .mf-c {
+	float: left;
+	margin-left: 12px;
+	margin-top: -3px;
+	width: 987px;
+}
+#footer .menu-footer .mf-c .mf {
+	border-top: 3px solid #939598;
+	float: left;
+	margin-right: 2px;
+	width: 159px;
+	position:relative;
+}
+#footer .menu-footer .mf-c .mf.s a {
+	border-left:0;
+}
+#footer .menu-footer .mf-c .mf.r {
+    float: right;
+    width: 185px;
+}
+#footer .menu-footer .mf-c .mf.r a {
+    background: url("../img/vinieta-r.png") no-repeat scroll 174px center transparent;
+    border-right: 0 none;
+    width: 177px;
+}
+#footer .menu-footer .mf-c .mf a {
+    background: url("../img/vinieta-r.png") no-repeat scroll 147px center transparent;
+    border-left: 1px solid #E0E0E0;
+    border-right: 1px solid #E0E0E0;
+    color: #BEC0C2;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 4px;
+    padding-left: 7px;
+    text-decoration: none;
+    width: 152px;
+}
+#footer .menu-footer .mf-c .mf a:hover {
+	color:#333;
+}
+#footer .menu-footer .mf-c .mf .desp {
+	background: url("../img/des-bg.png") repeat scroll 0 0 transparent;
+	display: none;
+	left: 0;
+	padding-bottom: 20px;
+	padding-top: 10px;
+	position: absolute;
+	width: 160px;
+	bottom: 100%;
+	top: auto;
+}
+#footer .menu-footer .mf-c .mf:hover .desp {
+	display:block;
+	bottom: 100%;
+	top: auto;
+}
+#footer .menu-footer .mf-c .mf .desp ul {
+	list-style:none;
+	margin:0 auto;
+	padding:0;
+	width:140px;
+	font-size:11px;
+}
+#footer .menu-footer .mf-c .mf .desp ul li {
+	float: left;
+	margin-bottom: 2px;
+	width: 100%;
+}
+#footer .menu-footer .mf-c .mf .desp ul li a {
+	background: none repeat scroll 0 0 transparent;
+	border: 0 none;
+	color: #FFFFFF;
+	font-size: 11px;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	width: auto;
+}
+#footer .menu-footer .mf-c .mf .desp ul li a:hover {
+	color:#CCC;
+}
+#center {
+	float:left;
+	width: 689px;
+}
+#right {
+	float:left;
+	width:296px;
+}
+#scroll-con {
+}
+#scroll-con h1 {
+	font-size:14px;
+	color:#231F20;
+	margin:0;
+}
+#scroll-con p {
+	color:#231F20;
+	font-size:11px;
+	margin-top:7px;
+	margin-bottom:7px;
+}
+#left {
+	width:165px;
+	float:left;
+}
+#main.g {
+	border-bottom:0;
+	margin-bottom:0;
+}
+#main.g #center {
+	width:741px;
+	float:right;
+}
+#main.g #center .center-h {
+	padding-bottom:0;
+}
+#main.g #center .center-h .chl {
+	width:718px;
+}
+#main.g #center #scroll-con h1 {
+	color: #A7A9AC;
+	font-size: 29px;
+	margin: 0;
+}
+#left .left-c {
+	float: left;
+	margin: 9px 0 0 11px;
+	width: 215px;
+}
+#left .menu {
+	float:left;
+	width:100%;
+}
+#left .menu .box {
+	float: left;
+	width: 100%;
+}
+#left .menu .box .top {
+	background: url("../img/vinieta-b.png") no-repeat scroll 94% 19px #60BD68;
+	float: left;
+	height: 32px;
+	padding-left: 5%;
+	padding-top: 9px;
+	width: 95%;
+}
+#left .menu .box .top h1 {
+	margin:0;
+	font-size:21px;
+	color:#fff;
+	font-weight:normal;
+}
+#left .menu .box.c .top h1 {
+    font-size: 16px;
+    line-height: 1.8;
+}
+#left .menu .box .center {
+	float:left;
+	width:100%;
+	background:#E9F4E7;
+}
+#left .menu .box .center ul {
+	float: left;
+	list-style: none outside none;
+	margin: 0;
+	padding: 5px 0;
+	width: 100%;
+}
+
+#left .menu .box .center ul li {
+    background: url("../img/vinieta-v.png") no-repeat scroll 3px 3px transparent;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    padding-left: 16px;
+	margin-bottom: 3px;
+    width: 92.6%;
+}
+#left .menu .box .center ul li a {
+	color:#231F20;
+	text-decoration:none;
+}
+
+#left .menu.noti .box {
+    background: none repeat scroll 0 0 #60BD68;
+    padding-bottom: 27px;
+}
+
+#left .menu.noti .box .center ul{
+	padding:0;}
+
+#left .menu.noti .box .center ul li a{
+    float: left;
+    padding-bottom: 5px;
+    padding-top: 5px;}
+
+#left .menu.noti .box .center ul li .subm {
+    background: none repeat scroll 0 0 #60BD68;
+    float: left;
+    margin-left: -15px;
+    width: 107%;
+}
+#left .menu.noti .box .center ul li .subm ul {
+    background: none repeat scroll 0 0 #E9F4E7;
+    margin-left: 17px;
+    padding: 0;
+    width: 142px;
+}
+#left .menu.noti .box .center ul li .subm ul li {
+    background: none repeat scroll 0 0 transparent;
+    border-bottom: 0 none;
+    border-top: 1px solid #939598;
+    padding: 3px 0 3px 8px;
+    width: 94%;
+}
+#left .menu.noti .box .center ul li .subm ul li a {
+    color: #939598;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 0;
+}
+#left .menu.noti .box .center ul li {
+    background-position: 3px 9px;
+    border-top: 2px solid #60BD68;
+}
+
+#left .menu.noti .box-vacio{
+    height: 80px;
+    margin-top: 1px;
+	}
+
+#left .menu .box-vacio {
+	background: none repeat scroll 0 0 #B1DAAE;
+	float: left;
+	height: 49px;
+	margin-bottom: 2px;
+	margin-top: 11px;
+	width: 100%;
+}
+#left .menu .box-vacio.oscuro {
+	background:#8ACA8B;
+	height:21px;
+	margin:0;
+}
+#main.b #center {
+    float:left;
+    width: 995px;
+}
+#main.b #center .center-h .chl {
+    width: 972px;}
+	
+#main.b .center-h .chl .box {
+    height: 159px;}
+	
+.list-cont.sec h1{
+	color:#231F20;}
+
+.list-cont.sec .sec-c{
+    float: right;}
+
+.list-cont.sec ul{
+    float: left;
+    margin-right: 30px;
+    margin-top: 10px;}
+
+.list-cont.sec li{
+    background: url("../img/vinieta-rr.png") no-repeat scroll right 3px transparent; 
+	*background: url("../img/vinieta-rr.png") no-repeat scroll right 7px transparent;
+    font-size: 11px;
+    padding-bottom: 2px;
+    padding-left: 0;
+    padding-right: 14px;
+    text-align: right;}
+
+.list-cont.sec li a{
+    color: #BCBEC0;
+    text-decoration: none;}
+	
+#main.se .center-h .chl .box{
+    height: 220px;}	
+	
+#main.se .list-cont h1{
+	color:#000;}
+	
+#main .menu-bottom{
+	float:left;
+	width:100%;}
+
+#main .menu-bottom .menu-bottom-c{
+    border-top: 2px solid #939598;
+    margin: 0 auto;
+    width: 97%;}
+	
+#main .menu-bottom ul{
+    float: left;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    width: 100%;}
+
+#main .menu-bottom ul li{
+    float: left;
+    font-size: 11px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    position: relative;}
+
+#main .menu-bottom ul li a{
+	color:#939598;
+	text-decoration:none;
+	padding-right:10px;
+	padding-left:10px;
+	display:block;
+	border-right:1px solid #ccc;}
+	
+#main .menu-bottom ul li a:hover{
+	color:#000;}	
+	
+#main .menu-bottom ul li ul.desp{
+    background: url("../img/des-bg.png") repeat scroll 0 0 transparent;
+    bottom: 100%;
+    display: none;
+    left: 0;
+    padding: 7px 0;
+    position: absolute;
+    top: auto;
+    width: 121px;
+}
+	
+#main .menu-bottom ul li:hover ul.desp{
+	display:block;
+	}
+	
+#main .menu-bottom ul li ul.desp li{
+    float: none;
+    margin: 0 auto 3px;
+    padding: 0;
+    width: 106px;}
+	
+#main .menu-bottom ul li ul.desp li a{
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    width: auto;}
+	
+#main .menu-bottom ul li ul.desp li a:hover{
+	color:#CCCCCC;}
+	
+#main.nov .center-h .chl{
+	border-bottom: 3px solid #0DB14B;}
+	
+#main.nov.n .center-h .chl{
+	border-bottom: 3px solid #E8CD60;}	
+	
+#main.nov.vc .center-h .chl{
+	border-bottom: 3px solid #8DC63F;}
+	
+#main.nov.r .center-h .chl{
+	border-bottom: 3px solid #F8A07C;}	
+	
+#main.nov.az .center-h .chl{
+	border-bottom: 3px solid #0091D5;}	
+	
+#main.nov.ne .center-h .chl{
+	border-bottom: 3px solid #231F20;}	
+	
+#main.nov .bottom-h{
+   padding-top: 0;}
+
+#main.nov .bottom-h h1{
+	color:#000;}
+
+#main.nov .bottom-h .bhl ul.right{
+    margin-top: -23px;}
+	
+#main.nov #scroll-con{
+    background: none repeat scroll 0 0 #E9F4E7;
+    padding: 4px;
+    width: 230px;
+	float:right;}
+	
+#main.nov #right{
+	background:url("../img/nov.png") no-repeat scroll 19px 24px transparent;}
+	
+#main.nov .menu-bottom .menu-bottom-c {
+    border-bottom: 2px solid #939598;
+	border-top:0;
+    float: left;
+    margin-left: 11px;
+    width: 97%;}
+	
+#main.nov .menu-bottom ul{
+    float: left;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0 0 0 2%;
+    width: 98%;
+	background:url(../img/vinieta-rrr.png) no-repeat left center;}
+	
+#main.nov .menu-bottom ul li{
+    padding-bottom: 2px;}

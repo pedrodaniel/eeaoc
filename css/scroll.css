@@ -1,0 +1,23 @@
+#scroll-con{
+	float:left;
+	width:285px;
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-bottom:10px;}
+
+/* Tiny Scrollbar */
+#scrollbar1 { width: 100%; margin: 0; }
+#scrollbar1 .viewport { width: 94%; height: 342px; overflow: hidden; position: relative; }
+#scrollbar1 .overview { list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
+#scrollbar1 .scrollbar{ 
+background: transparent url(../img/scroll-bar.png) repeat 0 0; position: relative; background-position: 0 0; float: right; width: 1px; }
+#scrollbar1 .track { height: 100%; width:1px; position: relative; padding: 0 1px; }
+#scrollbar1 .thumb { background: transparent url(../img/scroll-bot.png) no-repeat 0 100%; height: 20px; width: 25px; cursor: pointer; overflow: hidden; position: absolute; top: 0; left: -5px; }
+#scrollbar1 .thumb .end { overflow: hidden; height: 5px; width: 25px; }
+#scrollbar1 .disable { display: none; }
+
+#main.g #center #scroll-con{
+    width: 98%;
+	margin-bottom:0;}
+#main.g #center #scrollbar1 .viewport{
+	height: 162px;}

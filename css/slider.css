@@ -1,0 +1,236 @@
+/*
+	jQuery Coda-Slider v2.0 - http://www.ndoherty.biz/coda-slider
+	Copyright (c) 2009 Niall Doherty
+	This plugin available for use in all personal or commercial projects under both MIT and GPL licenses.
+*/
+
+/* Insignificant stuff, for demo purposes */
+
+	.panel h2.title {
+	margin-bottom: 10px
+}
+#coda-slider-1, #coda-slider-1 .panel {
+	width: 216px;
+    height: 181px !important;
+}
+h2.title {
+	display: none
+}
+#coda-nav-1 {
+	width:auto !important;
+}
+#interna #coda-nav-1 {
+	margin-right: 15px;
+}
+/* Most common stuff you'll need to change */
+
+	.coda-slider-wrapper {
+    height: 220px;
+    position: relative;
+	float:right;
+}
+.slide-b{
+    background: none repeat scroll 0 0 #E6E7E8;
+    float: left;
+    height: 39px;
+    width: 100%;}
+	
+.coda-slider {
+	background: #E5BA89;
+}
+#center .coda-slider {
+	background: none;
+	padding-left: 10px;
+}
+/* Use this to keep the slider content contained in a box even when JavaScript is disabled */
+	.coda-slider-no-js .coda-slider {
+	height: 200px;
+	padding-right: 0
+}
+/* Change the width of the entire slider (without dynamic arrows) */
+	.coda-slider, .coda-slider .panel {
+	width: 155px
+}
+/* Change margin and width of the slider (with dynamic arrows) */
+	.coda-slider-wrapper.arrows .coda-slider, .coda-slider-wrapper.arrows .coda-slider .panel {
+	width: 155px
+}
+.coda-slider-wrapper.arrows .coda-slider {
+
+}
+/* Arrow styling */
+	.coda-nav-left a, .coda-nav-right a {
+	color: #fff;
+	width: 12px;
+
+}
+
+.coda-nav-left a img.hover, .coda-nav-right a img.hover{
+	display:none;}
+.coda-nav-left  a:hover img.hover, .coda-nav-right a:hover img.hover{
+	display:block;}
+	
+.coda-nav-left a:hover img, .coda-nav-right a:hover img{
+	display:none;}
+/* Tab nav 
+	.coda-nav ul li a.current { background: #39c }
+	*/
+	/* Panel padding */
+	.coda-slider .panel-wrapper {
+    color: #FFFFFF;
+    font-size: 36px;
+    line-height: 1;
+
+}
+/* Preloader */
+	.coda-slider p.loading {
+	padding: 20px;
+	text-align: center
+}
+/* Don't change anything below here unless you know what you're doing */
+
+	/* Tabbed nav */
+	.coda-nav ul {
+	clear: both;
+	display: block;
+	list-style: none outside none;
+	margin: auto;
+	overflow: hidden;
+	padding: 0;
+	display: inline;
+}
+#coda-nav-2 {
+	bottom: 0;
+	position: absolute;
+	right: 20px;
+}
+#center .coda-nav ul li {
+	margin-bottom:0;
+}
+.coda-nav ul li {
+	float: left;
+	margin-bottom: 10px;
+	margin-left: 5px;
+}
+.coda-nav ul li a {
+	color: #FFFFFF;
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	height: 18px;
+	line-height: 1.3;
+	text-align: center;
+	text-decoration: none;
+	width: 18px;
+}
+#center .coda-nav ul li a {
+	font-size: 16px;
+	height: 23px;
+	line-height: 1.4;
+	width: 23px;
+}
+/* Miscellaneous */
+	.coda-slider-wrapper {
+	clear: both;
+
+}
+.coda-slider {
+	float: left;
+	overflow: hidden;
+	position: relative;
+	width:455px;
+}
+.coda-slider .panel {
+	display: block;
+	float: left
+}
+.coda-slider .panel-container {
+	position: relative
+}
+
+.coda-nav-left{
+    left: 80px;}
+
+.coda-nav-right{
+   right: 80px;}
+
+.coda-nav-left, .coda-nav-right {
+    bottom: 12px;
+    position: absolute;
+}
+.coda-nav-left a, .coda-nav-right a {
+	display: block;
+	text-align: center;
+	text-decoration: none
+}
+.list-cont.sec .sec-c.slid{
+	float:left;
+	width: 100%;
+   margin-top: 12px;}
+
+.sec-c.slid .coda-slider-wrapper{
+    float: left;
+    height: 60px;
+    width: 100%;}
+	
+.sec-c.slid .coda-slider-wrapper.arrows .coda-slider, .sec-c.slid .coda-slider-wrapper.arrows .coda-slider .panel{
+	width:624px;
+	height:60px;}
+	
+.sec-c.slid .coda-slider .panel-wrapper{
+    color: #000000;
+    font-size: 24px;
+    width: 624px;
+	margin-top: 5px;}
+	
+#center .sec-c.slid .coda-slider{
+    float: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 904px;}
+	
+#center .sec-c.slid .coda-nav-left, #center .sec-c.slid .coda-nav-right{
+    bottom: 0;
+    padding-bottom: 24px;
+    padding-top: 24px;}
+
+#center .sec-c.slid .coda-nav-left{
+    border-right: 1px solid #E0E0E0;
+    left: 0;
+    padding-right: 7px;}
+
+#center .sec-c.slid .coda-nav-right{
+    border-left: 1px solid #E0E0E0;
+    right: 0;
+    padding-left: 7px;}
+	
+.sec-c.slid .coda-slider .panel-wrapper span a{
+	text-decoration:none;
+	color:#9EACAB;}
+	
+.sec-c.slid .coda-slider .panel-wrapper span.verde-claro a{
+	color:#8DC63F;}
+
+.sec-c.slid .coda-slider .panel-wrapper span.verde a{
+	color:#0DB14B;}
+	
+.sec-c.slid .coda-slider .panel-wrapper span.azul a{
+	color:#0091D5;}
+	
+.sec-c.slid .coda-slider .panel-wrapper span.marron a{
+	color:#6D4B18;}
+	
+.sec-c.slid .coda-slider .panel-wrapper span.marron-claro a{
+	color:#A4872B;}
+	
+.sec-c.slid .coda-slider .panel-wrapper span.rosa a{
+	color:#F8A07C;}
+	
+.sec-c.slid .coda-slider .panel-wrapper span.amarillo a{
+	color:#E8CD60;}
+	
+.sec-c.slid .coda-slider .panel-wrapper span.rojo a{
+	color:#F36C42;}
+	
+.sec-c.slid .coda-slider .panel-wrapper span a:hover{
+	color:#000;}

@@ -1,0 +1,582 @@
+/* CSS ABMs */
+
+/*
+Tabla de colores:
+=================
+
+General: #EEEEEE
+
+*/
+
+body {
+	margin:0 0 5px 0; 
+	width:100%; 
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px; 
+	color:#333333; 
+	background:#FFFFFF;
+}
+
+*,*:hover {
+	outline:0;
+}
+
+h1 {
+	margin:0; 
+	padding:0; 
+	font-size:1.2em; 
+	font-weight:bold;
+}
+h2 {
+	margin:0; 
+	padding:0; 
+	font-size:1.1em; 
+	font-weight:bold;
+}
+
+a {
+	text-decoration:none; 
+	color:#333333;
+}
+a:hover {
+	color:#FF6600;
+}
+
+img {
+	border:0; 
+	margin:0; 
+	padding:0;
+}
+
+table {
+	font-size:11px; 
+	height:auto; 
+	float:none;
+}
+tr.tituloAdmin {
+	color:#333333; 
+	background-color:#FFFFFF; 
+	font-size:1.2em; 
+	font-weight:bold;
+}
+tr.menuPrincipal {
+	background:#FFFFFF url() left bottom repeat-x;
+}
+
+td.fckeditor {
+	padding:5px 0;
+}
+
+td.fckeditor iframe {
+	border:#666666 1px solid;
+}
+
+table.conBordes {
+	border:solid 1px #999999;
+}
+
+table .barraTitulo {
+	font-weight:bold; 
+	font-size:11px;
+}
+table .barraTitulo {
+	background:#FBFBFB url() left bottom repeat-x;
+}
+
+#contPanel a{
+	color:#fff;
+	font-weight:bold;
+}
+#contPanel a:hover{
+	color:#FF6600;	
+}
+
+
+#iconoPanel{
+	width: 8%;
+	float: left;	
+}
+
+#linkPanel{
+	width: 92%;
+	height:45px;
+	padding-top: 20px;
+	float: right;	
+}
+
+#linkPanel .panel{
+	font-size: 18px;
+	margin: 0px 0px 0px 5px;
+	color: #fff;
+}
+
+#fondoLogin{
+	background: #fff url(../img/admin/security.png) no-repeat;	
+	height: 127px;
+}
+
+.barraTituloLog{
+	
+	color: #fff;	
+}
+
+#pie{
+	width: 100%;
+	margin-top: 30px;	
+}
+
+#pie p{
+	text-align: center;
+		
+}
+/* Texto resaltado */
+
+span.textRojo {
+	color:#FF0000;
+}
+.textoVerde {
+	color:#009900;
+}
+
+/* Elementos de formulario */
+
+input, textarea, select {
+	font-size:11px; 
+	vertical-align:middle; 
+	margin:3px 0;
+}
+
+input:focus, textarea:focus, select:focus {
+	background-color:#FFC; 
+	border:#333 2px solid;
+}
+
+.campoTexto {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px;
+}
+.areaTexto {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px;
+}
+
+.campoTexto100{
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px; 
+	width:60px;
+}
+
+.campoTexto250 {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px; 
+	width:250px;
+}
+.areaTexto250 {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px; 
+	width:400px;
+}
+
+.campoTexto450 {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px; 
+	width:462px;
+}
+.campoTexto400 {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px; 
+	width:400px;
+}
+.campoTexto500 {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px; 
+	width:500px;
+}
+.areaTexto400 {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px; 
+	width:400px; 
+	height:100px;
+}
+.areaTexto500 {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px; 
+	width:500px; 
+	height:100px;
+}
+
+.boton {
+	font-family:Verdana, Arial, Helvetica, sans-serif; 
+	font-size:11px; 
+	padding:2px 5px 2px 5px; 
+	margin:2px;
+}
+.boton {
+	background:url() 0 0 repeat-x;
+}
+.boton {
+	border-top:#EFEFEF 1px solid; 
+	border-left:#EFEFEF 1px solid;
+}
+.boton {
+	border-bottom:#999 1px solid; 
+	border-right:#999 1px solid;
+	cursor:pointer;
+}
+
+/* Título del ABM */
+#tituloAbm {
+	width:98%; 
+	height:auto; 
+	overflow:auto; 
+	margin:0 1% 0 1%; 
+	font-size:1.2em; 
+	font-weight:bold;
+}
+
+/* --------------------------------------------------------------------- */
+
+ul.listaH {
+	list-style-type:none; 
+	margin:0; 
+	padding:0;
+}
+ul.listaH li {
+	float:left; 
+	width:auto; 
+	height:20px;
+}
+
+div.rotulo {
+	position:relative; 
+	padding:3px 6px 3px 6px; 
+	background-color:#99CC99;
+}
+div.rotulo a {
+	cursor:pointer;
+}
+div.rotulo div {
+	position:absolute; 
+	top:20px; 
+	left:0px; 
+	visibility:hidden; 
+	height:auto;
+}
+div.rotulo div {
+	background:#FFFFFF; 
+	border:#333333 1px solid; 
+	z-index:1000;
+}
+div.rotulo div:hover {
+	background:#CCC; 
+	visibility:visible;
+}
+div.rotulo div ul {
+	margin:0; 
+	padding:0; 
+	list-style-type:none;
+}
+div.rotulo div li {
+	float:left;
+}
+div.rotulo div li a {
+	display:block; 
+	width:100px; 
+	height:20px; 
+	padding:0 5px 0 5px;
+}
+div.rotulo div li a:hover {
+	background-color:#EFEFEF;
+}
+
+/* --------------------------------------------------------------------- */
+
+/* Encabezado */
+#encabezado {
+	width:98%; 
+	height:auto; 
+	margin:0 1% 0 1%; 
+	padding:5px 0 5px 0;
+}
+#encabezado {
+	background:#EEEEEE; 
+	border:solid 1px #666666; 
+	overflow:auto;
+}
+#encabezado #busqueda {
+	float:left; 
+	width:auto; 
+	height:auto; 
+	text-align:left; 
+	padding:0; 
+	overflow:auto;
+}
+#encabezado #boton {
+	float:right; 
+	padding:0;
+}
+
+/* Listado */
+#listado {
+	width:98%; 
+	height:auto; 
+	margin:0 1% 0 1%;
+}
+#listado .tabla {
+	width:99%; 
+	height:auto; 
+	overflow:auto; 
+	clear:both; 
+	text-align:left;
+}
+#listado .tablaPermisos {
+	width:80%; 
+	height:auto; 
+	overflow:auto; 
+	clear:both; 
+	text-align:left;
+}
+#listado .paginado {
+	width:99%; 
+	padding:5px 0 5px 0; 
+	text-align:right;
+}
+#listado .msjError {
+	width:95%; 
+	padding:5px 0 5px 0; 
+	text-align:left; 
+	background:#ffc; 
+	color:#990000; 
+	padding-left:50px; 
+	font-weight:bold;
+}
+#listado .msjError ul {
+	width:70%;
+	list-style-type:disc;
+	padding: 0 0 0 20px;
+}
+
+#errores{
+	width:100%;	
+	margin: 10px 0 0 0;
+}
+
+#errores_imagen{
+	width:100%;	
+	margin: 10px 0 0 0;
+}
+
+.rojo{
+	background:#ffc;
+	color: #990000;
+	font-weight: bold; 	
+}
+.verde{
+	background:#ffc;
+	color: #1E7637;
+	font-weight: bold; 
+}
+
+.msjError {
+	width:95%; 
+	padding:5px 0 5px 0; 
+	text-align:left; 
+	background:#ffc; 
+	color:#990000; 
+	padding-left:50px; 
+	font-weight:bold;
+}
+.msjError ul {
+	width:70%;
+	list-style-type:disc;
+	padding: 0 0 0 20px;
+}
+
+#tab1{
+	float: left;
+	width:25%;
+	margin-bottom:20px;
+}
+#tab2{
+	float: right;
+	width:25%;
+	margin-bottom:20px;
+}
+#tab3{
+	margin:auto;
+	width:25%;
+	margin-bottom:20px;
+}
+
+	/* Filas de la tabla cebra */
+
+#listado .filaPar {
+	background:#FFFFFF url() left top repeat-x; 
+	height:auto!important;
+}
+	
+#listado .filaImpar {
+	background:#EEEEEE url() left top repeat-x;
+}
+	
+#listado .filaAdmin {
+	background:#FFE6E6 url() left top repeat-x;
+}
+#listado .filaAdmin:hover {
+	background:#CCC;
+}
+	
+#listado .filaDestacada {
+	background:#FFFFCC url() left top repeat-x;
+}
+	
+table tr.HP, table tr.HI {
+	background-color:#CCCCCC; 
+	color:#000000;
+}
+table tr.HP a, table tr.HI a {
+	color:#000000;
+}
+table tr.HP a:hover, table tr.HI a:hover {
+	color:#FF0000;
+}	
+table tr.HFP, table tr.HFI {
+	background-color:#99CCFF; 
+	color:#000000;
+}
+	
+#listado img {
+	cursor:pointer;
+}
+	
+#sinResultados {
+	width:98%; 
+	margin:10px 1% 10px 1%; 
+	padding:5px 0 5px 0;
+}
+
+#otrasOpciones {
+	width:98%; 
+	height:auto; 
+	margin:0 1% 0 1%; 
+	padding:5px 0 5px 0;
+}
+#otrasOpciones {
+	background:#EEEEEE; 
+	border:solid 1px #666666;
+}
+
+#contAyuda {
+	width:98%; 
+	height:25px; 
+	margin:0 1% 0 1%; 
+	padding:5px 0 5px 0;
+}
+
+#capaAyuda {
+	text-align:right!important; 
+	margin-bottom:10px; 
+	width:99%;
+}
+
+#derecha{
+	float: right;
+	width: 45%;
+	marig: 5px;
+}
+
+#izquierda table td, #derecha table td{
+	padding: 5px 3px 5px 10px;	
+}
+
+
+#izquierda{
+	float: left;
+	width: 55%;
+	marig: 5px;
+}
+
+#izquierda #subIzquierda{
+	width: 49%;
+	float: left;
+}
+
+#subIzquierda table td{
+	border-bottom:solid 1px #999999;
+	height: 30px;	
+}
+
+#izquierda #subDerecha{
+	float: right;
+	width: 50%;
+}
+
+#subDerecha table td{
+	border-bottom:solid 1px #999999;
+	height: 30px;	
+}
+
+#form-nota{
+	margin: -20px 0px 0px 0px;
+}
+
+#listadoVideos p{
+	font-size:13px;
+	font-weight:bold;
+}
+
+#listadoImagenes p{
+	font-size:13px;
+	font-weight:bold;
+}
+
+#iframeUpload{
+	width: 95%;
+	height:25px;
+	display: none;
+}
+
+#oculto{
+	visibility: hidden;
+}
+
+#resultadoBusqueda{
+	width: 53%;
+}
+
+#resultadoBusqueda table td{
+	border-bottom:solid 1px #999999;
+	height: 30px;	
+	padding: 10px;
+}
+
+#error{
+	width: 100%;
+	float: left;
+}
+#error p{
+	color: red;
+	font-size:12px;
+	font-weight:bold;
+}
+
+#izquierdaDiag table td{
+	padding: 5px 3px 5px 10px;	
+}
+
+
+#izquierdaDiag{
+	float: left;
+	width: 95%;
+	marig: 5px;
+}
+
+#izquierdaDiag #subIzquierda{
+	width: 49%;
+	float: left;
+}
+
+#izquierdaDiag #subDerecha{
+	float: right;
+	width: 50%;
+}
