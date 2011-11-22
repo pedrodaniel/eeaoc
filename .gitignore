@@ -4,3 +4,4 @@ system/application/config/constants.php
 .cache
 .settings
 .project
+.buildpath
