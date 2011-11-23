@@ -4,6 +4,7 @@
 <script language="javascript" src="<?=site_url('js/jquery.easing.1.3.js')?>"></script>
 <script language="javascript" src="<?=site_url('js/jquery.jalerts.js')?>"></script>
 <script language="javascript" src="<?=site_url('js/sexylightbox.v2.3.jquery.js')?>"></script>
+<script language="javascript" src="<?=site_url('js/jquery.validate.min.js')?>"></script>
 <link rel="STYLESHEET" type="text/css" href="<?=site_url('css/manage.css')?>"></link>
 <link rel="STYLESHEET" type="text/css" href="<?=site_url('css/jalerts.css')?>"></link>
 <link rel="STYLESHEET" type="text/css" href="<?=site_url('css/sexylightbox.css')?>"></link>
