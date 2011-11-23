@@ -1,6 +1,9 @@
 Options FollowSymLinks
 <IfModule mod_rewrite.c>
     RewriteEngine on
+  	
+  	RewriteRule ^pagina/([0-9]+)/(.*)$ paginas/index/$1/$2
+  	RewriteRule ^pagina/([0-9]+)/([0-9]+)/(.*)$ paginas/index/$1/$2
   		
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d

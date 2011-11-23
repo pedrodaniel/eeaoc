@@ -263,16 +263,16 @@ ul li.act a {
 	width: 193px;
 	margin-right: 1px;
 }
-#secciones ul li.sc-c {
+#secciones ul li.sc-1 {
 	background: none repeat scroll 0 0 #8DC63F;
 }
-#secciones ul li.sc-g {
+#secciones ul li.sc-2 {
 	background: none repeat scroll 0 0 #E8CD60;
 }
-#secciones ul li.sc-gr {
+#secciones ul li.sc-3 {
 	background: none repeat scroll 0 0 #F8A07C;
 }
-#secciones ul li.sc-a {
+#secciones ul li.sc-4 {
 	background: none repeat scroll 0 0 #C3CCDA;
 }
 #secciones ul li a {

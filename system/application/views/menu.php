@@ -7,7 +7,8 @@ $menu = $CI->pagina->damePaginasMenu();
    <ul>
    <? if ($menu):?>
    	<? foreach ($menu as $m):?>
-   		<li><a href="<?=site_url("pagina/".$m['id']."/".$m['accion'])?>"><?=$m['titulo']?></a></li>
+   		<? if ($pagina_id > 0 and $pagina_id == $m['id']) $selected = 'class="act"'; else $selected = "";?>
+   		<li <?=$selected?>><a href="<?=site_url("pagina/".$m['id']."/".$m['accion'])?>"><?=$m['titulo']?></a></li>
     <? endforeach; ?>
     <? endif;?>
     <li class="ulti"><a href="#">Contacto</a></li>

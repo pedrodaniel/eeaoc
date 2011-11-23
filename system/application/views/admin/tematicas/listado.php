@@ -21,6 +21,9 @@
 		<input type="text" id="search" name="search" value="<?=$search?>" style="width:200px" />&nbsp;<button onclick="javascript:buscar()">Buscar</button>
 		</div>
 	</div>
+	<? if ($mensaje_ok!=""):?>
+		<div class="success"><?=$mensaje_ok?></div>
+	<? endif; ?>
 	<br/>
 	<table cellspacing="0" cellpadding="9" width="97%">
 	<tbody>
@@ -47,7 +50,7 @@
 			}
 			?>
 			<td><?=$imagen?></td>
-			<td><a href="javascript:editame(<?=$tem['id']?>)" title="Editar tem&aacute;tica"><?=$tem['nombre']?></a></td>
+			<td><a href="<?=site_url("admin/tematicas/formulario/".$tem['id'])?>" title="Editar tem&aacute;tica"><?=$tem['nombre']?></a></td>
 			<td><?=$tem['tematica_padre']?></td>
 			<td><?=$tem['fecha_carga']?></td>
 			<td><?=$tem['usuario_nombre']." ".$tem['usuario_apellido']?></td>

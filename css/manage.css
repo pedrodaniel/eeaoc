@@ -104,8 +104,8 @@ TEXTAREA {
    padding: 5px 20px 5px 45px;
    border-top: 2px solid #e37d78;
    border-bottom: 2px solid #e37d78;
-   margin-right: 30px;
    margin-top: 15px;
+   margin-bottom: 15px;
 }
 
 .success {
@@ -115,8 +115,8 @@ TEXTAREA {
    padding: 5px 20px 5px 45px;
    border-top: 2px solid #8ad66a;
    border-bottom: 2px solid #8ad66a;
-   margin-right: 30px;
    margin-top: 15px;
+   margin-bottom: 15px;
 }
 
 .info {

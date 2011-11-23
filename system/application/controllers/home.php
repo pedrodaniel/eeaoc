@@ -8,7 +8,9 @@ class Home extends Controller
 	
 	public function index()
 	{
-		$this->load->view("home");
+		$variables['pagina_id'] = 0;
+		$this->load->library("varios");
+		$this->load->view("home",$variables);
 	}
 }
 ?>

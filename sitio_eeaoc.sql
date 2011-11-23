@@ -115,6 +115,7 @@ CREATE TABLE `pagina` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
+
 #
 # Structure for the `perfil` table : 
 #
@@ -213,13 +214,14 @@ CREATE TABLE `tematica` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) DEFAULT NULL,
   `descripcion` text,
-  `imagen` varchar(50) DEFAULT NULL,
-  `padre_id` int(11) DEFAULT NULL,
-  `hijos` tinyint(1) DEFAULT NULL,
-  `fecha_carga` datetime DEFAULT NULL,
-  `usuario_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `imagen` varchar(50) default NULL,
+  `padre_id` int(11) default NULL,
+  `hijos` tinyint(1) default NULL,
+  `fecha_carga` datetime default NULL,
+  `usuario_id` int(11) default NULL,
+  `orden` int(11) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `tipo_novedad` table : 
@@ -272,17 +274,15 @@ COMMIT;
 # Data for the `pagina` table  (LIMIT 0,500)
 #
 
-INSERT INTO `pagina` (`id`, `titulo`, `orden`, `imagen`, `padre_id`, `contenido`, `tipo`, `accion`, `habilitado`) VALUES 
-  (1,'Qué es la EEAOC',1,NULL,0,NULL,1,'la-eeaoc',0),
-  (2,'Productos',2,NULL,0,NULL,1,'productos',0),
-  (3,'Servicios',3,NULL,0,'',1,'servicios',0),
-  (4,'Informes Publicaciones',4,NULL,0,NULL,1,'informes-publicaciones',0),
-  (5,NULL,NULL,NULL,0,NULL,NULL,NULL,1),
-  (6,NULL,NULL,NULL,0,NULL,NULL,NULL,1),
-  (7,'',NULL,NULL,0,'',NULL,NULL,1),
-  (8,'',NULL,NULL,0,'',NULL,NULL,1),
-  (9,'Titulo',NULL,'b528ea0b5fafe899f512d632118d5b69.jpg',0,'algo para guardar',NULL,NULL,1);
 
+INSERT INTO `pagina` (`id`, `titulo`, `orden`, `imagen`, `padre_id`, `contenido`, `tipo`, `accion`) VALUES 
+  (1,'Qué es la EEAOC',1,NULL,0,'<p>La Estación Experimental Agroindustrial “Obispo Colombres”, fundada el 27 de Julio de 1909 en San Miguel de Tucumán, es una de las más antiguas de Argentina y la única ligada a un gobierno provincial.</p><p>Creada por la inspiración de un ilustre empresario y hombre público tucumano, Don Alfredo Guzmán, se impregnó de su espíritu innovador y pionero para dar solución a la grave crisis sanitaria que afectaba la economía de la principal industria provincial, la caña de azúcar.</p><p>La Estación Experimental Agroindustrial “Obispo Colombres”, fundada el 27 de Julio de 1909 en San Miguel de Tucumán, es una de las más antiguas de Argentina y la única ligada a un gobierno provincial.</p><p>Creada por la inspiración de un ilustre empresario y hombre público tucumano, Don Alfredo Guzmán, se impregnó de su espíritu innovador y pionero para dar solución a la grave crisis sanitaria que afectaba la economía de la principal industria provincial, la caña de azúcar.</p><p>La Estación Experimental Agroindustrial “Obispo Colombres”, fundada el 27 de Julio de 1909 en San Miguel de Tucumán, es una de las más antiguas de Argentina y la única ligada a un gobierno provincial.</p>',1,'la-eeaoc'),
+  (2,'Productos',2,NULL,0,NULL,1,'productos'),
+  (3,'Servicios',3,NULL,0,'',1,'servicios'),
+  (4,'Informes Publicaciones',4,NULL,0,NULL,1,'informes-publicaciones'),
+  (5,'Misión',1,NULL,1,NULL,2,'mision'),
+  (6,'Logros',2,NULL,1,NULL,2,'logros'),
+  (7,'La EEAOC Hoy',3,NULL,1,NULL,2,'la-eeaoc-hoy');
 COMMIT;
 
 #
@@ -335,6 +335,23 @@ INSERT INTO `permiso` (`id`, `perfil_id`, `modulo_id`, `Alta`, `Baja`, `Modifica
 COMMIT;
 
 #
+# Data for the `tematica` table  (LIMIT 0,500)
+#
+
+INSERT INTO `tematica` (`id`, `nombre`, `descripcion`, `imagen`, `padre_id`, `hijos`, `fecha_carga`, `usuario_id`, `orden`) VALUES 
+  (2,'Granos','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\nWhy do we use it?\n<br><br>\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ''lorem ipsum'' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).','20111123002800000000.jpg',0,NULL,'2011-11-22 22:13:47',1,3),
+  (3,'Caña','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\nWhy do we use it?\n<br><br>\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ''lorem ipsum'' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).','20111123001119000000.jpg',0,NULL,'2011-11-22 22:16:08',1,1),
+  (4,'Citrus','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\nWhy do we use it?\n<br><br>\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ''lorem ipsum'' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).','20111123001003000000.jpg',0,NULL,'2011-11-22 22:16:38',1,2),
+  (5,'Frutas y Hortalizas','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\nWhy do we use it?\n<br><br>\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ''lorem ipsum'' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).','20111123000858000000.jpg',0,NULL,'2011-11-22 22:16:58',1,4),
+  (6,'Soja','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\nWhy do we use it?\n<br><br>\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ''lorem ipsum'' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).','20111123000637000000.jpg',2,NULL,'2011-11-22 22:17:28',1,NULL),
+  (7,'Maíz','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\nWhy do we use it?\n<br><br>\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ''lorem ipsum'' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).','20111122235444000000.jpg',2,NULL,'2011-11-22 22:17:57',1,NULL),
+  (8,'Arándano','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\nWhy do we use it?\n<br><br>\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ''lorem ipsum'' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).','20111123000730000000.jpg',5,NULL,'2011-11-22 22:18:33',1,NULL),
+  (9,'Limón','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\nWhy do we use it?\n<br><br>\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ''lorem ipsum'' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).','20111123000820000000.jpg',4,NULL,'2011-11-22 22:18:59',1,NULL),
+  (11,'Agroindustria','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\nWhy do we use it?\n<br><br>\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ''lorem ipsum'' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).','20111123084712000000.png',0,NULL,'2011-11-23 08:47:12',1,5);
+
+COMMIT;
+
+#
 # Data for the `tipo_novedad` table  (LIMIT 0,500)
 #
 
@@ -349,9 +366,9 @@ COMMIT;
 # Data for the `usuario` table  (LIMIT 0,500)
 #
 
-INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `password`, `perfil_id`, `habilitado`, `fecha_alta`, `ultimo_acceso`) VALUES 
-  (1,'Pedro Daniel','Romano','pdrc83@gmail.com','32f972344bc7de6a9f0f0f0123883798',1,1,'2011-10-01','2011-11-21 20:54:06'),
-  (2,'Facundo','Ruiz','facundoruiz@gmail.com','e10adc3949ba59abbe56e057f20f883e',1,1,NULL,'2011-11-22 23:36:26'),
+INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `password`, `perfil_id`, `habilitado`, `fecha_alta`, `ultimo_acceso`) VALUES
+  (1,'Pedro Daniel','Romano','pdrc83@gmail.com','32f972344bc7de6a9f0f0f0123883798',1,1,'2011-10-01','2011-11-23 08:45:18'),
+  (2,'Facundo','Ruiz','facundoruiz@hotmail.com','e10adc3949ba59abbe56e057f20f883e',1,1,NULL,NULL),
   (3,'Analia Gabriela','Mansilla','anitagmansilla@gmail.com','e10adc3949ba59abbe56e057f20f883e',3,1,NULL,'2011-11-20 13:11:40'),
   (4,'Italo Iván','Ramos','ivan@hotmail.com','e10adc3949ba59abbe56e057f20f883e',2,1,NULL,'2011-11-20 13:27:46');
 
