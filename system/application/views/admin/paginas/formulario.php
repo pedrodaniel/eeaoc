@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<? $this->load->view("admin/head")?>
 	<script type="text/javascript">
-		$(document).ready(function(){
+	$(document).ready(function(){
 			
 		
 		$("#btn_guardar").click(function(){
@@ -16,38 +16,15 @@
 			}
 			if (validado)
 			{
-				/* 	
-				$.post("<?=site_url("admin/paginas/guardar")?>",
-						{
-							id: <?=$pagina['id']?>,
-							titulo: $("#titulo").val(),
-							contenido: $("#contenido").val(),
-							habilitado: $("#habilitado option:selected").val(),
-							imagen: $("#imagen").val()
-						
-						},function(data){
-							switch(data)
-							{
-								case "ok":
-									jAlert("Se Guardo Con Exito","Exito");
-														
-								break;
-								case "error_permiso":
-									jAlert("No tiene permiso para realizar la operaci&oacute; solicitada.","Error");
-								break;
-								case "error_db":
-									jAlert("Error de conexi&oacute;n. Aseg&uacute;rese estar conectado..","Error");
-								break;
-							}
-						});
-						*/
-
 				$("#page_form").submit();
-				
-				}
-			});	
+			}
+			else
+			{
+				jAlert("Debe ingresar el t&iacute;tulo,","Error");
+			}	
 			
 		});
+	});
 	</script>
 </head>
 <body>	
@@ -88,13 +65,13 @@
 			
 			<div id="save_box" style="background-color: rgb(224, 224, 224); padding: 15px; text-align: right;">
 			
-				<a class="large green awesome" href='#' id="btn_guardar">Guardar</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a class="large green awesome" href='javascript:void(0)' id="btn_guardar">Guardar</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="<?=site_url("admin/paginas")?>">Cancelar</a>
 			</div>
 		
 	</div>
 	<div style='float: left; width: 30%;'>
-		  		<div id='section'>Cargar Imag&eacute;n</div>
+		  		<div id='section'>Cargar Im&aacute;gen</div>
 				  		
 						<div id="section-detail">
 							<input type="file" name="imagen" size="40" />
@@ -105,11 +82,11 @@
 			    		<div id="section-detail">
 			    			<img src='<?=site_url('img/admin/world_bw.gif')?>' style='vertical-align: middle'/> Estado: <b><span id='status_name'>
 							
-    			<SELECT name='habilitado' id='habilitado' style='margin-top: 5px; '>
-    				<OPTION value='0' <?php  if($pagina['habilitado'] == 0) echo 'selected'; ?>>Publicar</OPTION>
-    				<OPTION value='1' <?php  if($pagina['habilitado'] == 1) echo 'selected'; ?>>Sin Publicar</OPTION>
+    			<select name='habilitado' id='habilitado' style='margin-top: 5px; '>
+    				<option value='0' <?php  if($pagina['habilitado'] == 1) echo 'selected'; ?>>Publicar</option>
+    				<option value='1' <?php  if($pagina['habilitado'] == 0) echo 'selected'; ?>>Sin Publicar</option>
     			
-    			</SELECT>
+    			</select>
     			
 			
 			<div style='border-bottom: 1px solid #ddd; padding: 5px;'></div><br/>

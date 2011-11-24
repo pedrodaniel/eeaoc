@@ -9,9 +9,9 @@
 	}
 	function habilitar(p_id)
 	{
-		var v_valor = 1;
+		var v_valor = 0;
 		if ($("#habilitado_"+p_id).attr('checked'))
-			v_valor = 0;
+			v_valor = 1;
 		$.post("<?=site_url("admin/paginas/habilita")?>",
 		{
 			pagina_id: p_id,
@@ -64,8 +64,8 @@
 			<td class='td-left'><?=$pagina['id']?></td>
 			<td class='td-mid'><a href="<?=site_url("admin/paginas/formulario/".$pagina['id'])?>" title='Editar esta pagina'><?=$pagina['titulo']?></a></td>
 			<td class='td-mid'><?=$pagina['orden']?></td>
-			<td class='td-mid'><?=$pagina['padre_id']?></td>
-			<td class='td-right'><input id="habilitado_<?=$pagina['id']?>" type="checkbox" <?=($pagina['habilitado']==0)?"checked":""?> name="habilitado" onclick="javascript:habilitar(<?=$pagina['id']?>)" /></td>
+			<td class='td-mid'><?=$pagina['pagina_padre']?></td>
+			<td class='td-right'><input id="habilitado_<?=$pagina['id']?>" type="checkbox" <?=($pagina['habilitado']==1)?"checked":""?> name="habilitado" onclick="javascript:habilitar(<?=$pagina['id']?>)" /></td>
 			</tr>
 			<? endforeach; ?>
 		<? endif; ?>

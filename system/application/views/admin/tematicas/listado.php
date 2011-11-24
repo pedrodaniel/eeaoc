@@ -61,6 +61,6 @@
 	</table>
 	<div class="page-links"></div>
 </div>
-<? //$this->load->view("admin/footer")?>
+<? $this->load->view("admin/footer")?>
 </body>
 </html>

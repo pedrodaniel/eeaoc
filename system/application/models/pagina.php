@@ -6,14 +6,14 @@ class Pagina extends Model{
 	}
 	public function listado($busqueda)
 	{
-		$sql = "select * 
-		from pagina  ";
+		$sql = "select p.*, (select titulo from pagina where id = p.padre_id) as pagina_padre 
+		from pagina  p";
 		
 		if ($busqueda!="")
 		{
-			$sql .= " where (titulo like '%$busqueda%' or contenido like '%$busqueda%' )";
+			$sql .= " where (p.titulo like '%$busqueda%' or p.contenido like '%$busqueda%' )";
 		}
-		$sql .= " order by orden";
+		$sql .= " order by p.orden";
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{

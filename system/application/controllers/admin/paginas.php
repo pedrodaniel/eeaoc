@@ -20,8 +20,8 @@ class Paginas extends Controller
 		{
 			if ($permiso['Listado'])
 			{
-				$variables['modulo_id'] = 10;
-				$variables['padre_id'] = 0;
+				$variables['modulo_id'] = 16;
+				$variables['padre_id'] = 15;
 				$variables['search'] = $busqueda;
 				$this->load->model("pagina","pagina",true);
 				$variables['listado'] = $this->pagina->listado($busqueda);
@@ -106,6 +106,9 @@ class Paginas extends Controller
 		
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
+		$variables['modulo_id'] = 16;
+		$variables['padre_id'] = 15;
+		$pagina_id = $this->input->post("id");
 		$this->load->model("permiso","permiso",true);
 		$permiso = $this->permiso->check($user['perfil_id'], 16);
 		
@@ -113,12 +116,12 @@ class Paginas extends Controller
 		{
 			$this->load->model("pagina","pagina",true);	
 			
-			$config['upload_path'] = './uploads/pagina';
+			/*$config['upload_path'] = './uploads/pagina';
 			$config['allowed_types'] = 'gif|jpg|png';
 			$config['max_size']	= '5000';
-			$config['encrypt_name'] = TRUE;
+			$config['encrypt_name'] = TRUE;*/
 
-			$this->load->library('upload', $config);
+			/*$this->load->library('upload', $config);
 			
 			if(!$this->upload->do_upload("imagen"))
 			{
@@ -127,16 +130,20 @@ class Paginas extends Controller
 			else
 			{	$data = $this->upload->data();
 				$_POST['imagen']=$data['file_name'];
-			}	
+			}	*/
 	 		
 			
 			if ($this->pagina->save($_POST, $_POST['id']))
-						echo "ok";
-					else
-						echo "error_db";
+			{
+				redirect(site_url("admin/paginas"), "refresh");
+			}
+			else
+			{
+				redirect(site_url("admin/paginas/formulario/".$pagina_id), "refresh");
+			}
 		}
 		else
-			echo "error_permiso";
+			$this->load->view("admin/error_permiso",$variables);
 	}
 }
 
