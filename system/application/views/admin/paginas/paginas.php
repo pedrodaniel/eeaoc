@@ -32,6 +32,12 @@
 			}
 		});
 	}
+	
+	$(document).ready(function() {
+	    // Initialise the table
+	    $("#table-1").tableDnD();
+	});
+
 	</script>
 </head>
 <body>
@@ -48,9 +54,9 @@
 		<input type="text" id="search" name="search" value="<?=$search?>" style="width:200px" />&nbsp;<button onclick="javascript:buscar()">Buscar</button>
 		</div></div>
 	<br/>
-	<table cellspacing="0" cellpadding="9" width="97%">
+	<table cellspacing="0" cellpadding="9" width="97%" id="table-1">
 	<tbody>
-		<tr>
+		<tr >
 			<th>&nbsp;</th>
 			<th>Titulo</th>
 			<th>Orden</th>
@@ -58,19 +64,23 @@
 			<th>Publicado</th>
 			
 		</tr>
+	
 		<? if ($listado):?>
 			<? foreach ($listado as $pagina):?>
-			<tr >
-			<td class='td-left'><?=$pagina['id']?></td>
+			<tr id="<?=$pagina['id']?>" >
+			<td class='td-left' ><?=$pagina['id']?></td>
 			<td class='td-mid'><a href="<?=site_url("admin/paginas/formulario/".$pagina['id'])?>" title='Editar esta pagina'><?=$pagina['titulo']?></a></td>
 			<td class='td-mid'><?=$pagina['orden']?></td>
 			<td class='td-mid'><?=$pagina['pagina_padre']?></td>
 			<td class='td-right'><input id="habilitado_<?=$pagina['id']?>" type="checkbox" <?=($pagina['habilitado']==1)?"checked":""?> name="habilitado" onclick="javascript:habilitar(<?=$pagina['id']?>)" /></td>
 			</tr>
 			<? endforeach; ?>
+			
 		<? endif; ?>
+		
 	</tbody>
 	</table>
+	<?=$page_links; //Imprime la numeración de páginas ?>
 	<div class="page-links"></div>
 </div>
 <? $this->load->view("admin/footer")?>

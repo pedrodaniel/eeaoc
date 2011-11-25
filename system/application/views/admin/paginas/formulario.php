@@ -75,21 +75,37 @@
 				  		
 						<div id="section-detail">
 							<input type="file" name="imagen" size="40" />
-					</div>	
+						</div>	
 						
 				
 				 <div id='section'>otro</div>
 			    		<div id="section-detail">
-			    			<img src='<?=site_url('img/admin/world_bw.gif')?>' style='vertical-align: middle'/> Estado: <b><span id='status_name'>
+			    			<img src='<?=site_url('img/admin/world_bw.gif')?>' style='vertical-align: middle'/> Estado: 
 							
+
     			<select name='habilitado' id='habilitado' style='margin-top: 5px; '>
     				<option value='0' <?php  if($pagina['habilitado'] == 1) echo 'selected'; ?>>Publicar</option>
     				<option value='1' <?php  if($pagina['habilitado'] == 0) echo 'selected'; ?>>Sin Publicar</option>
     			
     			</select>
+    		<div style='border-bottom: 1px solid #ddd; padding: 5px;'></div><br/>	
+    		<img src='<?=site_url('img/admin/link-small.png')?>' style='vertical-align: middle'/> Tipo de Menu: 
+			    <select name='tipo' id='tipo'>
+				<?php 
+					foreach ($pagina['tipo_array'] as $key => $list) {
+						if ($pagina['tipo']==$list['id']){
+						echo "<option value='". $list['id'] . "' selected>" . $list['nombre'] . "</option>";
+						}else {
+							echo "<option value='". $list['id'] . "' >" . $list['nombre'] . "</option>";
+						}
+					}		
+				?>
+			</select>
+			</div>
+				</div>			
+
     			
 			
-			<div style='border-bottom: 1px solid #ddd; padding: 5px;'></div><br/>
 			</div>
 			</div>
 		</form>

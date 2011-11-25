@@ -11,7 +11,37 @@ class Paginas extends Controller
 		}
 	}
 	public function index($busqueda="")
+	{	$user=$this->session->userdata('logged_in');
+		$variables['user'] = $user;	
+		$this->load->model("permiso","permiso",true);
+		$permiso = $this->permiso->check($user['perfil_id'], 2);
+		if ($permiso)
+		{
+			if ($permiso['Listado'])
+			{
+					if($busqueda){
+						$this->load->model("pagina","pagina",true);
+						$variables['modulo_id'] = 10;
+						$variables['padre_id'] = 0;
+						$variables['search'] = $busqueda;
+						$variables['listado'] = $this->pagina->listado($busqueda,20,0);
+						$variables['page_links']='';
+						$this->load->view("admin/paginas/paginas",$variables);
+					}else{
+						$this->page();
+					}
+			}
+			else
+				$this->load->view("admin/error_permiso",$variables);
+		}
+		else
+		{
+			$this->load->view("admin/error_permiso",$variables);
+		}
+	}
+	public function page($offset=0)
 	{
+	
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$this->load->model("permiso","permiso",true);
@@ -20,11 +50,29 @@ class Paginas extends Controller
 		{
 			if ($permiso['Listado'])
 			{
-				$variables['modulo_id'] = 16;
-				$variables['padre_id'] = 15;
-				$variables['search'] = $busqueda;
+
 				$this->load->model("pagina","pagina",true);
-				$variables['listado'] = $this->pagina->listado($busqueda);
+				
+				$this->load->library('pagination');
+				$config['base_url'] = site_url('admin/paginas/page');
+				$config['total_rows'] = $this->pagina->countPages(FALSE);
+				$config['per_page'] = 4;
+				$config['uri_segment'] = 4;
+				$config['num_links'] = 3;
+		
+				$this->pagination->initialize($config);
+		
+			
+			$variables['page_links'] = $this->pagination->create_links();
+		
+		
+				$variables['modulo_id'] = 10;
+				$variables['padre_id'] = 0;
+				$variables['search'] ='';
+				
+			
+				$variables['listado'] = $this->pagina->listado('',$config['per_page'],$offset);
+			
 				$this->load->view("admin/paginas/paginas",$variables);
 			}
 			else
@@ -52,14 +100,31 @@ class Paginas extends Controller
 		if ($permiso)
 		{	
 			$this->load->model("pagina","pagina",true);
-			
+			// ver si conviene poner una tabla con los estado
+				$valor[]=array("id"=>0,
+					  "nombre"=>'sin menu');
+				$valor[]=array("id"=>1,
+					  "nombre"=>'principal');
+				$valor[]=array("id"=>2,
+					  "nombre"=>'sub menu');
+				$valor[]=array("id"=>3,
+					  "nombre"=>'tercer menu');
+				
 			if ($pagina_id != 0)
 			{
 				$variables['pagina'] = $this->pagina->damePagina($pagina_id);
+				$variables['pagina']["tipo_array"] =$valor;
 			}
 			else
 			{
-				$variables['pagina'] = array("id"=>0,"habilitado"=>0);
+				
+				
+				$variables['pagina'] = array(
+											"id"=>0,
+											"habilitado"=>0,
+											"tipo"=>0,
+											"tipo_array"=>$valor);
+				
 			}
 			
 			$this->load->view("admin/paginas/formulario",$variables);
