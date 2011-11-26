@@ -9,6 +9,7 @@ class Paginas extends Controller
 	public function index($pagina_id=0,$hija_id=0)
 	{
 		$variables['pagina_id'] = $pagina_id;
+		$variables['hija_id'] = $hija_id;
 		$this->load->model("front/pagina","pagina",true);
 		if ($hija_id == 0 or !is_numeric($hija_id))
 		{

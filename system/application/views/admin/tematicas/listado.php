@@ -29,7 +29,6 @@
 	<tbody>
 		<tr>
 			<th>&nbsp;</th>
-			<th>Im&aacute;gen</th>
 			<th>Nombre</th>
 			<th>Tem&aacute;tica Padre</th>
 			<th>Fecha Carga</th>
@@ -39,17 +38,6 @@
 			<? foreach ($listado as $tem):?>
 			<tr bgcolor="#ffffff">
 			<td><?=$tem['id']?></td>
-			<? 
-			$imagen = "";
-			if ($tem['imagen']!="")
-			{
-				if (file_exists("upload/img/tematicas/th_".$tem['imagen']))
-				{
-					$imagen = '<img src="'.site_url("upload/img/tematicas/th_".$tem['imagen']).'" width="70" />';
-				}
-			}
-			?>
-			<td><?=$imagen?></td>
 			<td><a href="<?=site_url("admin/tematicas/formulario/".$tem['id'])?>" title="Editar tem&aacute;tica"><?=$tem['nombre']?></a></td>
 			<td><?=$tem['tematica_padre']?></td>
 			<td><?=$tem['fecha_carga']?></td>

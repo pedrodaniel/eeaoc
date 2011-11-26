@@ -23,13 +23,16 @@
              <? if ($hijas):?>
              <ul>
              	<? foreach ($hijas as $h):?>
-                <li><a href="<?=site_url("pagina/".$pagina_id."/".$h['id']."/".$h['accion'])?>"><?=$h['titulo']?></a></li>
+             	<? 
+             	if ($hija_id == $h['id'])
+             		$class = "class='act'";
+             	else
+             		$class = "";
+             	?>
+                <li <?=$class?>><a href="<?=site_url("pagina/".$pagina_id."/".$h['id']."/".$h['accion'])?>"><?=$h['titulo']?></a></li>
                 <? endforeach; ?>
               </ul>
               <? endif; ?>
-              <div class="box-gris">
-                <p>100 años de historia</p>
-              </div>
             </div>
           </div>
         </div>
