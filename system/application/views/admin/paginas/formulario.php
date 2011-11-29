@@ -38,13 +38,15 @@
 			<? if ($pagina['id'] > 0):?>
 			<img src="<?=site_url("img/admin/page_edit.png")?>" />
 			Editar Pagina
+			<form id="page_form" method="post" enctype="multipart/form-data" action="<?=site_url("admin/paginas/modificar")?>">
 			<? else:?>
 			<img src="<?=site_url("img/admin/page_add.png")?>" />
 			Nueva Pagina
+			<form id="page_form" method="post" enctype="multipart/form-data" action="<?=site_url("admin/paginas/guardar")?>">
 			<? endif; ?>
 		</div>
 		<br/>
-		<form id="page_form" method="post" enctype="multipart/form-data" action="<?=site_url("admin/paginas/guardar")?>">
+		
 <div style='width: 100%;'>
 	<div style='width: 60%; float: left; margin-right: 30px;'>		
 	

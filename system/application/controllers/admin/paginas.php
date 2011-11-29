@@ -26,7 +26,7 @@ class Paginas extends Controller
 						$variables['search'] = $busqueda;
 						$variables['listado'] = $this->pagina->listado($busqueda,20,0);
 						$variables['page_links']='';
-						$this->load->view("admin/paginas/paginas",$variables);
+						$this->load->view("admin/paginas/listado",$variables);
 					}else{
 						$this->page();
 					}
@@ -73,7 +73,7 @@ class Paginas extends Controller
 			
 				$variables['listado'] = $this->pagina->listado('',$config['per_page'],$offset);
 			
-				$this->load->view("admin/paginas/paginas",$variables);
+				$this->load->view("admin/paginas/listado",$variables);
 			}
 			else
 				$this->load->view("admin/error_permiso",$variables);
@@ -177,38 +177,186 @@ class Paginas extends Controller
 		$this->load->model("permiso","permiso",true);
 		$permiso = $this->permiso->check($user['perfil_id'], 16);
 		
-		if ($permiso['Modificacion'] )
+		if ($permiso['Alta'] )
 		{
 			$this->load->model("pagina","pagina",true);	
 			
-			/*$config['upload_path'] = './uploads/pagina';
-			$config['allowed_types'] = 'gif|jpg|png';
-			$config['max_size']	= '5000';
-			$config['encrypt_name'] = TRUE;*/
-
-			/*$this->load->library('upload', $config);
+					
+			$id=$this->pagina->save($_POST, $_POST['id']);
 			
-			if(!$this->upload->do_upload("imagen"))
+			if ($id)
 			{
-				echo $this->upload->display_errors();
+					$mensaje = "La Pagina fue cargada con &eacute;xito";
+					$mensaje_nombre = "mensaje_ok";
+					$url = "admin/paginas";
+				
+			}else{
+				
+				$mensaje = "Error de conexi&oacute;n a la base de datos.";
+				$mensaje_nombre = "mensaje_error";
+				$url = "admin/paginas/formulario";		
+				
 			}
-			else
-			{	$data = $this->upload->data();
-				$_POST['imagen']=$data['file_name'];
-			}	*/
-	 		
 			
-			if ($this->pagina->save($_POST, $_POST['id']))
-			{
-				redirect(site_url("admin/paginas"), "refresh");
-			}
-			else
-			{
-				redirect(site_url("admin/paginas/formulario/".$pagina_id), "refresh");
-			}
+						
+			
+			$this->session->set_userdata($mensaje_nombre,$mensaje);
+			redirect(site_url($url), "refresh");
 		}
 		else
 			$this->load->view("admin/error_permiso",$variables);
+	}
+	
+	public function modificar(){
+		
+		
+	$user=$this->session->userdata('logged_in');
+		$variables['user'] = $user;	
+		$variables['modulo_id'] = 16;
+		$variables['padre_id'] = 15;
+		$pagina_id = $this->input->post("id");
+		$this->load->model("permiso","permiso",true);
+		$permiso = $this->permiso->check($user['perfil_id'], 16);
+		
+		if ($permiso['Modificacion'] )
+		{ 
+			$error="";
+			$id= $this->input->post("id");
+			$titulo= $this->input->post("titulo");
+			$contenido = $this->input->post("contenido");
+			$habilitado = $this->input->post("habilitado");
+			$tipo = $this->input->post("tipo");
+			
+					
+			
+					
+			$datos['id']= $id;
+			$datos['titulo']= $titulo;
+			$datos['contenido'] = $contenido;
+			$datos['habilitado'] = $habilitado;
+			$datos['tipo'] =$tipo;
+						
+					
+					
+					$this->load->model("pagina","pagina",true);	
+					
+							
+					$id=$this->pagina->save($datos, $_POST['id']);
+					
+					if ($id)
+					{
+						$mensaje = "La Pagina fue cargada con &eacute;xito";
+						$mensaje_nombre = "mensaje_ok";
+						$url = "admin/paginas";
+						
+					    $this->session->set_userdata("form_pagina",$datos);
+						$error = "";
+						if ($_FILES['imagen']['name']!="")
+						{
+							if($_FILES['imagen']['error'] == 0)
+							{
+								$extension = strtolower(end(explode(".",$_FILES['imagen']['name'])));
+								if ($extension == "jpg" or $extension == "png" or $extension == "gif" or $extension == "jpeg")
+								{
+									$nombre = date("YmdHisu").".".$extension;
+									$ruta_absoluta = PATH_BASE.'pagina/';
+									$info_imagen=getimagesize($_FILES['imagen']['tmp_name']);
+									$ancho = $info_imagen[0];
+									$alto = $info_imagen[1];
+									if ($ancho <= 2048 and $ancho >= 400)
+									{
+										move_uploaded_file($_FILES['imagen']['tmp_name'],$ruta_absoluta.$nombre);
+										
+										/*Diferentes tamanios*/
+										$dest_size1 = $ruta_absoluta.$nombre;
+										$dest_size2= $ruta_absoluta."tam2_".$nombre;
+										$dest_size3= $ruta_absoluta."tam3_".$nombre;
+										$dest_th = $ruta_absoluta."th_".$nombre;
+										/**********************/
+										
+										$this->load->library("imageresize");
+										
+										//Size 1
+										if ($ancho > TAM_1)
+										{		
+											$this->imageresize->setImage($ruta_absoluta.$nombre);
+											$this->imageresize->resizeWidth(TAM_1); // 900
+											$this->imageresize->save($dest_size1);
+										}
+										else
+										{
+											$this->imageresize->setImage($ruta_absoluta.$nombre);
+											$this->imageresize->resizeWidth($ancho); // 900
+											$this->imageresize->save($dest_size1);
+										}
+										
+										//Size 2
+										$this->imageresize->setImage($ruta_absoluta.$nombre);
+										$this->imageresize->resizeWidth(TAM_2); // 900
+										$this->imageresize->save($dest_size2);
+										
+										//Size 3
+										$this->imageresize->setImage($ruta_absoluta.$nombre);
+										$this->imageresize->resizeWidth(TAM_3); // 900
+										$this->imageresize->save($dest_size3);
+										
+										//Size Th
+										$this->imageresize->setImage($ruta_absoluta.$nombre);
+										$this->imageresize->resizeWidth(TH); // 900
+										$this->imageresize->save($dest_th);
+										
+										$datos['imagen'] = $nombre;
+									}
+									else
+										$error = "Tama&ntilde;o de imagen no permitido. Debe tener un ancho m&iacute;nimo de 400 px y m&aacute;mo a 2048 px.";
+								}
+								else
+									$error = "Formato de archivo no permitido. Los formatos permitidos son <b>jpg, png y gif</b>.";
+							}
+							else
+							{
+								$error = "Error al intentar subir la imagen. Aseg&uacute;rese que su tama&ntilde;o no supere los 2M.";
+							}
+						}
+						
+						
+						if ($error=="")
+						{
+							$this->load->model("pagina","pagina",true);
+							if ($this->pagina->insert($datos))
+							{
+								$this->session->unset_userdata("form_pagina");
+								$mensaje = "La Pagina fue cargada con &eacute;xito";
+								$mensaje_nombre = "mensaje_ok";
+								$url = "admin/paginas";
+							}
+							else
+							{
+								$mensaje = "Error de conexi&oacute;n a la base de datos.";
+								$mensaje_nombre = "mensaje_error";
+								$url = "admin/paginas/formulario";
+							}
+						}
+						else
+						{
+							$mensaje = $error;
+							$mensaje_nombre = "mensaje_error";
+							$url = "admin/paginas/formulario/".$id;		
+						}
+					}else
+					{
+						$mensaje = "Error de conexi&oacute;n a la base de datos.";
+						$mensaje_nombre = "mensaje_error";
+						$url = "admin/paginas/formulario/".$id;
+					}
+					$this->session->set_userdata($mensaje_nombre,$mensaje);
+					redirect(site_url($url), "refresh");
+			
+	}else {
+			$this->load->view("admin/error_permiso",$variables);
+		}
+				
+			
 	}
 }
 
