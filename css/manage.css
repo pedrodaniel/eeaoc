@@ -488,3 +488,7 @@ div.autocomplete ul li {
 	font-size: 14px;
 	height: 100px;
 }
+
+.imagenes img{
+	margin: 1px 0px 5px -1px;
+}

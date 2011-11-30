@@ -19,27 +19,27 @@
 			jAlert(mensaje,"Error");
 	}
 	
-	function quitar_imagen()
+	function enviar_form_foto()
 	{
-		$.post("<?=site_url("admin/tematicas/borrar_imagen")?>",
-		{
-			id: $("#tematica_id").val(), 
-			img: $("#imagen_actual").val()
-		},function(data)
-		{
-			switch(data)
+		if ($("#tematica_id").val() > 0)
+		{	
+			if ($("#imagen_file").val() != "")
 			{
-				case "1":
-					$("#section-detail-img").hide();
-				break;
-				case "2":
-					jAlert("Usted no tiene permiso para realizar la operaci&oacute;n solicitada.","Error");
-				break;
-				default:
-					jAlert("Error de conexi&oacute;n.","Error");
-				break;
+				$("#save_box_img").hide();
+				$("#save_box_waiting_img").show();
+				$("#tematicaImageForm").submit();
 			}
-		});
+			else
+				jAlert("Debe seleccionar una im&aacute;gen. Los formatos permitidos son JPG, GIF y PNG.","Error");
+		}
+		else
+			jAlert("Debe cargar una nueva temática paras poder adjuntarle im&aacute;genes.","Error");
+	}
+	
+	function edita_img(p_id)
+	{
+		if (p_id > 0)
+			SexyLightbox.display('<?=site_url("admin/tematicas/editar_imagen")?>/'+p_id+'?TB_iframe=true&modal=1&height=400&width=500');
 	}
 	</script>
 </head>
@@ -119,21 +119,24 @@
 					</select>
 				<br/><br/>
 				<b>Imagen:</b> (jpg, gif, png)<br/><br/>
-					<input type="file" name="imagen" size="30" />
+					<input type="file" id="imagen_file" name="imagen" size="30" />
 					<br/><br/>
-					<div id="save_box" style="padding: 8px; text-align: right;">
-						<a class="large green awesome" href="javascript:enviar_form()">Subir</a>
+					<div id="save_box_img" style="padding: 8px; text-align: right;">
+						<a class="large green awesome" href="javascript:enviar_form_foto()">Subir</a>
 					</div>
-					<div id="save_box_waiting" style="padding: 8px; text-align: right; display: none;">
+					<div id="save_box_waiting_img" style="padding: 8px; text-align: right; display: none;">
 						<img src="<?=site_url("img/ajax-loader.gif")?>" />
 					</div>
 				</div>
-				<? /*if (isset($tematica['imagen']) and $tematica['imagen']!=""):?>
-				<div id="section-detail-img">
-					<img src="<?=site_url("upload/tematica/th_".$tematica['imagen'])?>" />&nbsp;&nbsp;
-					<input type="hidden" value="<?=$tematica['imagen']?>" name="imagen_actual" />
+				<? if (isset($tematica['imagenes']) and $tematica['imagenes']):?>
+				<div id="section-detail-img" class="imagenes">
+				<? foreach ($tematica['imagenes'] as $img_tem):?>
+					<a href="javascript:edita_img(<?=$img_tem['id']?>)" title="Editar imagen">
+					<img src="<?=site_url("upload/tematica/".$tematica['id']."/th_".$img_tem['img'])?>" />&nbsp;&nbsp;
+					</a>
+				<? endforeach; ?>
 				</div>
-				<? endif; */?>
+				<? endif; ?>
 			</div>
 			</form>
 			<div style="clear: both;"></div>

@@ -1,17 +1,17 @@
 <?php
-class Tematica extends Model
+class Producto extends Model
 {
 	public function listado($busqueda)
 	{
-		 $sql = "select t.id, t.nombre, t.padre_id, t.fecha_carga, u.apellido as usuario_apellido, u.nombre as usuario_nombre,
-		 (select nombre from tematica where id = t.padre_id) as tematica_padre 
-		 from tematica t 
-		 inner join usuario u on (u.id = t.usuario_id)";
+		 $sql = "select p.id, p.nombre, p.tipo, 
+		 (select nombre from tematica where id = p.tematica_id) as tematica,
+		 (select nombre from servicio where id = p.servicio_id) as servicio 
+		 from tematica t";
 		 
 		 if ($busqueda!="")
-		 	$sql .= " where t.nombre like '%$busqueda%'";
+		 	$sql .= " where p.nombre like '%$busqueda%'";
 		 	
-		 $sql .= " order by t.id";
+		 $sql .= " order by p.id";
 		 $query = $this->db->query($sql);
 		 if ($query->num_rows() > 0)
 		 {

@@ -7,6 +7,30 @@
 	{
 		window.location="<?=site_url("admin/tematicas/index")?>/"+$("#search").val();
 	}
+	
+	function eliminar(p_id)
+	{
+		$.post("<?=site_url("admin/tematicas/borrar")?>",
+		{
+			tematica_id: p_id
+		},function(data){
+			switch(data)
+			{
+				case "ok":
+					location.reload();
+				break;
+				case "ko":
+					jAlert("Error al intentar modificar la imagen. Asegurese estar conectado.","Error");
+				break;
+				case "error_dependencias":
+					jAlert("Imposible eliminar la tem&aacute;tica seleccionada, antes debe eliminar todas sus dependencias.","Error");
+				break;
+				case "error_permiso":
+					jAlert("No tiene permiso para realizar la operaci&oacute;n solicitada.","Error");
+				break;
+			}
+		});
+	}
 	</script>
 </head>
 <body>
@@ -33,6 +57,7 @@
 			<th>Tem&aacute;tica Padre</th>
 			<th>Fecha Carga</th>
 			<th>Usuario</th>
+			<th></th>
 		</tr>
 		<? if ($listado):?>
 			<? foreach ($listado as $tem):?>
@@ -42,6 +67,7 @@
 			<td><?=$tem['tematica_padre']?></td>
 			<td><?=$tem['fecha_carga']?></td>
 			<td><?=$tem['usuario_nombre']." ".$tem['usuario_apellido']?></td>
+			<td><a href="javascript:eliminar(<?=$tem['id']?>)" title="Eliminar Tem&aacute;tica"><img width="25" src="<?=site_url("img/admin/delete.png")?>" /></a></td>
 			</tr>
 			<? endforeach; ?>
 		<? endif; ?>
