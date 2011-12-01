@@ -1,7 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+
 <? $this->load->view("head.php"); ?>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.slideshow').cycle({
+		fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+	});
+});
+</script>
 </head>
 <body id="home">
 <div id="content">
@@ -11,7 +20,20 @@
       <div class="center-h">
         <div class="center-h-c">
           <div class="chl">
-            <div class="box"></div>
+            <div class="box" id="box">
+            <div class="slideshow">
+		
+		    <? if (isset($info['imagenes']) and $info['imagenes']):?>
+				
+				<? foreach ($info['imagenes'] as $img_tem):?>
+					<a href="<?=$img_tem['url']?>" title="IR">
+					<img src="<?=site_url("upload/pagina/".$info['id']."/tam2_".$img_tem['img'])?>"/></a>
+				<? endforeach; ?>
+				
+				<? endif; ?>
+        
+        	</div>
+            </div>
           </div>
         </div>
       </div>

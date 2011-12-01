@@ -28,5 +28,20 @@ class Pagina extends Model
 		else
 			return false;
 	}
+	
+public function dameImgPagina($pagina_id)
+	{
+		$sql = "select id, img, url, target from pagina_imagen where pagina_id = ".$pagina_id;
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$res = $query->result_array();
+			return $res;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
 ?>

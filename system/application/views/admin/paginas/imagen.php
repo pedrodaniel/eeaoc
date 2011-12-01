@@ -1,23 +1,39 @@
 <? $this->load->view("admin/head")?>
 <script type="text/javascript">
+
 	$(document).ready(function(){
 		$("#btn_subir").click(function(){
 			    
 				$("#save_img_box").hide();
 				$("#save_img_box_waiting").show();
 				$("#page_img_form").submit();
-				parent.location.reload();
+				
+				
+				//parent.location.reload();
 		});
+		$.post('<?=site_url("admin/paginas/traeGaleria/".$pagina['id'])?>'
+				, function(data){
+			$('#galeria',window.parent.document).html( data);
+		 })
+		
 	});	
 	</script>
 	<img src='<?=site_url("img/admin/picture_add.png")?>'> <span class='head'>Subir Imagen</span>
+	<? if ($mensaje_error!=""):?>
+			<div class="error"><?=$mensaje_error?></div>
+		<? endif; ?>
+		<? if ($mensaje_ok!=""):?>
+			<div class="success"><?=$mensaje_ok?></div>
+		<? endif; ?>
 <div id='section'>Carga de Im&aacute;gen </div>	
-<form id="page_img_form" method="post" enctype="multipart/form-data" action="<?=site_url("admin/paginas/imagen/".$pagina['id'])?>">
+<form id="page_img_form" method="post" enctype="multipart/form-data" action="<?=site_url("admin/paginas/CreaImg")?>">
 		  		
 				<table cellpadding="6" border="0">
 	  		<tbody>	  		
 			<tr>
 	  			<td>  Seleccione una imagen (jpg, gif, png)  </td>
+	  			
+	  			<input type="hidden" name="pagina_id" value="<?=$pagina['id']?>" />
 	  			<td><input type="file" name="imagen" size="30" /></td>
 	  		</tr>	
 			<tr>
@@ -37,7 +53,9 @@
 				</td>
 	  		</tr>
 	  			<tr>
-	  			<td>		<div id="save_img_box" style="padding: 8px; text-align: right;">
+	  			<td>
+	  			
+	  				<div id="save_img_box" style="padding: 8px; text-align: right;">
 						<a class="large green awesome" href='javascript:void(0)' id="btn_subir">Subir</a>
 					</div>
 					

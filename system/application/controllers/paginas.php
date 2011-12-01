@@ -24,6 +24,7 @@ class Paginas extends Controller
 			$variables['hijas'] = $this->pagina->damePaginasMenu($pagina_id,$tipo);
 		}
 		$variables['info'] = $info_pagina;
+		$variables['info']['imagenes'] = $this->pagina->dameImgPagina($pagina_id);
 		$this->load->library("varios");
 		$this->load->view("pagina",$variables);
 	}

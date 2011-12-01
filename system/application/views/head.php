@@ -27,3 +27,5 @@
 	</script>
 <link rel="stylesheet" href="<?=site_url("css/scroll.css")?>" type="text/css" media="screen"/>
 <!-- Scroll fin-->
+<!-- include Cycle plugin -->
+<script type="text/javascript" src="<?=site_url("js/jquery.cycle.all.js")?>"></script>

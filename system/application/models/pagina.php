@@ -87,6 +87,7 @@ right join ( select id,padre_id,orden ,habilitado,titulo from pagina order by or
 				FROM pagina
 				")->first_row()->cnt;
 	}
+	
 	function getPages($per_page,$segment){
 		$query = $this->db->get('pagina',$per_page,$segment);
 		if ($query->num_rows() > 0)
@@ -97,4 +98,90 @@ right join ( select id,padre_id,orden ,habilitado,titulo from pagina order by or
 		else
 			return false;
 	}
+	
+	public function dameImagen($imagen_id)
+	{
+		$sql = "select id, img, url, target,pagina_id from pagina_imagen where id = ".$imagen_id;
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$res = $query->result_array();
+			return $res[0];
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public function dameImgPagina($pagina_id)
+	{
+		$sql = "select id, img, url, target from pagina_imagen where pagina_id = ".$pagina_id;
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$res = $query->result_array();
+			return $res;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public function insertar_imagen($datos)
+	{
+		if ($this->db->insert("pagina_imagen",$datos))
+			return true;
+		else
+			return false;
+	}
+	
+	public function updateImagen($imagen_id, $datos)
+	{
+		$this->db->where("id",$imagen_id);
+		if ($this->db->update("pagina_imagen",$datos))
+			return true;
+		else
+			return false;
+	}
+	
+	public function borradoImagenesGeneral($pagina_id)
+	{
+		$sql = "select id, img from pagina_imagen where pagina_id = ".$pagina_id;
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$res = $query->result_array();
+			foreach ($res as $img)
+			{
+				$this->quitarImagen($img['id'],$img['img'],$pagina_id);
+			}
+		}
+	}
+	public function quitarImagen($imagen_id,$img_borrar,$pagina_id)
+	{
+		$this->db->where("id",$imagen_id);
+		if ($this->db->delete("pagina_imagen"))
+		{
+			$path_img_borrar = PATH_BASE . "pagina/" . $pagina_id . "/" . $img_borrar;
+			$path_img_borrar2 = PATH_BASE . "pagina/" . $pagina_id . "/tam2_" . $img_borrar;
+			$path_img_borrar3 = PATH_BASE . "pagina/" . $pagina_id . "/tam3_" . $img_borrar;
+			$path_img_borrar4 = PATH_BASE . "pagina/" . $pagina_id . "/th_" . $img_borrar;
+							
+			if (file_exists($path_img_borrar))
+				unlink($path_img_borrar);
+			if (file_exists($path_img_borrar2))
+				unlink($path_img_borrar2);
+			if (file_exists($path_img_borrar3))
+				unlink($path_img_borrar3);
+			if (file_exists($path_img_borrar4))
+				unlink($path_img_borrar4);
+					
+			return true;
+		}
+		else
+			return false;
+	}
+	
 }

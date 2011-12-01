@@ -11,8 +11,8 @@
 <link rel="STYLESHEET" type="text/css" href="<?=site_url('css/manage.css')?>"></link>
 <link rel="STYLESHEET" type="text/css" href="<?=site_url('css/jalerts.css')?>"></link>
 <link rel="STYLESHEET" type="text/css" href="<?=site_url('css/sexylightbox.css')?>"></link>
-<link rel="STYLESHEET" type="text/css" href="<?=site_url('css/jquery.cleditor.css')?>"></link>
-<script type="text/javascript" src="<?=site_url("js/jquery.cleditor.min.js")?>"></script>
+<link rel="STYLESHEET" type="text/css" href="<?=site_url('css/jquery.wysiwyg.css')?>"></link>
+<script type="text/javascript" src="<?=site_url("js/jquery.wysiwyg.js")?>"></script>
 
 
 <script type="text/javascript">

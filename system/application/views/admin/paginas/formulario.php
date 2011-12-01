@@ -5,12 +5,7 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		
-			 $.cleditor.defaultOptions.width = 700;
-		     $.cleditor.defaultOptions.height = 400;
-		     $.cleditor.defaultOptions.controls = "bold italic underline strikethrough | alignleft center alignright justify"+
-		     									  " | bullets numbering | outdent " +
-		     				                       "indent | cut copy paste pastetext |  source";
-		     $("#contenido").cleditor();
+		   $('#contenido').wysiwyg();
 		
 		$("#btn_guardar").click(function(){
 			
@@ -36,10 +31,25 @@
 		});
 
 		$("#btn_cargar_img").click(function(){
-		SexyLightbox.display('<?=site_url("admin/paginas/imagen/".$pagina['id'])?>?TB_iframe=true&modal=1&height=300&width=500');
-		});
+			SexyLightbox.display('<?=site_url("admin/paginas/imagen/".$pagina['id'])?>?TB_iframe=true&modal=1&height=300&width=500');
 		
+		});
+		$("#SLB-CloseButton").click(function(){
+				$.post('<?=site_url("admin/paginas/traeGaleria/".$pagina['id'])?>'
+						, function(data){
+					  	$('#galeria').html( data);
+				 })
+			// Función necesaria para cerrar la ventana modal
+			//window.parent.SexyLightbox.close();
+			// Función necesaria para actualizar la ventana padre
+			//window.parent.document.location.reload();
+			});
 	});
+	function edita_img(p_id)
+	{
+		if (p_id > 0)
+			SexyLightbox.display('<?=site_url("admin/paginas/editar_imagen")?>/'+p_id+'?TB_iframe=true&modal=1&height=400&width=500');
+	}
 	</script>
 </head>
 <body>	
@@ -78,10 +88,7 @@
 			</div>
 			<div id="section">Descripci&oacute;n</div>
 			<div id="section-detail">
-				<textarea name="contenido" id='contenido' rows="20" style='width: 99%;' ><?=(isset($pagina['contenido']))?stripslashes($pagina['contenido']):""; ?></textarea>
-				<!-- <div id='wmd-preview-box' style='display: none; margin: 0 auto; position: absolute; top: 100px; border: 10px solid silver; width: 600px; padding: 10px; background-color: #fff;'>
-					<div id='wmd-preview' class="wmd-preview" style='width: 500px;'></div>
-				</div> -->
+				<textarea name="contenido" id='contenido' rows="20" style='width: 99%;'><?=(isset($pagina['contenido']))?stripslashes($pagina['contenido']):""; ?></textarea>
 			</div>
 			
 			
@@ -130,6 +137,15 @@
 <a class="large green awesome" href='javascript:void(0)' id="btn_cargar_img">Cargar Imagen</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	<div id="section-detail">
 	<div id="galeria">
+		<? if (isset($pagina['imagenes']) and $pagina['imagenes']):?>
+				<div id="section-detail-img" class="imagenes">
+				<? foreach ($pagina['imagenes'] as $img_tem):?>
+					<a href="javascript:edita_img(<?=$img_tem['id']?>)" title="Editar imagen">
+					<img src="<?=site_url("upload/pagina/".$pagina['id']."/th_".$img_tem['img'])?>" />&nbsp;&nbsp;
+					</a>
+				<? endforeach; ?>
+				</div>
+				<? endif; ?>
 	</div>
 			</div>
 	<? else:?>

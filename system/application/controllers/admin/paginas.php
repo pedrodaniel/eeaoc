@@ -15,8 +15,7 @@ class Paginas extends Controller
 		$variables['user'] = $user;	
 		$this->load->model("permiso","permiso",true);
 		$permiso = $this->permiso->check($user['perfil_id'], 2);
-		if ($permiso)
-		{
+		
 			if ($permiso['Listado'])
 			{
 					if($busqueda){
@@ -34,11 +33,7 @@ class Paginas extends Controller
 			}
 			else
 				$this->load->view("admin/error_permiso",$variables);
-		}
-		else
-		{
-			$this->load->view("admin/error_permiso",$variables);
-		}
+		
 	}
 	public function page($offset=0)
 	{
@@ -117,6 +112,7 @@ class Paginas extends Controller
 			if ($pagina_id > 0)
 			{
 				$variables['pagina'] = $this->pagina->damePagina($pagina_id);
+				$variables['pagina']['imagenes'] = $this->pagina->dameImgPagina($pagina_id);
 				if (!$variables['pagina'])
 					{
 						redirect(site_url("admin/paginas"), "refresh");
@@ -249,7 +245,8 @@ class Paginas extends Controller
 			$datos['contenido'] = $contenido;
 			$datos['habilitado'] = $habilitado;
 			$datos['tipo'] =$tipo;
-						
+			
+		
 					
 					
 					$this->load->model("pagina","pagina",true);	
@@ -278,72 +275,53 @@ class Paginas extends Controller
 	
 	public function CreaImg()
 	{
+		$error = "";
+		$ok = "";
+		$pagina_id = $this->input->post("pagina_id");
 		if ($_FILES['imagen']['name']!="")
 		{
-			if($_FILES['imagen']['error'] == 0)
+			
+			
+			$this->load->library("archivos");
+			$this->load->library("imageresize");
+			$this->archivos->imageresize = $this->imageresize;
+			$this->archivos->file = $_FILES['imagen']; 
+			$this->archivos->path = 'pagina/'.$pagina_id."/";
+			$this->archivos->tipos = "jpg,png,gif,jpeg";
+			
+			$res = $this->archivos->subir();
+			
+			if ($res['error']=="")
 			{
-				$extension = strtolower(end(explode(".",$_FILES['imagen']['name'])));
-				if ($extension == "jpg" or $extension == "png" or $extension == "gif" or $extension == "jpeg")
-				{
-					$nombre = date("YmdHisu").".".$extension;
-					$ruta_absoluta = PATH_BASE.'tematica/';
-					$info_imagen=getimagesize($_FILES['imagen']['tmp_name']);
-					$ancho = $info_imagen[0];
-					$alto = $info_imagen[1];
-					if ($ancho <= 2048 and $ancho >= 400)
-					{
-						move_uploaded_file($_FILES['imagen']['tmp_name'],$ruta_absoluta.$nombre);
+				$datos['img'] = $res['img'];
+				$datos['url'] = $this->input->post("link");
+				$datos['target'] = $this->input->post("target");
+				$datos['pagina_id'] = $pagina_id;
 						
-						/*Diferentes tamanios*/
-						$dest_size1 = $ruta_absoluta.$nombre;
-						$dest_size2= $ruta_absoluta."tam2_".$nombre;
-						$dest_size3= $ruta_absoluta."tam3_".$nombre;
-						$dest_th = $ruta_absoluta."th_".$nombre;
-						/**********************/
-						
-						$this->load->library("imageresize");
-						
-						//Size 1
-						if ($ancho > TAM_1)
-						{		
-							$this->imageresize->setImage($ruta_absoluta.$nombre);
-							$this->imageresize->resizeWidth(TAM_1); // 900
-							$this->imageresize->save($dest_size1);
-						}
-						else
-						{
-							$this->imageresize->setImage($ruta_absoluta.$nombre);
-							$this->imageresize->resizeWidth($ancho); // 900
-							$this->imageresize->save($dest_size1);
-						}
-						
-						//Size 2
-						$this->imageresize->setImage($ruta_absoluta.$nombre);
-						$this->imageresize->resizeWidth(TAM_2); // 900
-						$this->imageresize->save($dest_size2);
-						
-						//Size 3
-						$this->imageresize->setImage($ruta_absoluta.$nombre);
-						$this->imageresize->resizeWidth(TAM_3); // 900
-						$this->imageresize->save($dest_size3);
-						
-						//Size Th
-						$this->imageresize->setImage($ruta_absoluta.$nombre);
-						$this->imageresize->resizeWidth(TH); // 900
-						$this->imageresize->save($dest_th);
-						
-						$datos['imagen'] = $nombre;
-					}
-					else
-						$error = "Tama&ntilde;o de imagen no permitido. Debe tener un ancho m&iacute;nimo de 400 px y m&aacute;mo a 2048 px.";
-				}
-				else
-					$error = "Formato de archivo no permitido. Los formatos permitidos son <b>jpg, png y gif</b>.";
+				$this->load->model("pagina","pagina",true);
+				if (!$this->pagina->insertar_imagen($datos))
+					$error = "Error al intentar adjuntar im&aacute;gen. Aseg&uacute;rese estar conectado.";
+				else {
+					
+				//	echo" <script>parent.location.reload();</script>";
+				}	
 			}
 			else
-			{
-				$error = "Error al intentar subir la imagen. Aseg&uacute;rese que su tama&ntilde;o no supere los 2M.";
-			}
+				$error = $res['error'];
+		}
+		else
+		{
+			$error = "Debe seleccionar una im&aacute;gen.";
+		}
+		
+		if ($error == "")
+		{
+			redirect(site_url("admin/paginas/imagen/".$pagina_id), "refresh");
+		}
+		else
+		{
+			$this->session->set_userdata("mensaje_error",$error);
+			redirect(site_url("admin/paginas/imagen/".$pagina_id), "refresh");
 		}
 	}
 	/**
@@ -352,10 +330,99 @@ class Paginas extends Controller
 	 */
  public function imagen($p_pagina_id){
  	$variables['pagina']['id']=$p_pagina_id;
- 	
+ 	$variables['mensaje_error'] = $this->session->userdata("mensaje_error");
+			$variables['mensaje_ok'] = $this->session->userdata("mensaje_ok");
+			$this->session->unset_userdata("mensaje_error");
+			$this->session->unset_userdata("mensaje_ok");
  	$this->load->view("admin/paginas/imagen",$variables);
  	
  }	
+ 
+ public function traeGaleria($p_pagina_id){
+ 	   $user=$this->session->userdata('logged_in');
+		$variables['user'] = $user;	
+		$this->load->model("permiso","permiso",true);
+		$permiso = $this->permiso->check($user['perfil_id'], 2);
+		if ($permiso['Listado'])
+			{
+				 	$this->load->model("pagina","pagina",true);	
+				 	$variables['pagina']['id']=$p_pagina_id;
+				 	$variables['pagina']['imagenes'] = $this->pagina->dameImgPagina($p_pagina_id);
+				 	$this->load->view("admin/paginas/galeria",$variables);
+				 	
+			}else{
+			$this->load->view("admin/error_permiso",$variables);
+			}
+ 		}
+	public function editar_imagen($imagen_id=0)
+	{
+		$user=$this->session->userdata('logged_in');
+		$this->load->model("permiso","permiso",true);
+		$permiso = $this->permiso->check($user['perfil_id'], 6);
+		if ($permiso['Modificacion'])
+		{
+			if ($imagen_id > 0)
+			{
+				$this->load->model("pagina","pagina",true);
+				$variables['permiso'] = $permiso['Baja'];
+				$variables['imagen'] = $this->pagina->dameImagen($imagen_id);
+				if ($variables['imagen'])
+					$variables['pagina'] = $this->pagina->damePagina($variables['imagen']['pagina_id']);
+				else
+					$variables['pagina'] = false;
+				$this->load->view("admin/paginas/editar_imagen",$variables);
+			}
+			else
+				 print "Error. M&eacute;todo no soportado.";
+		}
+		else
+		{
+			print "Error. Usted no tiene permiso para usar el m&oacute;dulo seleccionado";
+		}
+	}
+	public function guardar_cambios_imagen()
+	{
+		$user=$this->session->userdata('logged_in');
+		$this->load->model("permiso","permiso",true);
+		$permiso = $this->permiso->check($user['perfil_id'], 6);
+		if ($permiso['Modificacion'])
+		{
+			$imagen_id = $this->input->post("imagen_id");
+			$datos['url'] = $this->input->post("url");
+			$datos['target'] = $this->input->post("target");
+			$this->load->model("pagina","pagina",true);
+			if ($this->pagina->updateImagen($imagen_id,$datos))
+				echo "ok";
+			else
+				echo "ko";
+		}
+		else
+		{
+			echo "error_permiso";
+		}
+	}
+	
+public function borrar_imagen()
+	{
+		$user=$this->session->userdata('logged_in');
+		$this->load->model("permiso","permiso",true);
+		$permiso = $this->permiso->check($user['perfil_id'], 6);
+		if ($permiso['Baja'])
+		{
+			$pagina_id = $this->input->post("pagina_id");
+			$imagen_id = $this->input->post("imagen_id");
+			$img_borrar = $this->input->post("img");
+			$this->load->model("pagina","pagina",true);
+			if ($this->pagina->quitarImagen($imagen_id, $img_borrar, $pagina_id))
+			{
+				echo "ok";
+			}
+			else
+				echo "ko";
+		}
+		else
+			echo "error_permiso";
+	}
 }
 
 ?>
