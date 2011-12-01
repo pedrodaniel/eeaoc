@@ -27,14 +27,14 @@ class Archivos
 				$info_imagen=getimagesize($this->file['tmp_name']);
 				$ancho = $info_imagen[0];
 				$alto = $info_imagen[1];
-				if ($ancho <= 2048 and $ancho >= 400)
+				if ($ancho <= 2048 and $ancho >= CROP_W and $alto >= CROP_H)
 				{
 					move_uploaded_file($this->file['tmp_name'],$ruta_absoluta.$nombre);
 						
 					/*Diferentes tamanios*/
 					$dest_size1 = $ruta_absoluta.$nombre;
 					$dest_size2= $ruta_absoluta."tam2_".$nombre;
-					$dest_size3= $ruta_absoluta."tam3_".$nombre;
+					$dest_crop= $ruta_absoluta."crop_".$nombre;
 					$dest_th = $ruta_absoluta."th_".$nombre;
 					/**********************/
 					
@@ -54,13 +54,13 @@ class Archivos
 					
 					//Size 2
 					$this->imageresize->setImage($ruta_absoluta.$nombre);
-					$this->imageresize->resizeWidth(TAM_2); // 400
+					$this->imageresize->resizeWidth(TAM_2); // 200
 					$this->imageresize->save($dest_size2);
 					
-					//Size 3
+					//CROP
 					$this->imageresize->setImage($ruta_absoluta.$nombre);
-					$this->imageresize->resizeWidth(TAM_3); // 200
-					$this->imageresize->save($dest_size3);
+					$this->imageresize->resizeWidth(CROP_W); // 200
+					$this->imageresize->save($dest_crop);
 					
 					//Size Th
 					$this->imageresize->setImage($ruta_absoluta.$nombre);
@@ -73,7 +73,7 @@ class Archivos
 				else
 				{
 					$img = "";
-					$error = "Tama&ntilde;o de imagen no permitido. Debe tener un ancho m&iacute;nimo de 400 px y m&aacute;mo a 2048 px.";
+					$error = "Tama&ntilde;o de imagen no permitido. Debe tener un ancho m&iacute;nimo de ".CROP_W." px y m&aacute;mo a 2048 px.";
 				}
 			}
 			else

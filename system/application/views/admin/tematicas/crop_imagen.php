@@ -41,11 +41,43 @@
 	}); 
 	
 	$(window).load(function () { 
-		$('#thumbnail').imgAreaSelect({ minWidth: 400, minHeight: 100, handles: true, onSelectChange: preview }); 
+		$('#thumbnail').imgAreaSelect({ minWidth: <?=CROP_W?>, minHeight: <?=CROP_H?>, handles: true, aspectRatio: '3:1', onSelectChange: preview }); 
 	});
 	function cerrar()
 	{
 		parent.SexyLightbox.close();
+	}
+	
+	function recortar()
+	{
+		$("#recortar").hide();
+		$("#cerrar").hide();
+		$("#loading").show();
+		$.post('<?=site_url("admin/imagenes/recortar")?>',
+		{
+			folder: 'tematica',
+			imagen: $("#imagen").val,
+			id: $("#id").val,
+			x1: $("#x1").val,
+			y1: $("#y1").val,
+			x2: $("#x2").val,
+			y2: $("#y2").val,
+			w: $("#w").val,
+			h: $("#h").val
+		},function(data){
+			switch (data)
+			{
+				case "ok":
+					parent.SexyLightbox.close();
+				break;
+				case "error_permiso":
+					jAlert("Usted no tiene permiso para realizar la operaci&oacute;n solicitada.","Error");
+				break;
+				case "ko"
+					jAlert("Se produjo un error al intentar recortar la imagen.","Error");
+				break;
+			}
+		});
 	}
 	</script>
 </head>
@@ -53,14 +85,17 @@
 <div style="margin-left: 25px; margin-right: 25px;">
 <br/>
 	<div class="content">
-		<input name="imagen_id" id="imagen_id" type="hidden" value="<?=$imagen['id']?>"/>
+		
 		<div style="width:100%; float:left">
 			<img src="<?=site_url("upload/tematica/".$imagen['tematica_id']."/".$imagen['img'])?>" style="float: left; margin-right: 10px;" id="thumbnail" alt="Create Thumbnail" />
 		</div>
 		<br/><br/>
-		<a href="">Recortar</a>
+		<a href="javascript:recortar()" id="recortar">Recortar</a>
 		&nbsp;&nbsp;&nbsp;
-		<a href="javascript:cerrar()">Cancelar</a>
+		<a href="javascript:cerrar()" id="cerrar">Cancelar</a>
+		<img id="loading" src="<?=site_url("img/ajax-loader.gif")?>" style="display: none" />
+		<input name="id" id="id" type="hidden" value="<?=$imagen['tematica_id']?>"/>
+		<input name="imagen" id="imagen" type="hidden" value="<?=$imagen['img']?>"/>
 		<input type="hidden" value="" id="x1" name="x1" />
 		<input type="hidden" value="" id="y1" name="y1" />
 		<input type="hidden" value="" id="x2" name="x2" />

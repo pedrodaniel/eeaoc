@@ -39,8 +39,9 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 /*Tamanios Imagenes*/
 define('TAM_1',"900");
-define('TAM_2',"400");
-define('TAM_3',"200");
+define('CROP_W',"667");
+define('CROP_H',"219");
+define('TAM_2',"200");
 define('TH',"80");
 
 /*Globales de Sistema*/

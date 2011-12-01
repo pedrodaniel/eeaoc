@@ -157,7 +157,7 @@ class Tematica extends Model
 		{
 			$path_img_borrar = PATH_BASE . "tematica/" . $tematica_id . "/" . $img_borrar;
 			$path_img_borrar2 = PATH_BASE . "tematica/" . $tematica_id . "/tam2_" . $img_borrar;
-			$path_img_borrar3 = PATH_BASE . "tematica/" . $tematica_id . "/tam3_" . $img_borrar;
+			$path_img_borrar3 = PATH_BASE . "tematica/" . $tematica_id . "/crop_" . $img_borrar;
 			$path_img_borrar4 = PATH_BASE . "tematica/" . $tematica_id . "/th_" . $img_borrar;
 							
 			if (file_exists($path_img_borrar))
