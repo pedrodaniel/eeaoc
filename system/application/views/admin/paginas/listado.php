@@ -48,15 +48,14 @@
 
 	
 	<div class="head">
-	
 	<img style="vertical-align: middle;" src="<?=site_url("img/admin/page.png")?>" />
 	Paginas &nbsp;&nbsp;<span style="font-size:11px"><a href="<?=site_url("admin/paginas/formulario")?>">Nueva</a></span>
 		<div class="setting" style="float:right">
 		<input type="text" id="search" name="search" value="<?=$search?>" style="width:200px" />&nbsp;<button onclick="javascript:buscar()">Buscar</button>
 		</div></div>
-	<? if ($mensaje_ok!=""):?>
+	<? /*if ($mensaje_ok!=""):?>
 		<div class="success"><?=$mensaje_ok?></div>
-	<? endif; ?>
+	<? endif;*/ ?>
 	<br/>
 	<table cellspacing="0" cellpadding="9" width="97%" id="table-1">
 	<tbody>

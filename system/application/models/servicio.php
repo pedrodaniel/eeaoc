@@ -1,5 +1,5 @@
 <?php
-class Producto extends Model
+class Servicio extends Model
 {
 	public function listado($busqueda)
 	{
@@ -23,9 +23,9 @@ class Producto extends Model
 		 	return false;
 	}
 	
-	public function dameProductos()
+	public function dameServicios()
 	{
-		$sql = "select id, nombre from producto order by id";
+		$sql = "select id, nombre from servicio order by id";
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -36,9 +36,9 @@ class Producto extends Model
 			return false;
 	}
 	
-	public function dameProducto($producto_id)
+	public function dameTematica($tematica_id)
 	{
-		$sql = "select id, nombre, tematica_id, servicio_id, descripcion from producto where id = ".$producto_id;
+		$sql = "select id, nombre, padre_id, descripcion from tematica where id = ".$tematica_id;
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -53,7 +53,7 @@ class Producto extends Model
 	
 	public function dameImagen($imagen_id)
 	{
-		$sql = "select id, imagen, url, target, producto_id from imagen_producto where id = ".$imagen_id;
+		$sql = "select id, img, url, target, tematica_id from tematica_imagen where id = ".$imagen_id;
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -66,9 +66,9 @@ class Producto extends Model
 		}
 	}
 	
-	public function dameImgProducto($producto_id)
+	public function dameImgTematica($tematica_id)
 	{
-		$sql = "select id, imagen, url, target from imagen_producto where producto_id = ".$producto_id;
+		$sql = "select id, img, url, target from tematica_imagen where tematica_id = ".$tematica_id;
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -83,86 +83,83 @@ class Producto extends Model
 	
 	public function insert($datos)
 	{
-		if ($this->db->insert("producto",$datos))
-		{
-			$id = $this->db->insert_id();
-			return $id;
-		}
+		if ($this->db->insert("tematica",$datos))
+			return true;
 		else
 			return false;
 	}
 	
 	public function insertar_imagen($datos)
 	{
-		if ($this->db->insert("imagen_producto",$datos))
+		if ($this->db->insert("tematica_imagen",$datos))
 			return true;
 		else
 			return false;
 	}
 	
-	public function update($datos,$producto_id)
+	public function update($datos,$tematica_id)
 	{
-		$this->db->where("id",$producto_id);
-		if ($this->db->update("producto",$datos))
+		$this->db->where("id",$tematica_id);
+		if ($this->db->update("tematica",$datos))
 			return true;
 		else
 			return false;
 	}
 	
-	public function eliminarProducto($producto_id)
+	public function eliminarTematica($tematica_id)
 	{
-		$this->db->where("id",$producto_id);
-		if ($this->db->delete("producto"))
+		$this->db->where("id",$tematica_id);
+		if ($this->db->delete("tematica"))
 		{
-			$this->borradoImagenesGeneral($producto_id);
+			$this->borradoImagenesGeneral($tematica_id);
 			return true;
 		}
 		else
 			return false;
 	}
 	
-	public function borradoImagenesGeneral($producto_id)
+	public function borradoImagenesGeneral($tematica_id)
 	{
-		$sql = "select id, imagen from imagen_producto where producto_id = ".$producto_id;
+		$sql = "select id, img from tematica_imagen where tematica_id = ".$tematica_id;
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
 			$res = $query->result_array();
 			foreach ($res as $img)
 			{
-				$this->quitarImagen($img['id'],$img['imagen'],$producto_id);
+				$this->quitarImagen($img['id'],$img['img'],$tematica_id);
 			}
 		}
 	}
 	
-	/*public function checkDependencias($producto_id)
+	public function checkDependencias($tematica_id)
 	{
-		$sql = "select id from tematica where padre_id = ".$producto_id;
+		$sql = "select id from tematica where padre_id = ".$tematica_id;
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 			return false;
 		else
 			return true;
-	}*/
+	}
 	
 	public function updateImagen($imagen_id, $datos)
 	{
 		$this->db->where("id",$imagen_id);
-		if ($this->db->update("imagen_producto",$datos))
+		if ($this->db->update("tematica_imagen",$datos))
 			return true;
 		else
 			return false;
 	}
 	
-	public function quitarImagen($imagen_id,$img_borrar,$producto_id)
+	public function quitarImagen($imagen_id,$img_borrar,$tematica_id)
 	{
 		$this->db->where("id",$imagen_id);
-		if ($this->db->delete("imagen_producto"))
+		if ($this->db->delete("tematica_imagen"))
 		{
-			$path_img_borrar = PATH_BASE . "producto/" . $producto_id . "/" . $img_borrar;
-			$path_img_borrar2 = PATH_BASE . "producto/" . $producto_id . "/tam2_" . $img_borrar;
-			$path_img_borrar3 = PATH_BASE . "producto/" . $producto_id . "/tam3_" . $img_borrar;
-			$path_img_borrar4 = PATH_BASE . "producto/" . $producto_id . "/th_" . $img_borrar;
+			$path_img_borrar = PATH_BASE . "tematica/" . $tematica_id . "/" . $img_borrar;
+			$path_img_borrar2 = PATH_BASE . "tematica/" . $tematica_id . "/tam2_" . $img_borrar;
+			$path_img_borrar3 = PATH_BASE . "tematica/" . $tematica_id . "/tam3_" . $img_borrar;
+			$path_img_borrar4 = PATH_BASE . "tematica/" . $tematica_id . "/th_" . $img_borrar;
 							
 			if (file_exists($path_img_borrar))
 				unlink($path_img_borrar);

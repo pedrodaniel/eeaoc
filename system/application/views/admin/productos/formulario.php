@@ -7,13 +7,13 @@
 	{
 		mensaje = "";
 		if ($("#nombre").val()=="")
-			mensaje += "Ingrese el Nombre de la tem&aacute;tica\n";
+			mensaje += "Ingrese el Nombre del producto\n";
 			
 		if (mensaje == "")
 		{
 			$("#save_box").hide();
 			$("#save_box_waiting").show();
-			$("#tematicaForm").submit();
+			$("#productoForm").submit();
 		}
 		else
 			jAlert(mensaje,"Error");
@@ -21,25 +21,25 @@
 	
 	function enviar_form_foto()
 	{
-		if ($("#tematica_id").val() > 0)
+		if ($("#producto_id").val() > 0)
 		{	
 			if ($("#imagen_file").val() != "")
 			{
 				$("#save_box_img").hide();
 				$("#save_box_waiting_img").show();
-				$("#tematicaImageForm").submit();
+				$("#productoImageForm").submit();
 			}
 			else
 				jAlert("Debe seleccionar una im&aacute;gen. Los formatos permitidos son JPG, GIF y PNG.","Error");
 		}
 		else
-			jAlert("Debe cargar una nueva temática paras poder adjuntarle im&aacute;genes.","Error");
+			jAlert("Debe cargar un nuevo producto para poder adjuntarle im&aacute;genes.","Error");
 	}
 	
 	function edita_img(p_id)
 	{
 		if (p_id > 0)
-			SexyLightbox.display('<?=site_url("admin/tematicas/editar_imagen")?>/'+p_id+'?TB_iframe=true&modal=1&height=400&width=500');
+			SexyLightbox.display('<?=site_url("admin/productos/editar_imagen")?>/'+p_id+'?TB_iframe=true&modal=1&height=400&width=500');
 	}
 	</script>
 </head>
@@ -50,12 +50,12 @@
 <br/>
 	<div class="content">
 		<div class="head">
-			<? if ($tematica['id'] > 0):?>
+			<? if ($producto['id'] > 0):?>
 			<img src="<?=site_url("img/admin/page_edit.png")?>" />
-			Editar Tem&aacute;tica
+			Editar Producto
 			<? else:?>
 			<img src="<?=site_url("img/admin/page_add.png")?>" />
-			Nueva Tem&aacute;tica
+			Nuevo Producto
 			<? endif; ?>
 		</div>
 		<br/>
@@ -66,46 +66,61 @@
 			<div class="success"><?=$mensaje_ok?></div>
 		<? endif; ?>
 		<div style="width: 100%;">
-			<form id="tematicaForm" method="post" action="<?=site_url("admin/tematicas/".$accion)?>">
-			<input name="tematica_id" id="tematica_id" type="hidden" value="<?=$tematica['id']?>"/>
+			<form id="productoForm" method="post" action="<?=site_url("admin/productos/".$accion)?>">
+			<input name="producto_id" id="producto_id" type="hidden" value="<?=$producto['id']?>"/>
 			<div style="width: 60%; float: left; margin-right: 30px;">
 				<div id="section">Nombre</div>
 				<div id="section-detail">
-					<input type="text" id="nombre" name="nombre" value="<?=(isset($tematica['nombre']))?$tematica['nombre']:""?>" style="width: 100%;" />
+					<input type="text" id="nombre" name="nombre" value="<?=(isset($producto['nombre']))?$producto['nombre']:""?>" style="width: 100%;" />
 				</div>
-				<div id="section">Padre</div>
+				<div id="section">Tem&aacute;te</div>
 				<div id="section-detail">
-					<select name="padre_id" id="padre_id" style="width:350px; height:25px">
+					<select name="tematica_id" id="tematica_id" style="width:350px; height:25px">
 					<option value="0"></option>
-		  			<? if ($padres):?>
-		  				<? foreach ($padres as $p):
+		  			<? if ($tematicas):?>
+		  				<? foreach ($tematicas as $tem):
 		  					$selected = "";
-		  					if (isset($tematica['padre_id']) and $p['id'] == $tematica['padre_id'])
+		  					if (isset($producto['tematica_id']) and $tem['id'] == $producto['tematica_id'])
 		  						$selected = "selected";
 		  				?>
-		  				<option value="<?=$p['id']?>" <?=$selected?>><?=$p['nombre']?></option>
+		  				<option value="<?=$tem['id']?>" <?=$selected?>><?=$tem['nombre']?></option>
+		  				<? endforeach; ?>
+		  			<? endif; ?>
+		  			</select>
+				</div>
+				<div id="section">Servicio</div>
+				<div id="section-detail">
+					<select name="servicio_id" id="servicio_id" style="width:350px; height:25px">
+					<option value="0"></option>
+		  			<? if ($servicios):?>
+		  				<? foreach ($servicios as $serv):
+		  					$selected = "";
+		  					if (isset($producto['servicio_id']) and $serv['id'] == $producto['servicio_id'])
+		  						$selected = "selected";
+		  				?>
+		  				<option value="<?=$serv['id']?>" <?=$selected?>><?=$serv['nombre']?></option>
 		  				<? endforeach; ?>
 		  			<? endif; ?>
 		  			</select>
 				</div>
 				<div id="section">Descripci&oacute;n</div>
 				<div id="section-detail">
-					<textarea name="descripcion" id='detail' rows="10" style='width: 99%;'><?=(isset($tematica['descripcion']))?$tematica['descripcion']:""; ?></textarea>
+					<textarea name="descripcion" id='detail' rows="10" style='width: 99%;'><?=(isset($producto['descripcion']))?$producto['descripcion']:""; ?></textarea>
 					<div id='wmd-preview-box' style='display: none; margin: 0 auto; position: absolute; top: 100px; border: 10px solid silver; width: 600px; padding: 10px; background-color: #fff;'>
 						<div id='wmd-preview' class="wmd-preview" style='width: 500px;'></div>
 					</div>
 				</div>
 				<div id="save_box" style="background-color: rgb(224, 224, 224); padding: 15px; text-align: right;">
 					<a class="large green awesome" href="javascript:enviar_form()">Guardar</a>&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="<?=site_url("admin/tematicas")?>">Cancelar</a>
+					<a href="<?=site_url("admin/productos")?>">Cancelar</a>
 				</div>
 				<div id="save_box_waiting" style="padding: 15px; text-align: right; display: none;">
 					<img src="<?=site_url("img/admin/ajax-loader.gif")?>" />
 				</div>
 			</div>
 			</form>
-			<form id="tematicaImageForm" method="post" enctype="multipart/form-data" action="<?=site_url("admin/tematicas/upload")?>">
-			<input name="tematica_id" id="tematica_id" type="hidden" value="<?=$tematica['id']?>"/>
+			<form id="productoImageForm" method="post" enctype="multipart/form-data" action="<?=site_url("admin/productos/upload")?>">
+			<input name="producto_id" id="producto_id" type="hidden" value="<?=$producto['id']?>"/>
 			<div style="float: left; width: 30%;">
 				<div id="section">Adjuntar Im&aacute;gen</div>
 				<div id="section-detail">
@@ -128,12 +143,12 @@
 						<img src="<?=site_url("img/ajax-loader.gif")?>" />
 					</div>
 				</div>
-				<? if (isset($tematica['imagenes']) and $tematica['imagenes']):?>
+				<? if (isset($producto['imagenes']) and $producto['imagenes']):?>
 				<div id="section">Im&aacute;genes cargadas</div><br/>
 				<div id="section-detail-img" class="imagenes">
-				<? foreach ($tematica['imagenes'] as $img_tem):?>
+				<? foreach ($producto['imagenes'] as $img_tem):?>
 					<a href="javascript:edita_img(<?=$img_tem['id']?>)" title="Editar imagen">
-					<img src="<?=site_url("upload/tematica/".$tematica['id']."/th_".$img_tem['img'])?>" />&nbsp;&nbsp;
+					<img src="<?=site_url("upload/producto/".$producto['id']."/th_".$img_tem['imagen'])?>" />&nbsp;&nbsp;
 					</a>
 				<? endforeach; ?>
 				</div>

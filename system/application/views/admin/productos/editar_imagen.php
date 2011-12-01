@@ -7,7 +7,7 @@
 		$("#btn_guardar").click(function(){
 			$("#botones").hide();
 			$("#loading").show();
-			$.post("<?=site_url("admin/tematicas/guardar_cambios_imagen")?>",
+			$.post("<?=site_url("admin/productos/guardar_cambios_imagen")?>",
 			{
 				imagen_id: <?=$imagen['id'] ?>,
 				url: $("#link").val(),
@@ -38,11 +38,11 @@
 	{
 		$("#botones").hide();
 		$("#loading").show();
-		$.post("<?=site_url("admin/tematicas/borrar_imagen")?>",
+		$.post("<?=site_url("admin/productos/borrar_imagen")?>",
 		{
 			imagen_id: <?=$imagen['id'] ?>,
-			tematica_id: <?=$imagen['tematica_id']?>,
-			img: "<?=$imagen['img']?>"
+			producto_id: <?=$imagen['producto_id']?>,
+			imagen: "<?=$imagen['imagen']?>"
 		},function(data){
 			switch(data)
 			{
@@ -66,8 +66,7 @@
 	
 	function recortar()
 	{
-		parent.SexyLightbox.display('<?=site_url("admin/tematicas/crop/".$imagen['id'])?>?TB_iframe=true&modal=1&height=750&width=950');
-		//window.location = "<?//=site_url("admin/tematicas/crop/".$imagen['id'])?>";
+		window.location = "<?=site_url("")?>";
 	}
 	
 	function cerrar()
@@ -104,7 +103,7 @@
 	  		</tr>
 	  		<tr>
 	  			<td>Im&aacute;gen </td>
-	  			<td><img src="<?=site_url("upload/tematica/".$imagen['tematica_id']."/th_".$imagen['img'])?>" /></td>
+	  			<td><img src="<?=site_url("upload/producto/".$imagen['producto_id']."/th_".$imagen['imagen'])?>" /></td>
 	  		</tr>
 	  		</tbody>
 	  		</table>

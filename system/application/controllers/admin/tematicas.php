@@ -405,5 +405,33 @@ class Tematicas extends Controller
 			echo "error_permiso";
 		}
 	}
+	
+	public function crop($imagen_id=0)
+	{
+		$user=$this->session->userdata('logged_in');
+		$this->load->model("permiso","permiso",true);
+		$permiso = $this->permiso->check($user['perfil_id'], 6);
+		if ($permiso['Modificacion'])
+		{
+			if ($imagen_id > 0)
+			{
+				$this->load->model("tematica","tematica",true);
+				$variables['permiso'] = $permiso['Baja'];
+				$variables['imagen'] = $this->tematica->dameImagen($imagen_id);
+				$img = PATH_BASE . "tematica/".$variables['imagen']['tematica_id']."/".$variables['imagen']['img'];
+				$size = getimagesize($img);
+				$variables['alto'] = $size[1];
+				$variables['ancho'] = $size[0];
+				
+				$this->load->view("admin/tematicas/crop_imagen",$variables);
+			}
+			else
+				 print "Error. M&eacute;todo no soportado.";
+		}
+		else
+		{
+			print "Error. Usted no tiene permiso para usar el m&oacute;dulo seleccionado";
+		}
+	}
 }
 ?>
