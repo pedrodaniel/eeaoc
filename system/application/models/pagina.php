@@ -16,7 +16,7 @@ right join ( select id,padre_id,orden ,habilitado,titulo from pagina order by or
 			$sql .= " where (p.titulo like '%$busqueda%' or p.contenido like '%$busqueda%' )";
 		}
 		
-		$sql .= " order by p.padre_id, p.orden asc  ";
+		$sql .= " order by p.id desc, p.padre_id, p.orden asc  ";
 	    $sql.=" limit ".$segment.",".$per_page;
 		
 

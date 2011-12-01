@@ -49,7 +49,6 @@
 	
 	<div class="head">
 	
-	<?=$mensaje_ok;?>
 	<img style="vertical-align: middle;" src="<?=site_url("img/admin/page.png")?>" />
 	Paginas &nbsp;&nbsp;<span style="font-size:11px"><a href="<?=site_url("admin/paginas/formulario")?>">Nueva</a></span>
 		<div class="setting" style="float:right">
@@ -77,7 +76,7 @@
 			<td class='td-mid'><a href="<?=site_url("admin/paginas/formulario/".$pagina['id'])?>" title='Editar esta pagina'><?=$pagina['titulo']?></a></td>
 			<td class='td-mid'><?=$pagina['orden']?></td>
 			<td class='td-mid'><?=$pagina['pagina_padre']?></td>
-			<td class='td-right'><input id="habilitado_<?=$pagina['id']?>" type="checkbox" <?=($pagina['habilitado']==1)?"checked":""?> name="habilitado" onclick="javascript:habilitar(<?=$pagina['id']?>)" /></td>
+			<td class='td-right'><input id="habilitado_<?=$pagina['id']?>" type="checkbox" <?=($pagina['habilitado']==0)?"checked":""?> name="habilitado" onclick="javascript:habilitar(<?=$pagina['id']?>)" /></td>
 			</tr>
 			<? endforeach; ?>
 			

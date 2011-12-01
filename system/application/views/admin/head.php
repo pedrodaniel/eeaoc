@@ -1,15 +1,19 @@
 <link rel="icon" type="image/ico" href="<?=site_url("img/icono.jpg")?>" />
 <title>:: Panel de Administraci&oacute;n ::</title>
-<script language="javascript" src="<?=site_url('js/jquery-1.3.2.min.js')?>"></script>
+<script language="javascript" src="<?=site_url('js/jquery-1.4.2.min.js')?>"></script>
 <script language="javascript" src="<?=site_url('js/jquery.easing.1.3.js')?>"></script>
 <script language="javascript" src="<?=site_url('js/jquery.jalerts.js')?>"></script>
 <script language="javascript" src="<?=site_url('js/sexylightbox.v2.3.jquery.js')?>"></script>
 <script language="javascript" src="<?=site_url('js/jquery.validate.min.js')?>"></script>
 <script language="javascript" src="<?=site_url('js/jquery-ui-1.7.2.custom.min.js')?>"></script>
 <script language="javascript" src="<?=site_url('js/jquery.tablednd_0_5.js')?>"></script>
+
 <link rel="STYLESHEET" type="text/css" href="<?=site_url('css/manage.css')?>"></link>
 <link rel="STYLESHEET" type="text/css" href="<?=site_url('css/jalerts.css')?>"></link>
 <link rel="STYLESHEET" type="text/css" href="<?=site_url('css/sexylightbox.css')?>"></link>
+<link rel="STYLESHEET" type="text/css" href="<?=site_url('css/jquery.cleditor.css')?>"></link>
+<script type="text/javascript" src="<?=site_url("js/jquery.cleditor.min.js")?>"></script>
+
 
 <script type="text/javascript">
 	$(document).ready(function(){
