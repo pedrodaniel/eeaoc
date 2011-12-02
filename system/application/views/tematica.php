@@ -25,9 +25,13 @@ $(document).ready(function() {
 
 		    <? if (isset($imagenes) and $imagenes):?>
 				<? foreach ($imagenes as $img_tem):?>
-					<a href="<?=$img_tem['url']?>" title="IR">
+					<? if ($img_tem['url']!=""):?>
+					<a href="<?=$img_tem['url']?>" title="IR" <?=($img_tem['target']==2)?"target='_blank'":"";?>>
 					<img src="<?=site_url("upload/tematica/".$info['id']."/crop_".$img_tem['img'])?>" width="667" height="219" />
 					</a>
+					<? else: ?>
+					<img src="<?=site_url("upload/tematica/".$info['id']."/crop_".$img_tem['img'])?>" width="667" height="219" />
+					<? endif; ?>
 				<? endforeach; ?>
 				
 				<? endif; ?>
