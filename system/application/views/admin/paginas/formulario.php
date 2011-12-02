@@ -111,8 +111,8 @@
 							
 
 			    			<select name='habilitado' id='habilitado' style='margin-top: 5px; '>
-			    				<option value='0' <?php  if($pagina['habilitado'] == 1) echo 'selected'; ?>>Publicar</option>
-			    				<option value='1' <?php  if($pagina['habilitado'] == 0) echo 'selected'; ?>>Sin Publicar</option>
+			    				<option value='1' <?php  if($pagina['habilitado'] == 1) echo 'selected'; ?>>Publicar</option>
+			    				<option value='0' <?php  if($pagina['habilitado'] == 0) echo 'selected'; ?>>Sin Publicar</option>
 			    			
 			    			</select>
 			    		<div style='border-bottom: 1px solid #ddd; padding: 5px;'></div><br/>	

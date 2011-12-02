@@ -16,9 +16,11 @@ class Paginas extends Controller
 			$info_pagina = $this->pagina->dameInfoPagina($pagina_id);
 			$tipo = $info_pagina['tipo']+1;
 			$variables['hijas'] = $this->pagina->damePaginasMenu($info_pagina['id'],$tipo);
-
+<<<<<<< HEAD
+			$imagenes = $this->pagina->dameImgPagina($pagina_id);
+=======
 			$imagenes =$this->pagina->dameImgPagina($pagina_id);
-
+>>>>>>> subo slider mejor
 		}
 		else
 		{

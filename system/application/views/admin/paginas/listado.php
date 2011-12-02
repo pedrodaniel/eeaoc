@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<? $this->load->view("admin/head")?>
@@ -53,9 +53,9 @@
 		<div class="setting" style="float:right">
 		<input type="text" id="search" name="search" value="<?=$search?>" style="width:200px" />&nbsp;<button onclick="javascript:buscar()">Buscar</button>
 		</div></div>
-	<? /*if ($mensaje_ok!=""):?>
+	<? if ($mensaje_ok!=""):?>
 		<div class="success"><?=$mensaje_ok?></div>
-	<? endif;*/ ?>
+	<? endif; ?>
 	<br/>
 	<table cellspacing="0" cellpadding="9" width="97%" id="table-1">
 	<tbody>
@@ -75,7 +75,7 @@
 			<td class='td-mid'><a href="<?=site_url("admin/paginas/formulario/".$pagina['id'])?>" title='Editar esta pagina'><?=$pagina['titulo']?></a></td>
 			<td class='td-mid'><?=$pagina['orden']?></td>
 			<td class='td-mid'><?=$pagina['pagina_padre']?></td>
-			<td class='td-right'><input id="habilitado_<?=$pagina['id']?>" type="checkbox" <?=($pagina['habilitado']==0)?"checked":""?> name="habilitado" onclick="javascript:habilitar(<?=$pagina['id']?>)" /></td>
+			<td class='td-right'><input id="habilitado_<?=$pagina['id']?>" type="checkbox" <?=($pagina['habilitado']==1)?"checked":""?> name="habilitado" onclick="javascript:habilitar(<?=$pagina['id']?>)" /></td>
 			</tr>
 			<? endforeach; ?>
 			

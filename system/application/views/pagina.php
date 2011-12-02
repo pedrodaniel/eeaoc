@@ -4,12 +4,19 @@
 
 <? $this->load->view("head.php"); ?>
 
+
+
 <script type="text/javascript">
-$(document).ready(function() {
-    $('.slideshow').cycle({
-		fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+
+	$(document).ready(function () {		
+		$("#nslider").css("width", "667px");
+		$("#nslider").css("height", "219px");
+		
+		//$("#slider").css("height", $(window).height()-80+"px");
+		$('#slider').nivoSlider();
+		
 	});
-});
+
 </script>
 </head>
 <body id="home">
@@ -21,17 +28,27 @@ $(document).ready(function() {
         <div class="center-h-c">
           <div class="chl">
             <div class="box" id="box">
-            <div class="slideshow">
-		
-		    <? if (isset($info['imagenes']) and $info['imagenes']):?>
+            <div id="nslider" style="position:absolute; background:url(images/op75.png); ">
+
+    <div id="slider" class="nivoSlider">
+    	    <? if (isset($info['imagenes']) and $info['imagenes']):?>
 				
 				<? foreach ($info['imagenes'] as $img_tem):?>
-					<a href="<?=$img_tem['url']?>" title="IR">
-					<img src="<?=site_url("upload/pagina/".$info['id']."/tam2_".$img_tem['img'])?>"/></a>
+				<? if($img_tem['url']){?>
+					<a href="<?=$img_tem['url']?>"  <? if($img_tem['target']==2) echo 'target="_blank"'; ?>>
+					<img src="<?=site_url("upload/pagina/".$info['id']."/crop_".$img_tem['img'])?>" width="667" height="219"/></a>
+				<? }else{ ?>
+					<img src="<?=site_url("upload/pagina/".$info['id']."/crop_".$img_tem['img'])?>" width="667" height="219"/>
+				<?  } ?>
 				<? endforeach; ?>
 				
 				<? endif; ?>
-        
+    
+    </div>
+           </div> 
+            <div class="slideshow">
+		
+	    
         	</div>
             </div>
           </div>
