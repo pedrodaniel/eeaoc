@@ -16,15 +16,17 @@ class Paginas extends Controller
 			$info_pagina = $this->pagina->dameInfoPagina($pagina_id);
 			$tipo = $info_pagina['tipo']+1;
 			$variables['hijas'] = $this->pagina->damePaginasMenu($info_pagina['id'],$tipo);
+			$imagenes = $this->pagina->dameImgPagina($pagina_id);
 		}
 		else
 		{
 			$info_pagina = $this->pagina->dameInfoPagina($hija_id);
 			$tipo = $info_pagina['tipo'];
 			$variables['hijas'] = $this->pagina->damePaginasMenu($pagina_id,$tipo);
+			$imagenes = $this->pagina->dameImgPagina($hija_id);
 		}
 		$variables['info'] = $info_pagina;
-		$variables['info']['imagenes'] = $this->pagina->dameImgPagina($pagina_id);
+		$variables['info']['imagenes'] = $imagenes;
 		$this->load->library("varios");
 		$this->load->view("pagina",$variables);
 	}

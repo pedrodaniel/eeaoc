@@ -23,7 +23,7 @@
 		$('#h').val(selection.height);
 	} 
 	
-	$(document).ready(function () { 
+	/*$(document).ready(function () { 
 		$('#save_thumb').click(function() {
 			var x1 = $('#x1').val();
 			var y1 = $('#y1').val();
@@ -38,7 +38,7 @@
 				return true;
 			}
 		});
-	}); 
+	}); */
 	
 	$(window).load(function () { 
 		$('#thumbnail').imgAreaSelect({ minWidth: <?=CROP_W?>, minHeight: <?=CROP_H?>, handles: true, aspectRatio: '3:1', onSelectChange: preview }); 
@@ -56,14 +56,14 @@
 		$.post('<?=site_url("admin/imagenes/recortar")?>',
 		{
 			folder: 'tematica',
-			imagen: $("#imagen").val,
-			id: $("#id").val,
-			x1: $("#x1").val,
-			y1: $("#y1").val,
-			x2: $("#x2").val,
-			y2: $("#y2").val,
-			w: $("#w").val,
-			h: $("#h").val
+			imagen: $("#imagen").val(),
+			id: $("#id").val(),
+			x1: $("#x1").val(),
+			y1: $("#y1").val(),
+			x2: $("#x2").val(),
+			y2: $("#y2").val(),
+			w: $("#w").val(),
+			h: $("#h").val()
 		},function(data){
 			switch (data)
 			{
@@ -73,7 +73,7 @@
 				case "error_permiso":
 					jAlert("Usted no tiene permiso para realizar la operaci&oacute;n solicitada.","Error");
 				break;
-				case "ko"
+				case "ko":
 					jAlert("Se produjo un error al intentar recortar la imagen.","Error");
 				break;
 			}
@@ -94,14 +94,16 @@
 		&nbsp;&nbsp;&nbsp;
 		<a href="javascript:cerrar()" id="cerrar">Cancelar</a>
 		<img id="loading" src="<?=site_url("img/ajax-loader.gif")?>" style="display: none" />
+		<form>
 		<input name="id" id="id" type="hidden" value="<?=$imagen['tematica_id']?>"/>
 		<input name="imagen" id="imagen" type="hidden" value="<?=$imagen['img']?>"/>
-		<input type="hidden" value="" id="x1" name="x1" />
-		<input type="hidden" value="" id="y1" name="y1" />
-		<input type="hidden" value="" id="x2" name="x2" />
-		<input type="hidden" value="" id="y2" name="y2" />
-		<input type="hidden" value="" id="w" name="w" />
-		<input type="hidden" value="" id="h" name="h" />
+		<input type="hidden" id="x1" name="x1" />
+		<input type="hidden" id="y1" name="y1" />
+		<input type="hidden" id="x2" name="x2" />
+		<input type="hidden" id="y2" name="y2" />
+		<input type="hidden" id="w" name="w" />
+		<input type="hidden" id="h" name="h" />
+		</form>
 	</div>
 </div>
 </body>
