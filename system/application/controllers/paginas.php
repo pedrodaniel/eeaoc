@@ -11,7 +11,7 @@ class Paginas extends Controller
 		$variables['pagina_id'] = $pagina_id;
 		$variables['hija_id'] = $hija_id;
 		$this->load->model("front/pagina","pagina",true);
-		if ($hija_id == 0 or !is_numeric($hija_id))
+		if ($hija_id == 0)
 		{
 			$info_pagina = $this->pagina->dameInfoPagina($pagina_id);
 			$tipo = $info_pagina['tipo']+1;

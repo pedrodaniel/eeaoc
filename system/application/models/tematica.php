@@ -188,5 +188,33 @@ class Tematica extends Model
 		else
 			return false;
 	}
+	
+	public function dameHijas($tematica_id)
+	{
+		$sql = "select id, nombre from tematica where padre_id = ".$tematica_id;
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$res = $query->result_array();
+			return $res;
+		}
+		else
+			return false;
+	}
+	
+	public function dameRubros($tematica_id)
+	{
+		$sql = "select r.id, r.nombre from rubro r inner join producto_rubro pr on (pr.rubro_id = r.id) 
+		inner join producto p on (p.id = pr.producto_id) 
+		where p.tematica_id = ".$tematica_id;
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$res = $query->result_array();
+			return $res;
+		}
+		else
+			return false;
+	}
 }
 ?>
