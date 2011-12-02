@@ -5,14 +5,19 @@
 <? $this->load->view("head.php"); ?>
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $('.slideshow').cycle({
-		fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+
+	$(document).ready(function () {		
+		$("#nslider").css("width", "667px");
+		$("#nslider").css("height", "219px");
+		
+		//$("#slider").css("height", $(window).height()-80+"px");
+		$('#slider').nivoSlider();
+		
 	});
-});
+
 </script>
 </head>
-<body id="home">
+<body>
 <div id="content">
   <? $this->load->view("top") ?>
   <div id="main" class="nov nc">
@@ -21,8 +26,8 @@ $(document).ready(function() {
         <div class="center-h-c">
           <div class="chl">
             <div class="box" id="box">
-            <div class="slideshow">
-
+            <div id="nslider" style="position:absolute; background:url(images/op75.png); ">
+			<div id="slider" class="nivoSlider">
 		    <? if (isset($imagenes) and $imagenes):?>
 				<? foreach ($imagenes as $img_tem):?>
 					<? if ($img_tem['url']!=""):?>
@@ -35,7 +40,9 @@ $(document).ready(function() {
 				<? endforeach; ?>
 				
 				<? endif; ?>
-        
+			</div>
+			</div>
+        	<div class="slideshow">
         	</div>
             </div>
           </div>

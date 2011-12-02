@@ -19,7 +19,7 @@
 
 </script>
 </head>
-<body id="home">
+<body >
 <div id="content">
   <? $this->load->view("top") ?>
   <div id="main">

@@ -4,6 +4,12 @@ $CI->load->model("front/pagina","pagina",true);
 $menu = $CI->pagina->damePaginasMenu();
 ?>
 <div id="nav">
+	<? if (!isset($home)):?>
+	<ul class="camino">
+		<li class="inicio ulti"><a href="<?=site_url("")?>">Inicio</a></li>
+		<li class="ant"><a href="javascript:history.go(-1)">Anterior</a></li>
+	</ul>
+	<? endif;?>
    <ul>
    <? if ($menu):?>
    	<? foreach ($menu as $m):?>
