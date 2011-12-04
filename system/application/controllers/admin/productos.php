@@ -333,5 +333,77 @@ class Productos extends Controller
 			echo "error_permiso";
 		}
 	}
+	
+	public function rubros($producto_id)
+	{
+		$user=$this->session->userdata('logged_in');
+		$variables['user'] = $user;	
+		$this->load->model("permiso","permiso",true);
+		$perm = $this->permiso->check($user['perfil_id'], 11);
+		if ($perm['Modificacion'])
+		{
+			if ($producto_id > 0)
+			{
+				$this->load->model("rubro","rubro",true);
+				$this->load->model("producto","producto",true);
+				$variables['rubros_productos'] = $this->producto->dameRubros($producto_id);
+				$variables['rubros'] = $this->rubro->dameRubrosAsociar($producto_id);
+				$variables['producto_id'] = $producto_id;
+				$this->load->view("admin/productos/rubros_productos",$variables);
+			}
+			else	
+				print "Error. M&eacute;todo no soportado.";
+		}
+		else
+		{
+			print "Error. Usted no tiene permiso para usar el m&oacute;dulo seleccionado";
+		}
+	}
+	
+	public function agregar_rubro()
+	{
+		$user=$this->session->userdata('logged_in');
+		$variables['user'] = $user;	
+		$this->load->model("permiso","permiso",true);
+		$perm = $this->permiso->check($user['perfil_id'], 11);
+		if ($perm['Modificacion'])
+		{
+			$producto_id = $this->input->post("producto_id");
+			$rubro_id = $this->input->post("rubro_id");
+			if ($producto_id > 0 and $rubro_id > 0)
+			{
+				$this->load->model("producto","producto",true);
+				$datos['producto_id'] = $producto_id;
+				$datos['rubro_id'] = $rubro_id;
+				if ($this->producto->insertarRubro($datos))
+					echo "ok";
+				else
+					echo "ko";
+			}
+			else
+				echo "error_metodo";
+		}
+		else
+			echo "error_permiso";
+	}
+	
+	public function eliminar_rubro()
+	{
+		$user=$this->session->userdata('logged_in');
+		$variables['user'] = $user;	
+		$this->load->model("permiso","permiso",true);
+		$perm = $this->permiso->check($user['perfil_id'], 11);
+		if ($perm['Modificacion'])
+		{
+			$this->load->model("producto","producto",true);
+			$relacion_id = $this->input->post("relacion_id");				
+			if ($this->producto->deleteRubro($relacion_id))
+				echo "ok";
+			else
+				echo "ko";
+		}
+		else
+			echo "error_permiso";
+	}
 }
 ?>

@@ -31,6 +31,12 @@
 			}
 		});
 	}
+	
+	function rubros(p_id)
+	{
+		if (p_id > 0)
+			SexyLightbox.display('<?=site_url("admin/productos/rubros")?>/'+p_id+'?TB_iframe=true&modal=1&height=400&width=500');
+	}
 	</script>
 </head>
 <body>
@@ -58,7 +64,7 @@
 			<th>Servicio</th>
 			<th>Fecha Carga</th>
 			<th>Usuario</th>
-			<th></th>
+			<th width="80"></th>
 		</tr>
 		<? if ($listado):?>
 			<? foreach ($listado as $prod):?>
@@ -69,7 +75,8 @@
 			<td><?=$prod['servicio']?></td>
 			<td><?=$prod['fecha_carga']?></td>
 			<td><?=$prod['usuario_nombre']." ".$prod['usuario_apellido']?></td>
-			<td><a href="javascript:eliminar(<?=$prod['id']?>)" title="Eliminar producto"><img width="25" src="<?=site_url("img/admin/delete.png")?>" /></a></td>
+			<td align="center"><a href="javascript:rubros(<?=$prod['id']?>)" title="Asociar rubro" ><img width="25" src="<?=site_url("img/admin/link_add.png")?>" /></a>&nbsp;&nbsp;
+			<a href="javascript:eliminar(<?=$prod['id']?>)" title="Eliminar producto"><img width="25" src="<?=site_url("img/admin/delete.png")?>" /></a></td>
 			</tr>
 			<? endforeach; ?>
 		<? endif; ?>

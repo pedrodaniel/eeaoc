@@ -43,9 +43,9 @@
           <div class="list-cont">
             <h1>Noticias</h1>
             <ul>
-              <li><a href="#">Agroindustriales</a></li>
-              <li><a href="#">Cientificas</a></li>
-              <li><a href="#">Institucionales</a></li>
+              <li><a href="<?=site_url("noticias/Agroindustriales")?>">Agroindustriales</a></li>
+              <li><a href="<?=site_url("noticias/Cientificas")?>">Cient&iacute;ficas</a></li>
+              <li><a href="<?=site_url("noticias/Institucionales")?>">Institucionales</a></li>
             </ul>
           </div>
         </div>

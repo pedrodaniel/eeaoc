@@ -86,6 +86,10 @@
 			<div id="section-detail">
 				<input type="text" name="titulo" id="titulo" value="<?=(isset($pagina['titulo']))?$pagina['titulo']:""?>" style="width: 100%;" />
 			</div>
+			<div id="section">Acci&oacute;n</div>
+			<div id="section-detail">
+				<input type="text" name="accion" id="accion" value="<?=(isset($pagina['accion']))?$pagina['accion']:""?>" style="width: 100%;" />
+			</div>
 			<div id="section">Descripci&oacute;n</div>
 			<div id="section-detail">
 				<textarea name="contenido" id='contenido' rows="20" style='width: 99%;'><?=(isset($pagina['contenido']))?stripslashes($pagina['contenido']):""; ?></textarea>

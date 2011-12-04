@@ -155,7 +155,7 @@ a img {
 	height:219px;
 }
 #main.g .center-h .chl .box {
-	height:125px;
+	height:218px;
 }
 #main .bottom-h {
 	float: left;
@@ -193,9 +193,9 @@ a img {
     width: 254px;
 }
 .list-cont h1 {
-	color: #A7A9AC;
+	color: #231F20;
 	font-size: 32px;
-	margin: 0;
+	margin: 0 0 10px;
 }
 #home .list-cont ul {
 	float:inherit;

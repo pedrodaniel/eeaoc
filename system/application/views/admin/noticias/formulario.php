@@ -3,17 +3,25 @@
 <head>
 	<? $this->load->view("admin/head")?>
 	<script type="text/javascript">
+	$(document).ready(function(){
+		 
+		//$('#contenido').wysiwyg();
+		
+	});
 	function enviar_form()
 	{
 		mensaje = "";
-		if ($("#nombre").val()=="")
-			mensaje += "Ingrese el Nombre del producto\n";
+		if ($("#titulo").val()=="")
+			mensaje += "Ingrese el T&iacute;tulo de la noticia\n";
+			
+		if ($("#contenido").val()=="")
+			mensaje += "Ingrese el Texto de la noticia\n";
 			
 		if (mensaje == "")
 		{
 			$("#save_box").hide();
 			$("#save_box_waiting").show();
-			$("#productoForm").submit();
+			$("#noticiaForm").submit();
 		}
 		else
 			jAlert(mensaje,"Error");
@@ -21,25 +29,25 @@
 	
 	function enviar_form_foto()
 	{
-		if ($("#producto_id").val() > 0)
+		if ($("#noticia_id").val() > 0)
 		{	
 			if ($("#imagen_file").val() != "")
 			{
 				$("#save_box_img").hide();
 				$("#save_box_waiting_img").show();
-				$("#productoImageForm").submit();
+				$("#noticiaImageForm").submit();
 			}
 			else
 				jAlert("Debe seleccionar una im&aacute;gen. Los formatos permitidos son JPG, GIF y PNG.","Error");
 		}
 		else
-			jAlert("Debe cargar un nuevo producto para poder adjuntarle im&aacute;genes.","Error");
+			jAlert("Debe cargar una nueva noticia paras poder adjuntarle im&aacute;genes.","Error");
 	}
 	
 	function edita_img(p_id)
 	{
 		if (p_id > 0)
-			SexyLightbox.display('<?=site_url("admin/productos/editar_imagen")?>/'+p_id+'?TB_iframe=true&modal=1&height=400&width=500');
+			SexyLightbox.display('<?=site_url("admin/noticias/editar_imagen")?>/'+p_id+'?TB_iframe=true&modal=1&height=400&width=500');
 	}
 	</script>
 </head>
@@ -50,13 +58,8 @@
 <br/>
 	<div class="content">
 		<div class="head">
-			<? if ($producto['id'] > 0):?>
-			<img src="<?=site_url("img/admin/page_edit.png")?>" />
-			Editar Producto
-			<? else:?>
-			<img src="<?=site_url("img/admin/page_add.png")?>" />
-			Nuevo Producto
-			<? endif; ?>
+			<img src="<?=site_url("img/admin/noticias_editar.png")?>" />
+			<?=($noticia['id'] > 0)?"Editar Noticia":"Nueva Noticia"?>
 		</div>
 		<br/>
 		<? if ($mensaje_error!=""):?>
@@ -66,24 +69,32 @@
 			<div class="success"><?=$mensaje_ok?></div>
 		<? endif; ?>
 		<div style="width: 100%;">
-			<form id="productoForm" method="post" action="<?=site_url("admin/productos/".$accion)?>">
-			<input name="producto_id" id="producto_id" type="hidden" value="<?=$producto['id']?>"/>
+			<form id="noticiaForm" method="post" action="<?=site_url("admin/noticias/".$accion)?>">
+			<input name="noticia_id" id="noticia_id" type="hidden" value="<?=$noticia['id']?>"/>
 			<div style="width: 60%; float: left; margin-right: 30px;">
-				<div id="section">Nombre</div>
+				<div id="section">T&iacute;tulo</div>
 				<div id="section-detail">
-					<input type="text" id="nombre" name="nombre" value="<?=(isset($producto['nombre']))?$producto['nombre']:""?>" style="width: 100%;" />
+					<input type="text" id="titulo" name="titulo" value="<?=(isset($noticia['titulo']))?$noticia['titulo']:""?>" style="width: 100%;" />
+				</div>
+				<div id="section">Tipo</div>
+				<div id="section-detail">
+					<select name="tipo" id="tipo" style="width:350px; height:25px">
+					<option value="1" <?=(isset($noticia['tipo']) and $noticia['tipo']==1)?"selected":""?>>Institucional</option>
+		  			<option value="2" <?=(isset($noticia['tipo']) and $noticia['tipo']==2)?"selected":""?>>Cient&iacute;fica</option>
+		  			<option value="3" <?=(isset($noticia['tipo']) and $noticia['tipo']==3)?"selected":""?>>Agroindustrial</option>
+		  			</select>
 				</div>
 				<div id="section">Tem&aacute;tica</div>
 				<div id="section-detail">
 					<select name="tematica_id" id="tematica_id" style="width:350px; height:25px">
 					<option value="0"></option>
 		  			<? if ($tematicas):?>
-		  				<? foreach ($tematicas as $tem):
+		  				<? foreach ($tematicas as $t):
 		  					$selected = "";
-		  					if (isset($producto['tematica_id']) and $tem['id'] == $producto['tematica_id'])
+		  					if (isset($noticia['tematica_id']) and $t['id'] == $noticia['tematica_id'])
 		  						$selected = "selected";
 		  				?>
-		  				<option value="<?=$tem['id']?>" <?=$selected?>><?=$tem['nombre']?></option>
+		  				<option value="<?=$t['id']?>" <?=$selected?>><?=$t['nombre']?></option>
 		  				<? endforeach; ?>
 		  			<? endif; ?>
 		  			</select>
@@ -93,34 +104,35 @@
 					<select name="servicio_id" id="servicio_id" style="width:350px; height:25px">
 					<option value="0"></option>
 		  			<? if ($servicios):?>
-		  				<? foreach ($servicios as $serv):
+		  				<? foreach ($servicios as $s):
 		  					$selected = "";
-		  					if (isset($producto['servicio_id']) and $serv['id'] == $producto['servicio_id'])
+		  					if (isset($noticia['servicio_id']) and $s['id'] == $noticia['servicio_id'])
 		  						$selected = "selected";
 		  				?>
-		  				<option value="<?=$serv['id']?>" <?=$selected?>><?=$serv['nombre']?></option>
+		  				<option value="<?=$s['id']?>" <?=$selected?>><?=$s['nombre']?></option>
 		  				<? endforeach; ?>
 		  			<? endif; ?>
 		  			</select>
 				</div>
-				<div id="section">Descripci&oacute;n</div>
+				<div id="section">Texto</div>
 				<div id="section-detail">
-					<textarea name="descripcion" id='detail' rows="10" style='width: 99%;'><?=(isset($producto['descripcion']))?$producto['descripcion']:""; ?></textarea>
-					<div id='wmd-preview-box' style='display: none; margin: 0 auto; position: absolute; top: 100px; border: 10px solid silver; width: 600px; padding: 10px; background-color: #fff;'>
-						<div id='wmd-preview' class="wmd-preview" style='width: 500px;'></div>
-					</div>
+					<textarea name="texto" id='contenido' rows="20" style='width: 99%;'><?=(isset($noticia['texto']))?$noticia['texto']:""; ?></textarea>
+				</div>
+				<div id="section">Destacada</div>
+				<div id="section-detail">
+					<input type="checkbox" id="destacada" name="destacada" value="1" <?=(isset($noticia['destacada']) and $noticia['destacada']==1)?"checked":""?> />
 				</div>
 				<div id="save_box" style="background-color: rgb(224, 224, 224); padding: 15px; text-align: right;">
 					<a class="large green awesome" href="javascript:enviar_form()">Guardar</a>&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="<?=site_url("admin/productos")?>">Cancelar</a>
+					<a href="<?=site_url("admin/noticias")?>">Cancelar</a>
 				</div>
 				<div id="save_box_waiting" style="padding: 15px; text-align: right; display: none;">
 					<img src="<?=site_url("img/admin/ajax-loader.gif")?>" />
 				</div>
 			</div>
 			</form>
-			<form id="productoImageForm" method="post" enctype="multipart/form-data" action="<?=site_url("admin/productos/upload")?>">
-			<input name="producto_id" id="producto_id" type="hidden" value="<?=$producto['id']?>"/>
+			<form id="noticiaImageForm" method="post" enctype="multipart/form-data" action="<?=site_url("admin/noticias/upload")?>">
+			<input name="noticia_id" id="noticia_id" type="hidden" value="<?=$noticia['id']?>"/>
 			<div style="float: left; width: 30%;">
 				<div id="section">Adjuntar Im&aacute;gen</div>
 				<div id="section-detail">
@@ -133,6 +145,9 @@
 						<option value="2">Exterior</option>
 					</select>
 				<br/><br/>
+				<b>Destacada:</b><br/><br/>
+					<input type="checkbox" id="destacada" name="destacada" value="1" />
+				<br/><br/>
 				<b>Imagen:</b> (jpg, gif, png)<br/><br/>
 					<input type="file" id="imagen_file" name="imagen" size="30" />
 					<br/><br/>
@@ -143,12 +158,12 @@
 						<img src="<?=site_url("img/ajax-loader.gif")?>" />
 					</div>
 				</div>
-				<? if (isset($producto['imagenes']) and $producto['imagenes']):?>
+				<? if (isset($noticia['imagenes']) and $noticia['imagenes']):?>
 				<div id="section">Im&aacute;genes cargadas</div><br/>
 				<div id="section-detail-img" class="imagenes">
-				<? foreach ($producto['imagenes'] as $img_tem):?>
+				<? foreach ($noticia['imagenes'] as $img_tem):?>
 					<a href="javascript:edita_img(<?=$img_tem['id']?>)" title="Editar imagen">
-					<img src="<?=site_url("upload/producto/".$producto['id']."/th_".$img_tem['imagen'])?>" />&nbsp;&nbsp;
+					<img src="<?=site_url("upload/noticia/".$noticia['id']."/th_".$img_tem['img'])?>" />&nbsp;&nbsp;
 					</a>
 				<? endforeach; ?>
 				</div>

@@ -179,10 +179,11 @@ class Producto extends Model
 			return false;
 	}
 	
-	/*Metodos usados en el front*/
-	public function dameTematicasMenuFront($padre_id=0)
+	public function dameRubros($producto_id)
 	{
-		$sql = "select id, nombre from tematica where padre_id = $padre_id order by orden";
+		$sql = "select r.id, r.nombre, pr.id as relacion_id from rubro r 
+		inner join producto_rubro pr on (pr.rubro_id = r.id) 
+		where pr.producto_id = ".$producto_id." order by r.nombre";
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -192,5 +193,25 @@ class Producto extends Model
 		else
 			return false;
 	}
+	
+	public function insertarRubro($datos)
+	{
+		if ($this->db->insert("producto_rubro",$datos))
+			return true;
+		else
+			return false;
+	}
+	
+	public function deleteRubro($relacion_id)
+	{
+		$this->db->where("id",$relacion_id);
+		if ($this->db->delete("producto_rubro"))
+			return true;
+		else
+			return false;
+	}
+	
+	/*Metodos usados en el front*/
+	
 }
 ?>

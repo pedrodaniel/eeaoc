@@ -3,6 +3,11 @@
 <head>
 	<? $this->load->view("admin/head")?>
 	<script type="text/javascript">
+	$(document).ready(function(){
+		 
+		$('#contenido').wysiwyg();
+		
+	});
 	function enviar_form()
 	{
 		mensaje = "";
@@ -90,10 +95,7 @@
 				</div>
 				<div id="section">Descripci&oacute;n</div>
 				<div id="section-detail">
-					<textarea name="descripcion" id='detail' rows="10" style='width: 99%;'><?=(isset($tematica['descripcion']))?$tematica['descripcion']:""; ?></textarea>
-					<div id='wmd-preview-box' style='display: none; margin: 0 auto; position: absolute; top: 100px; border: 10px solid silver; width: 600px; padding: 10px; background-color: #fff;'>
-						<div id='wmd-preview' class="wmd-preview" style='width: 500px;'></div>
-					</div>
+					<textarea name="descripcion" id='contenido' rows="20" style='width: 99%;'><?=(isset($tematica['descripcion']))?$tematica['descripcion']:""; ?></textarea>
 				</div>
 				<div id="save_box" style="background-color: rgb(224, 224, 224); padding: 15px; text-align: right;">
 					<a class="large green awesome" href="javascript:enviar_form()">Guardar</a>&nbsp;&nbsp;&nbsp;&nbsp;

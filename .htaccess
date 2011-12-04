@@ -5,6 +5,13 @@ Options FollowSymLinks
   	RewriteRule ^pagina/([0-9]+)$ paginas/index/$1/0
   	RewriteRule ^pagina/([0-9]+)/([0-9]+)$ paginas/index/$1/$2
   	RewriteRule ^tematica/([0-9]+)/(.*)$ tematicas/index/$1
+  	RewriteRule ^productos$ productos/index/2
+  	RewriteRule ^servicios$ servicios/index/3
+  	RewriteRule ^publicaciones$ publicaciones/index/4
+  	RewriteRule ^noticias/Agroindustriales$ novedades/listado/3
+  	RewriteRule ^noticias/Cientificas$ novedades/listado/2
+  	RewriteRule ^noticias/Institucionales$ novedades/listado/1
+  	RewriteRule ^noticias/([0-9]+)/(.*)$ novedades/ver_nota/$1
   		
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d

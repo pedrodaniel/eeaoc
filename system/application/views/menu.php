@@ -13,9 +13,9 @@ $menu = $CI->pagina->damePaginasMenu();
    <ul>
    <? if ($menu):?>
    	<? foreach ($menu as $m):?>
-   		<? if ($pagina_id > 0 and $pagina_id == $m['id']) $selected = 'class="act"'; else $selected = "";?>
-   		<? if ($m['accion']=="") $ref = "pagina/".$m['id']; else $ref = $m['accion'];?>
-   		<li <?=$selected?>><a href="<?=site_url($ref)?>"><?=$m['titulo']?></a></li>
+   		<? if (isset($pagina_id) and $pagina_id == $m['id']) $selected = 'class="act"'; else $selected = "";?>
+   		<? if ($m['accion']=="") $ref = site_url("pagina/".$m['id']); else $ref = site_url($m['accion']);?>
+   		<li <?=$selected?>><a href="<?=$ref?>"><?=$m['titulo']?></a></li>
     <? endforeach; ?>
     <? endif;?>
     <li class="ulti"><a href="#">Contacto</a></li>

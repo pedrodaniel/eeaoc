@@ -235,6 +235,7 @@ class Paginas extends Controller
 			$error="";
 			$id= $this->input->post("id");
 			$titulo= $this->input->post("titulo");
+			$accion = $this->input->post("accion");
 			$contenido = $this->input->post("contenido");
 			$habilitado = $this->input->post("habilitado");
 			$tipo = $this->input->post("tipo");
@@ -242,6 +243,7 @@ class Paginas extends Controller
 					
 			$datos['id']= $id;
 			$datos['titulo']= $titulo;
+			$datos['accion']= $accion;
 			$datos['contenido'] = $contenido;
 			$datos['habilitado'] = $habilitado;
 			$datos['tipo'] =$tipo;
