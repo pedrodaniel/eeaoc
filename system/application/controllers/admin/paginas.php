@@ -14,14 +14,14 @@ class Paginas extends Controller
 	{	$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 2);
+		$permiso = $this->permiso->check($user['perfil_id'], 16);
 		
 			if ($permiso['Listado'])
 			{
 					if($busqueda){
 						$this->load->model("pagina","pagina",true);
-						$variables['modulo_id'] = 10;
-						$variables['padre_id'] = 0;
+						$variables['modulo_id'] = 16;
+						$variables['padre_id'] = 15;
 						$variables['search'] = $busqueda;
 						$variables['listado'] = $this->pagina->listado($busqueda,20,0);
 						$variables['page_links']='';
@@ -41,7 +41,7 @@ class Paginas extends Controller
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 2);
+		$permiso = $this->permiso->check($user['perfil_id'], 16);
 		if ($permiso['Listado'])
 			{
 
@@ -344,7 +344,7 @@ class Paginas extends Controller
  	   $user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 2);
+		$permiso = $this->permiso->check($user['perfil_id'], 16);
 		if ($permiso['Listado'])
 			{
 				 	$this->load->model("pagina","pagina",true);	
@@ -360,7 +360,7 @@ class Paginas extends Controller
 	{
 		$user=$this->session->userdata('logged_in');
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 6);
+		$permiso = $this->permiso->check($user['perfil_id'], 16);
 		if ($permiso['Modificacion'])
 		{
 			if ($imagen_id > 0)
@@ -386,7 +386,7 @@ class Paginas extends Controller
 	{
 		$user=$this->session->userdata('logged_in');
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 6);
+		$permiso = $this->permiso->check($user['perfil_id'], 16);
 		if ($permiso['Modificacion'])
 		{
 			$imagen_id = $this->input->post("imagen_id");
@@ -404,11 +404,11 @@ class Paginas extends Controller
 		}
 	}
 	
-public function borrar_imagen()
+	public function borrar_imagen()
 	{
 		$user=$this->session->userdata('logged_in');
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 6);
+		$permiso = $this->permiso->check($user['perfil_id'], 16);
 		if ($permiso['Baja'])
 		{
 			$pagina_id = $this->input->post("pagina_id");
@@ -424,6 +424,34 @@ public function borrar_imagen()
 		}
 		else
 			echo "error_permiso";
+	}
+	
+	public function crop($imagen_id=0)
+	{
+		$user=$this->session->userdata('logged_in');
+		$this->load->model("permiso","permiso",true);
+		$permiso = $this->permiso->check($user['perfil_id'], 16);
+		if ($permiso['Modificacion'])
+		{
+			if ($imagen_id > 0)
+			{
+				$this->load->model("pagina","pagina",true);
+				$variables['permiso'] = $permiso['Modificacion'];
+				$variables['imagen'] = $this->pagina->dameImagen($imagen_id);
+				$img = PATH_BASE . "pagina/".$variables['imagen']['pagina_id']."/".$variables['imagen']['img'];
+				$size = getimagesize($img);
+				$variables['alto'] = $size[1];
+				$variables['ancho'] = $size[0];
+				
+				$this->load->view("admin/paginas/crop_imagen",$variables);
+			}
+			else
+				 print "Error. M&eacute;todo no soportado.";
+		}
+		else
+		{
+			print "Error. Usted no tiene permiso para usar el m&oacute;dulo seleccionado";
+		}
 	}
 }
 

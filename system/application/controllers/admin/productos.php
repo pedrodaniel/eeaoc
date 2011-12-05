@@ -405,5 +405,33 @@ class Productos extends Controller
 		else
 			echo "error_permiso";
 	}
+	
+	public function crop($imagen_id=0)
+	{
+		$user=$this->session->userdata('logged_in');
+		$this->load->model("permiso","permiso",true);
+		$permiso = $this->permiso->check($user['perfil_id'], 11);
+		if ($permiso['Modificacion'])
+		{
+			if ($imagen_id > 0)
+			{
+				$this->load->model("producto","producto",true);
+				$variables['permiso'] = $permiso['Modificacion'];
+				$variables['imagen'] = $this->producto->dameImagen($imagen_id);
+				$img = PATH_BASE . "producto/".$variables['imagen']['producto_id']."/".$variables['imagen']['imagen'];
+				$size = getimagesize($img);
+				$variables['alto'] = $size[1];
+				$variables['ancho'] = $size[0];
+				
+				$this->load->view("admin/productos/crop_imagen",$variables);
+			}
+			else
+				 print "Error. M&eacute;todo no soportado.";
+		}
+		else
+		{
+			print "Error. Usted no tiene permiso para usar el m&oacute;dulo seleccionado";
+		}
+	}
 }
 ?>

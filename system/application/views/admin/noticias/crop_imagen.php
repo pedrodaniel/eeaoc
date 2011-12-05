@@ -33,34 +33,39 @@
 	
 	function recortar()
 	{
-		$("#recortar").hide();
-		$("#cerrar").hide();
-		$("#loading").show();
-		$.post('<?=site_url("admin/imagenes/recortar")?>',
+		if ($("#x1").val()!="" && $("#x2").val()!="")
 		{
-			folder: 'noticia',
-			imagen: $("#imagen").val(),
-			id: $("#id").val(),
-			x1: $("#x1").val(),
-			y1: $("#y1").val(),
-			x2: $("#x2").val(),
-			y2: $("#y2").val(),
-			w: $("#w").val(),
-			h: $("#h").val()
-		},function(data){
-			switch (data)
+			$("#recortar").hide();
+			$("#cerrar").hide();
+			$("#loading").show();
+			$.post('<?=site_url("admin/imagenes/recortar")?>',
 			{
-				case "ok":
-					parent.SexyLightbox.close();
-				break;
-				case "error_permiso":
-					jAlert("Usted no tiene permiso para realizar la operaci&oacute;n solicitada.","Error");
-				break;
-				case "ko":
-					jAlert("Se produjo un error al intentar recortar la imagen.","Error");
-				break;
-			}
-		});
+				folder: 'noticia',
+				imagen: $("#imagen").val(),
+				id: $("#id").val(),
+				x1: $("#x1").val(),
+				y1: $("#y1").val(),
+				x2: $("#x2").val(),
+				y2: $("#y2").val(),
+				w: $("#w").val(),
+				h: $("#h").val()
+			},function(data){
+				switch (data)
+				{
+					case "ok":
+						parent.SexyLightbox.close();
+					break;
+					case "error_permiso":
+						jAlert("Usted no tiene permiso para realizar la operaci&oacute;n solicitada.","Error");
+					break;
+					case "ko":
+						jAlert("Se produjo un error al intentar recortar la imagen.","Error");
+					break;
+				}
+			});
+		}
+		else
+			jAlert("Debe realizar el corte de la im&aacute;gen.","Error");
 	}
 	</script>
 </head>
@@ -73,7 +78,7 @@
 			<img src="<?=site_url("upload/noticia/".$imagen['novedad_id']."/".$imagen['img'])?>" style="float: left; margin-right: 10px;" id="thumbnail" alt="Create Thumbnail" />
 		</div>
 		<br/><br/>
-		<a href="javascript:recortar()" id="recortar">Recortar</a>
+		<a href="javascript:recortar()" id="recortar" class='small awesome'>Recortar</a>
 		&nbsp;&nbsp;&nbsp;
 		<a href="javascript:cerrar()" id="cerrar">Cancelar</a>
 		<img id="loading" src="<?=site_url("img/ajax-loader.gif")?>" style="display: none" />

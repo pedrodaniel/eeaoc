@@ -23,23 +23,6 @@
 		$('#h').val(selection.height);
 	} 
 	
-	/*$(document).ready(function () { 
-		$('#save_thumb').click(function() {
-			var x1 = $('#x1').val();
-			var y1 = $('#y1').val();
-			var x2 = $('#x2').val();
-			var y2 = $('#y2').val();
-			var w = $('#w').val();
-			var h = $('#h').val();
-			if(x1=="" || y1=="" || x2=="" || y2=="" || w=="" || h==""){
-				alert("You must make a selection first");
-				return false;
-			}else{
-				return true;
-			}
-		});
-	}); */
-	
 	$(window).load(function () { 
 		$('#thumbnail').imgAreaSelect({ minWidth: <?=CROP_W?>, minHeight: <?=CROP_H?>, handles: true, aspectRatio: '3:1', onSelectChange: preview }); 
 	});
@@ -57,7 +40,7 @@
 			$("#loading").show();
 			$.post('<?=site_url("admin/imagenes/recortar")?>',
 			{
-				folder: 'tematica',
+				folder: 'producto',
 				imagen: $("#imagen").val(),
 				id: $("#id").val(),
 				x1: $("#x1").val(),
@@ -92,7 +75,7 @@
 	<div class="content">
 		
 		<div style="width:100%; float:left">
-			<img src="<?=site_url("upload/tematica/".$imagen['tematica_id']."/".$imagen['img'])?>" style="float: left; margin-right: 10px;" id="thumbnail" alt="Create Thumbnail" />
+			<img src="<?=site_url("upload/producto/".$imagen['producto_id']."/".$imagen['imagen'])?>" style="float: left; margin-right: 10px;" id="thumbnail" alt="Create Thumbnail" />
 		</div>
 		<br/><br/>
 		<a href="javascript:recortar()" id="recortar" class='small awesome'>Recortar</a>
@@ -100,8 +83,8 @@
 		<a href="javascript:cerrar()" id="cerrar">Cancelar</a>
 		<img id="loading" src="<?=site_url("img/ajax-loader.gif")?>" style="display: none" />
 		<form>
-		<input name="id" id="id" type="hidden" value="<?=$imagen['tematica_id']?>"/>
-		<input name="imagen" id="imagen" type="hidden" value="<?=$imagen['img']?>"/>
+		<input name="id" id="id" type="hidden" value="<?=$imagen['producto_id']?>"/>
+		<input name="imagen" id="imagen" type="hidden" value="<?=$imagen['imagen']?>"/>
 		<input type="hidden" id="x1" name="x1" />
 		<input type="hidden" id="y1" name="y1" />
 		<input type="hidden" id="x2" name="x2" />

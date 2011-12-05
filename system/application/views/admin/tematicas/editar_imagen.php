@@ -67,7 +67,6 @@
 	function recortar()
 	{
 		parent.SexyLightbox.display('<?=site_url("admin/tematicas/crop/".$imagen['id'])?>?TB_iframe=true&modal=1&height=750&width=950');
-		//window.location = "<?//=site_url("admin/tematicas/crop/".$imagen['id'])?>";
 	}
 	
 	function cerrar()
@@ -110,11 +109,11 @@
 	  		</table>
 		</div>
 		<div id="botones">
-		<button id="btn_guardar" style="font-size: 14px; padding: 5px;">Guardar</button>
+		<button id="btn_guardar" style="font-size: 14px; padding: 5px;" class="large green awesome">Guardar</button>
 		&nbsp;&nbsp;&nbsp;
-		<a href="javascript:recortar()">Recortar</a>
+		<a href="javascript:recortar()" class='small awesome'>Recortar</a>
 		&nbsp;&nbsp;&nbsp;
-		<a href="javascript:borrar()">Eliminar</a>
+		<a href="javascript:borrar()" class='small awesome'>Eliminar</a>
 		&nbsp;&nbsp;&nbsp;
 		<a href="javascript:cerrar()">Cancelar</a>
 		</div>

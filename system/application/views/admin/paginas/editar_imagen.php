@@ -70,6 +70,11 @@
 		});
 	}
 	
+	function recortar()
+	{
+		parent.SexyLightbox.display('<?=site_url("admin/paginas/crop/".$imagen['id'])?>?TB_iframe=true&modal=1&height=750&width=950');
+	}
+	
 	function cerrar()
 	{
 		parent.SexyLightbox.close();
@@ -114,6 +119,8 @@
 						<a class="large green awesome" href='javascript:void(0)' id="btn_guardar">Modificar</a>
 	
 		
+		&nbsp;&nbsp;&nbsp;
+		<a href="javascript:recortar()" class='small awesome'>Recortar</a>
 		&nbsp;&nbsp;&nbsp;
 		<a href="javascript:borrar()" class='small awesome'>Eliminar</a>
 		&nbsp;&nbsp;&nbsp;
