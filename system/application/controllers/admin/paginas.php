@@ -436,7 +436,9 @@ class Paginas extends Controller
 			if ($imagen_id > 0)
 			{
 				$this->load->model("pagina","pagina",true);
+
 				$variables['permiso'] = $permiso['Modificacion'];
+
 				$variables['imagen'] = $this->pagina->dameImagen($imagen_id);
 				$img = PATH_BASE . "pagina/".$variables['imagen']['pagina_id']."/".$variables['imagen']['img'];
 				$size = getimagesize($img);

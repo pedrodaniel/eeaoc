@@ -118,11 +118,13 @@
 		
 						<a class="large green awesome" href='javascript:void(0)' id="btn_guardar">Modificar</a>
 	
+		&nbsp;&nbsp;&nbsp;
+
+		<a href="javascript:recortar()" class='large awesome'>Recortar</a>
+		&nbsp;&nbsp;&nbsp;
+		<a href="javascript:borrar()" class='red awesome'>Eliminar</a>
 		
-		&nbsp;&nbsp;&nbsp;
-		<a href="javascript:recortar()" class='small awesome'>Recortar</a>
-		&nbsp;&nbsp;&nbsp;
-		<a href="javascript:borrar()" class='small awesome'>Eliminar</a>
+
 		&nbsp;&nbsp;&nbsp;
 		<a href="javascript:cerrar()">Cancelar</a>
 		</div>

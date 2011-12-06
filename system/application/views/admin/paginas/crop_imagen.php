@@ -23,6 +23,25 @@
 		$('#h').val(selection.height);
 	} 
 	
+
+	/*$(document).ready(function () { 
+		$('#save_thumb').click(function() {
+			var x1 = $('#x1').val();
+			var y1 = $('#y1').val();
+			var x2 = $('#x2').val();
+			var y2 = $('#y2').val();
+			var w = $('#w').val();
+			var h = $('#h').val();
+			if(x1=="" || y1=="" || x2=="" || y2=="" || w=="" || h==""){
+				alert("You must make a selection first");
+				return false;
+			}else{
+				return true;
+			}
+		});
+	}); */
+	
+
 	$(window).load(function () { 
 		$('#thumbnail').imgAreaSelect({ minWidth: <?=CROP_W?>, minHeight: <?=CROP_H?>, handles: true, aspectRatio: '3:1', onSelectChange: preview }); 
 	});
@@ -33,6 +52,7 @@
 	
 	function recortar()
 	{
+
 		if ($("#x1").val()!="" && $("#x2").val()!="")
 		{
 			$("#recortar").hide();
@@ -66,6 +86,7 @@
 		}
 		else
 			jAlert("Debe realizar el corte de la im&aacute;gen.","Error");
+
 	}
 	</script>
 </head>
@@ -78,7 +99,9 @@
 			<img src="<?=site_url("upload/pagina/".$imagen['pagina_id']."/".$imagen['img'])?>" style="float: left; margin-right: 10px;" id="thumbnail" alt="Create Thumbnail" />
 		</div>
 		<br/><br/>
-		<a href="javascript:recortar()" id="recortar" class='small awesome'>Recortar</a>
+
+		<a href="javascript:recortar()" id="recortar" class="large green awesome">Recortar</a>
+
 		&nbsp;&nbsp;&nbsp;
 		<a href="javascript:cerrar()" id="cerrar">Cancelar</a>
 		<img id="loading" src="<?=site_url("img/ajax-loader.gif")?>" style="display: none" />

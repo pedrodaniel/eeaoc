@@ -5,16 +5,16 @@
 	<script type="text/javascript">
 	function buscar()
 	{
-		window.location="<?=site_url("admin/paginas/index")?>/"+$("#search").val();
+		window.location="<?=site_url("admin/caracteristicas/index")?>/"+$("#search").val();
 	}
 	function habilitar(p_id)
 	{
 		var v_valor = 0;
 		if ($("#habilitado_"+p_id).attr('checked'))
 			v_valor = 1;
-		$.post("<?=site_url("admin/paginas/habilita")?>",
+		$.post("<?=site_url("admin/caracteristicas/habilita")?>",
 		{
-			pagina_id: p_id,
+			rubro_id: p_id,
 			valor: v_valor
 		},
 		function(data){
@@ -46,7 +46,7 @@
 	
 	<div class="head">
 	<img style="vertical-align: middle;" src="<?=site_url("img/admin/page.png")?>" />
-	Paginas &nbsp;&nbsp;<span style="font-size:11px"><a href="<?=site_url("admin/paginas/formulario")?>">Nueva</a></span>
+	Caracteristica &nbsp;&nbsp;<span style="font-size:11px"><a href="<?=site_url("admin/caracteristicas/formulario")?>">Nueva</a></span>
 		<div class="setting" style="float:right">
 		<input type="text" id="search" name="search" value="<?=$search?>" style="width:200px" />&nbsp;<button onclick="javascript:buscar()">Buscar</button>
 		</div></div>
@@ -54,25 +54,21 @@
 		<div class="success"><?=$mensaje_ok?></div>
 	<? endif; ?>
 	<br/>
-	<table cellspacing="0" cellpadding="9" width="97%" id="table-1">
+	<table cellspacing="0" cellpadding="9" width="50%" id="table-1">
 	<tbody>
 		<tr >
 			<th>&nbsp;</th>
-			<th>Titulo</th>
-			<th>Orden</th>
-			<th>Padre_id</th>
-			<th>Publicado</th>
+			<th>Nombre</th>
+			
+			
 			
 		</tr>
 	
 		<? if ($listado):?>
-			<? foreach ($listado as $pagina):?>
-			<tr id="<?=$pagina['id']?>" >
-			<td class='td-left' ><?=$pagina['id']?></td>
-			<td class='td-mid'><a href="<?=site_url("admin/paginas/formulario/".$pagina['id'])?>" title='Editar esta pagina'><?=$pagina['titulo']?></a></td>
-			<td class='td-mid'><?=$pagina['orden']?></td>
-			<td class='td-mid'><?=$pagina['pagina_padre']?></td>
-			<td class='td-right'><input id="habilitado_<?=$pagina['id']?>" type="checkbox" <?=($pagina['habilitado']==1)?"checked":""?> name="habilitado" onclick="javascript:habilitar(<?=$pagina['id']?>)" /></td>
+			<? foreach ($listado as $rubro):?>
+			<tr id="<?=$rubro['id']?>" >
+			<td class='td-left' ><?=$rubro['id']?></td>
+			<td class='td-mid'><a href="<?=site_url("admin/caracteristicas/formulario/".$rubro['id'])?>" title='Editar esta rubro'><?=$rubro['nombre']?></a></td>
 			</tr>
 			<? endforeach; ?>
 			
