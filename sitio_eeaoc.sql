@@ -35,7 +35,7 @@ CREATE TABLE `caracteristica` (
   `descripcion` text,
   `imagen` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `foto_novedades` table : 
@@ -77,7 +77,7 @@ CREATE TABLE `modulos` (
   `accion` varchar(50) default NULL,
   `hijos` int(1) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `novedades` table : 
@@ -153,7 +153,7 @@ CREATE TABLE `permiso` (
   `Modificacion` int(1) default '0',
   `Listado` int(1) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `producto` table : 
@@ -193,7 +193,7 @@ CREATE TABLE `rubro` (
   `descripcion` text,
   `imagen` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `servicio` table : 
@@ -278,6 +278,20 @@ CREATE TABLE `usuario` (
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 #
+# Data for the `caracteristica` table  (LIMIT 0,500)
+#
+
+INSERT INTO `caracteristica` (`id`, `nombre`, `descripcion`, `imagen`) VALUES 
+  (1,'Calidad','',NULL),
+  (2,'Suelos','',NULL),
+  (3,'Madurativos','',NULL),
+  (4,'Plagas','',NULL),
+  (5,'Enfermedades','',NULL),
+  (6,'Malezas','',NULL);
+
+COMMIT;
+
+#
 # Data for the `foto_novedades` table  (LIMIT 0,500)
 #
 
@@ -309,13 +323,15 @@ INSERT INTO `modulos` (`id`, `nombre`, `orden`, `padre_id`, `menu`, `accion`, `h
   (4,'Permisos',0,1,0,'permisos',0),
   (5,'Módulos',3,1,1,'modulos',0),
   (6,'Tematicas',2,0,1,'tematicas',1),
-  (11,'Productos',3,0,1,'productos',0),
-  (12,'Rubros',4,0,1,'rubros',0),
-  (13,'Caracteristicas',5,0,1,'caracteristicas',0),
+  (11,'Productos',1,15,1,'productos',0),
+  (12,'Rubros',1,19,1,'rubros',0),
+  (13,'Caracteristicas',2,19,1,'caracteristicas',0),
   (14,'Servicios',6,0,1,'servicios',0),
-  (15,'Contenido',7,0,1,'paginas',1),
-  (16,'Páginas',1,15,1,'paginas',0),
-  (18,'Noticias',8,0,1,'noticias',0);
+  (15,'Contenido',7,0,1,'productos',1),
+  (16,'Páginas',4,15,1,'paginas',0),
+  (18,'Noticias',3,15,1,'noticias',0),
+  (19,'Actividades',4,0,1,'rubros',1),
+  (20,'Proyectos',2,15,1,'proyectos',0);
 
 COMMIT;
 
@@ -392,6 +408,8 @@ INSERT INTO `permiso` (`id`, `perfil_id`, `modulo_id`, `Alta`, `Baja`, `Modifica
   (25,2,4,1,1,1,1),
   (33,3,6,1,1,1,1),
   (27,2,11,1,1,1,1),
+  (46,2,19,1,1,1,1),
+  (45,1,19,1,1,1,1),
   (44,1,18,1,1,1,1),
   (43,2,15,0,0,0,1),
   (32,2,16,1,1,1,1),
@@ -400,7 +418,10 @@ INSERT INTO `permiso` (`id`, `perfil_id`, `modulo_id`, `Alta`, `Baja`, `Modifica
   (36,3,13,1,1,1,1),
   (41,3,16,1,1,1,1),
   (38,3,14,1,1,1,1),
-  (40,3,15,0,0,0,1);
+  (40,3,15,0,0,0,1),
+  (47,2,12,1,1,1,1),
+  (48,2,13,1,1,1,1),
+  (49,1,20,1,1,1,1);
 
 COMMIT;
 
@@ -441,7 +462,9 @@ INSERT INTO `rubro` (`id`, `nombre`, `descripcion`, `imagen`) VALUES
   (2,'Agronomía',NULL,NULL),
   (3,'Sanidad y Nutrición',NULL,NULL),
   (4,'Industria',NULL,NULL),
-  (5,'Laboratorio',NULL,NULL);
+  (5,'Laboratorio',NULL,NULL),
+  (6,'Economía','',NULL),
+  (7,'Información Satelital','',NULL);
 
 COMMIT;
 
@@ -488,7 +511,7 @@ COMMIT;
 #
 
 INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `password`, `perfil_id`, `habilitado`, `fecha_alta`, `ultimo_acceso`) VALUES 
-  (1,'Pedro Daniel','Romano','pdrc83@gmail.com','32f972344bc7de6a9f0f0f0123883798',1,1,'2011-10-01','2011-12-04 14:26:23'),
+  (1,'Pedro Daniel','Romano','pdrc83@gmail.com','32f972344bc7de6a9f0f0f0123883798',1,1,'2011-10-01','2011-12-06 20:43:15'),
   (2,'Facundo','Ruiz','facundoruiz@hotmail.com','e10adc3949ba59abbe56e057f20f883e',1,1,NULL,'2011-11-25 21:15:12'),
   (3,'Analia Gabriela','Mansilla','anitagmansilla@gmail.com','e10adc3949ba59abbe56e057f20f883e',3,0,NULL,'2011-11-20 13:11:40'),
   (4,'Italo Iván','Ramos','ivan@hotmail.com','e10adc3949ba59abbe56e057f20f883e',2,1,NULL,'2011-12-02 09:22:04');

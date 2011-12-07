@@ -18,7 +18,7 @@ class Noticias extends Controller
 		$this->load->model("permiso","permiso",true);
 		$permiso = $this->permiso->check($user['perfil_id'], 18);
 		$variables['modulo_id'] = 18;
-		$variables['padre_id'] = 18;
+		$variables['padre_id'] = 15;
 		if ($permiso['Listado'])
 		{
 			$variables['search'] = $busqueda;
@@ -39,7 +39,7 @@ class Noticias extends Controller
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$variables['modulo_id'] = 18;
-		$variables['padre_id'] = 18;
+		$variables['padre_id'] = 15;
 		$this->load->model("permiso","permiso",true);
 		$permisos = $this->permiso->check($user['perfil_id'], 18);
 		if ($noticia_id > 0)
@@ -95,7 +95,7 @@ class Noticias extends Controller
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$variables['modulo_id'] = 18;
-		$variables['padre_id'] = 18;
+		$variables['padre_id'] = 15;
 		$this->load->model("permiso","permiso",true);
 		$permiso = $this->permiso->check($user['perfil_id'], 18);
 		if ($permiso['Alta'])
@@ -201,7 +201,7 @@ class Noticias extends Controller
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$variables['modulo_id'] = 18;
-		$variables['padre_id'] = 18;
+		$variables['padre_id'] = 15;
 		$this->load->model("permiso","permiso",true);
 		$permiso = $this->permiso->check($user['perfil_id'], 18);
 		if ($permiso['Modificacion'])

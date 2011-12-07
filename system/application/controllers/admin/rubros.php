@@ -21,8 +21,8 @@ class Rubros extends Controller
 			{
 					if($busqueda){
 						$this->load->model("rubro","rubro",true);
-						$variables['modulo_id'] = 10;
-						$variables['padre_id'] = 0;
+						$variables['modulo_id'] = 12;
+						$variables['padre_id'] = 19;
 						$variables['search'] = $busqueda;
 						$variables['listado'] = $this->rubro->listado($busqueda,20,0);
 						$variables['page_links']='';
@@ -62,7 +62,7 @@ class Rubros extends Controller
 		
 		
 				$variables['modulo_id'] = 12;
-				$variables['padre_id'] = 0;
+				$variables['padre_id'] = 19;
 				$variables['search'] ='';
 				
 			
@@ -83,7 +83,7 @@ class Rubros extends Controller
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$variables['modulo_id'] = 12;
-		$variables['padre_id'] = 0;
+		$variables['padre_id'] = 19;
 		$this->load->model("permiso","permiso",true);
 		$permisos = $this->permiso->check($user['perfil_id'], 12);
 		
@@ -143,7 +143,7 @@ class Rubros extends Controller
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$variables['modulo_id'] = 12;
-		$variables['padre_id'] = 0;
+		$variables['padre_id'] = 19;
 		
 		$this->load->model("permiso","permiso",true);
 		$permisos = $this->permiso->check($user['perfil_id'], 12);
@@ -191,7 +191,7 @@ class Rubros extends Controller
 							$this->rubro->save($img, $id);
 						}
 					}			
-					
+					$this->session->unset_userdata("form_rubro");
 					$mensaje = "La Pagina fue cargada con &eacute;xito";
 					$mensaje_nombre = "mensaje_ok";
 					$url = "admin/rubros";

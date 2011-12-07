@@ -85,7 +85,8 @@ class Rubro extends Model{
 				")->first_row()->cnt;
 	}
 	
-	function getPages($per_page,$segment){
+	function getPages($per_page,$segment)
+	{
 		$query = $this->db->get('rubro',$per_page,$segment);
 		if ($query->num_rows() > 0)
 		{
@@ -95,9 +96,6 @@ class Rubro extends Model{
 		}
 		else
 			return false;
-
-		}
-
 
 	}
 	
@@ -137,9 +135,9 @@ class Rubro extends Model{
 		{
 			$res = $query->result_array();
 
-			return $res[0];
+			return $res;
 		}
 		else
 			return false;
+	}
 }
-

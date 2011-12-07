@@ -60,8 +60,8 @@ class Paginas extends Controller
 			$variables['page_links'] = $this->pagination->create_links();
 		
 		
-				$variables['modulo_id'] = 10;
-				$variables['padre_id'] = 0;
+				$variables['modulo_id'] = 16;
+				$variables['padre_id'] = 15;
 				$variables['search'] ='';
 				
 			

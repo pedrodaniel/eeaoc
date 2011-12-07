@@ -83,7 +83,7 @@
 	
 			<? endif; ?>
 		</div>
-				<form id="page_form" method="post" enctype="multipart/form-data" action="<?=site_url("admin/Caracteristicas/guardar")?>">
+		<form id="page_form" method="post" enctype="multipart/form-data" action="<?=site_url("admin/Caracteristicas/guardar")?>">
 		<br/>
 		<? if ($mensaje_error!=""):?>
 			<div class="error"><?=$mensaje_error?></div>
@@ -91,12 +91,10 @@
 		<? if ($mensaje_ok!=""):?>
 			<div class="success"><?=$mensaje_ok?></div>
 		<? endif; ?>
-<div style='width: 100%;'>
-	<div style='width: 60%; float: left; margin-right: 30px;'>		
-	
-		<input name="id" id="id" type="hidden" value="<?=$caracteristica['id']?>"/>
-		
-			<div id="section">Nombre</div>
+		<div style='width: 100%;'>
+			<div style='width: 60%; float: left; margin-right: 30px;'>		
+				<input name="id" id="id" type="hidden" value="<?=$caracteristica['id']?>"/>
+				<div id="section">Nombre</div>
 			<div id="section-detail">
 				<input type="text" name="nombre" id="nombre" value="<?=(isset($caracteristica['nombre']))?$caracteristica['nombre']:""?>" style="width: 100%;" />
 			</div>
@@ -109,7 +107,7 @@
 			<div id="save_box" style="background-color: rgb(224, 224, 224); padding: 15px; text-align: right;">
 			
 				<a class="large green awesome" href='javascript:void(0)' id="btn_guardar">Guardar</a>&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="<?=site_url("admin/paginas")?>">Cancelar</a>
+				<a href="<?=site_url("admin/caracteristicas")?>">Cancelar</a>
 				
 			</div>
 			<div id="save_box_waiting" style="padding: 15px; text-align: right; display: none;">
@@ -124,7 +122,7 @@
 			    				
 		   			<b>Imagen:</b> (jpg, png)<br/><br/>
 					<input type="file" id="imagen_file" name="imagen" size="30" /> 	
-					<div id="galeria"><br>
+					<div id="galeria"><br/>
 				<? if (isset($caracteristica['imagen']) and $caracteristica['imagen']):?>
 				<div id="section-detail-img" class="imagenes">
 				<img src="<?=site_url("upload/caracteristica/".$caracteristica['id']."/th_".$caracteristica['imagen'])?>" />
@@ -140,16 +138,15 @@
 						</div>
 	
 	</div>
+	</div>
 </form>				
 			
 </div>
-			</div>
+</div>
 		
 		
-			<div style='clear: both;'></div>
-	</div>
-</div>
-</div>
+<div style='clear: both;'></div>
+
 <? $this->load->view("admin/footer")?>
 </body>
 </html>

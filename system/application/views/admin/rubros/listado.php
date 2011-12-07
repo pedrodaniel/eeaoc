@@ -54,7 +54,7 @@
 		<div class="success"><?=$mensaje_ok?></div>
 	<? endif; ?>
 	<br/>
-	<table cellspacing="0" cellpadding="9" width="50%" id="table-1">
+	<table cellspacing="0" cellpadding="9" width="100%" id="table-1">
 	<tbody>
 		<tr >
 			<th>&nbsp;</th>

@@ -15,14 +15,14 @@ class Caracteristicas extends Controller
 	{	$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 12);
+		$permiso = $this->permiso->check($user['perfil_id'], 13);
 		
 			if ($permiso['Listado'])
 			{
 					if($busqueda){
 						$this->load->model("caracteristica","caracteristica",true);
-						$variables['modulo_id'] = 10;
-						$variables['padre_id'] = 0;
+						$variables['modulo_id'] = 13;
+						$variables['padre_id'] = 19;
 						$variables['search'] = $busqueda;
 						$variables['listado'] = $this->caracteristica->listado($busqueda,20,0);
 						$variables['page_links']='';
@@ -42,7 +42,7 @@ class Caracteristicas extends Controller
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 12);
+		$permiso = $this->permiso->check($user['perfil_id'], 13);
 		if ($permiso['Listado'])
 			{
 
@@ -61,8 +61,8 @@ class Caracteristicas extends Controller
 			$variables['page_links'] = $this->pagination->create_links();
 		
 		
-				$variables['modulo_id'] = 12;
-				$variables['padre_id'] = 0;
+				$variables['modulo_id'] = 13;
+				$variables['padre_id'] = 19;
 				$variables['search'] ='';
 				
 			
@@ -82,10 +82,10 @@ class Caracteristicas extends Controller
 	{
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
-		$variables['modulo_id'] = 12;
-		$variables['padre_id'] = 0;
+		$variables['modulo_id'] = 13;
+		$variables['padre_id'] = 19;
 		$this->load->model("permiso","permiso",true);
-		$permisos = $this->permiso->check($user['perfil_id'], 12);
+		$permisos = $this->permiso->check($user['perfil_id'], 13);
 		
 		if ($caracteristica_id > 0)
 			$permiso = ($permisos['Modificacion'])?1:0;
@@ -142,11 +142,11 @@ class Caracteristicas extends Controller
 		
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
-		$variables['modulo_id'] = 12;
-		$variables['padre_id'] = 0;
+		$variables['modulo_id'] = 13;
+		$variables['padre_id'] = 19;
 		
 		$this->load->model("permiso","permiso",true);
-		$permisos = $this->permiso->check($user['perfil_id'], 12);
+		$permisos = $this->permiso->check($user['perfil_id'], 13);
 		
 		$caracteristica_id= $this->input->post("id");
 		
@@ -191,7 +191,7 @@ class Caracteristicas extends Controller
 							$this->caracteristica->save($img, $id);
 						}
 					}			
-					
+					$this->session->unset_userdata("form_caracteristica");
 					$mensaje = "La Pagina fue cargada con &eacute;xito";
 					$mensaje_nombre = "mensaje_ok";
 					$url = "admin/caracteristicas";
@@ -217,7 +217,7 @@ class Caracteristicas extends Controller
 	{
 		$user=$this->session->userdata('logged_in');
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 12);
+		$permiso = $this->permiso->check($user['perfil_id'], 13);
 		if ($permiso['Baja'])
 		{
 			$caracteristica_id = $this->input->post("caracteristica_id");
