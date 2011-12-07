@@ -96,7 +96,6 @@ class Rubro extends Model{
 		}
 		else
 			return false;
-
 	}
 	
 	public function quitarImagen($img_borrar,$rubro_id)
@@ -141,3 +140,4 @@ class Rubro extends Model{
 			return false;
 	}
 }
+
