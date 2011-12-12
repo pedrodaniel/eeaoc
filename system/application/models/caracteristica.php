@@ -40,6 +40,18 @@ class Caracteristica extends Model{
 		else
 			return false;
 	}
+	public function dameCaracteristicas()
+	{
+		$sql = "select id, nombre from caracteristica order by id";
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$res = $query->result_array();
+			return $res;
+		}
+		else
+			return false;
+	}
 	/**
 	 * 
 	 * Permite guardar los campos del caracteristica atravez de una funcion del framework
@@ -119,4 +131,5 @@ class Caracteristica extends Model{
 		else
 			return false;
 	}
+	
 }

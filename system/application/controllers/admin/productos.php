@@ -433,5 +433,80 @@ class Productos extends Controller
 			print "Error. Usted no tiene permiso para usar el m&oacute;dulo seleccionado";
 		}
 	}
+	
+/******************* Seccion para asociar Caracteristicas a Producto ***************/	
+	public function caracteristicas($producto_id)
+	{
+		$user=$this->session->userdata('logged_in');
+		$variables['user'] = $user;	
+		$this->load->model("permiso","permiso",true);
+		$perm = $this->permiso->check($user['perfil_id'], 11);
+		if ($perm['Modificacion'])
+		{
+			if ($producto_id > 0)
+			{
+				
+				$this->load->model("producto","producto",true);
+				$variables['producto_caracteristicas'] = $this->producto->dameCaracteristicas($producto_id);
+				$variables['caracteristicas'] = $this->producto->dameCaracteristicaAsociar($producto_id);
+				$variables['producto_id'] = $producto_id;
+				$this->load->view("admin/productos/productos_caracteristicas",$variables);
+			}
+			else	
+				print "Error. M&eacute;todo no soportado.";
+		}
+		else
+		{
+			print "Error. Usted no tiene permiso para usar el m&oacute;dulo seleccionado";
+		}
+	}
+	
+	public function eliminar_caracteristica()
+	{
+		$user=$this->session->userdata('logged_in');
+		$variables['user'] = $user;	
+		$this->load->model("permiso","permiso",true);
+		$perm = $this->permiso->check($user['perfil_id'], 11);
+		if ($perm['Modificacion'])
+		{
+			$this->load->model("producto","producto",true);
+			$relacion_id = $this->input->post("relacion_id");				
+			if ($this->producto->deleteCaracteristicas($relacion_id))
+				echo "ok";
+			else
+				echo "ko";
+		}
+		else
+			echo "error_permiso";
+	}
+	
+	public function agregar_caracteristica()
+	{
+		$user=$this->session->userdata('logged_in');
+		$variables['user'] = $user;	
+		$this->load->model("permiso","permiso",true);
+		$perm = $this->permiso->check($user['perfil_id'], 11);
+		if ($perm['Modificacion'])
+		{
+			$producto_id = $this->input->post("producto_id");
+			$caracteristica_id = $this->input->post("caracteristica_id");
+			if ($producto_id > 0 and $caracteristica_id > 0)
+			{
+				$this->load->model("producto","producto",true);
+				$datos['producto_id'] = $producto_id;
+				$datos['caracteristica_id'] = $caracteristica_id;
+				if ($this->producto->insertarCaracteristicas($datos))
+					echo "ok";
+				else
+					echo "ko";
+			}
+			else
+				echo "error_metodo";
+		}
+		else
+			echo "error_permiso";
+	}
+	
+	
 }
 ?>

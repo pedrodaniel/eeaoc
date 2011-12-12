@@ -1,5 +1,5 @@
 <?php
-class Noticias extends Controller
+class Proyectos extends Controller
 {
 	function __construct()
 	{
@@ -16,17 +16,17 @@ class Noticias extends Controller
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 18);
-		$variables['modulo_id'] = 18;
+		$permiso = $this->permiso->check($user['perfil_id'], 20);
+		$variables['modulo_id'] = 20;
 		$variables['padre_id'] = 15;
 		if ($permiso['Listado'])
 		{
 			$variables['search'] = $busqueda;
 			$variables['mensaje_ok'] = $this->session->userdata("mensaje_ok");
 			$this->session->unset_userdata("mensaje_ok");
-			$this->load->model("noticia","noticia",true);
-			$variables['listado'] = $this->noticia->listado($busqueda);
-			$this->load->view("admin/noticias/listado",$variables);
+			$this->load->model("proyecto","proyecto",true);
+			$variables['listado'] = $this->proyecto->listado($busqueda);
+			$this->load->view("admin/proyectos/listado",$variables);
 		}
 		else
 		{
@@ -34,55 +34,58 @@ class Noticias extends Controller
 		}
 	}
 	
-	public function formulario($noticia_id=0)
+	public function formulario($proyecto_id=0)
 	{
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
-		$variables['modulo_id'] = 18;
+		$variables['modulo_id'] = 20;
 		$variables['padre_id'] = 15;
 		$this->load->model("permiso","permiso",true);
-		$permisos = $this->permiso->check($user['perfil_id'], 18);
-		if ($noticia_id > 0)
+		$permisos = $this->permiso->check($user['perfil_id'], 20);
+		if ($proyecto_id > 0)
 			$permiso = ($permisos['Modificacion'])?1:0;
 		else
 			$permiso = ($permisos['Alta'])?1:0;
 			
 		if ($permiso)
 		{
-			$this->load->model("noticia","noticia",true);
+			$this->load->model("proyecto","proyecto",true);
 			$this->load->model("tematica","tematica",true);
-			$this->load->model("servicio","servicio",true);
+			$this->load->model("caracteristica","caracteristica",true);
 			$variables['tematicas'] = $this->tematica->dameTematicas();
-			$variables['servicios'] = $this->servicio->dameServicios();
+			
+			$variables['proyecto_caracteristicas'] = $this->proyecto->dameCaracteristicas($proyecto_id);
+			$variables['caracteristicas'] = $this->proyecto->dameCaracteristicaAsociar($proyecto_id);
+			//$variables['caracteristicas'] = $this->caracteristica->dameCaracteristicas();
 			$variables['mensaje_error'] = $this->session->userdata("mensaje_error");
 			$variables['mensaje_ok'] = $this->session->userdata("mensaje_ok");
 			$this->session->unset_userdata("mensaje_error");
 			$this->session->unset_userdata("mensaje_ok");
-			if ($noticia_id > 0)
+			if ($proyecto_id > 0)
 			{
-				$variables['noticia'] = $this->noticia->dameNoticia($noticia_id);
-				$variables['noticia']['imagenes'] = $this->noticia->dameImgNoticia($noticia_id);
-				if (!$variables['noticia'])
+				$variables['proyecto'] = $this->proyecto->dameProyecto($proyecto_id);
+				$variables['proyecto']['imagenes'] = $this->proyecto->dameImgProyecto($proyecto_id);
+				if (!$variables['proyecto'])
 				{
-					redirect(site_url("admin/noticias"), "refresh");
+					redirect(site_url("admin/proyectos"), "refresh");
 					exit();
 				}
-				$variables['noticia']['id'] = $noticia_id;
+				$variables['proyecto']['id'] = $proyecto_id;
 				$variables['accion'] = "modificar"; 
 			}
 			else
 			{
 				$variables['accion'] = "guardar"; 
-				if ($this->session->userdata("form_tematica"))
+				if ($this->session->userdata("form_proyecto"))
 				{
-					$variables['noticia'] = $this->session->userdata("form_noticia");
-					$variables['noticia']['id'] = 0;
-					$this->session->unset_userdata("form_noticia");
+					$variables['proyecto'] = $this->session->userdata("form_proyecto");
+					$variables['proyecto']['id'] = 0;
+					$this->session->unset_userdata("form_proyecto");
 				}
 				else
-					$variables['noticia'] = array("id"=>0);
+					$variables['proyecto'] = array("id"=>0);
 			}
-			$this->load->view("admin/noticias/formulario",$variables);
+			$this->load->view("admin/proyectos/formulario",$variables);
 		}
 		else
 		{
@@ -94,10 +97,10 @@ class Noticias extends Controller
 	{
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
-		$variables['modulo_id'] = 18;
+		$variables['modulo_id'] = 20;
 		$variables['padre_id'] = 15;
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 18);
+		$permiso = $this->permiso->check($user['perfil_id'], 20);
 		if ($permiso['Alta'])
 		{
 			$titulo = $this->input->post("titulo");
@@ -117,28 +120,28 @@ class Noticias extends Controller
 				$datos['destacada'] = $destacada;
 				$datos['usuario_id'] = $user['id'];
 				$datos['fecha'] = date("Y-m-d H:i:s");
-				$this->session->set_userdata("form_noticia",$datos);
+				$this->session->set_userdata("form_proyecto",$datos);
 				
-				$this->load->model("noticia","noticia",true);
-				if ($this->noticia->insert($datos))
+				$this->load->model("proyecto","proyecto",true);
+				if ($this->proyecto->insert($datos))
 				{
-					$this->session->unset_userdata("form_noticia");
-					$mensaje = "La Noticia fue cargada con &eacute;xito";
+					$this->session->unset_userdata("form_proyecto");
+					$mensaje = "La Proyecto fue cargada con &eacute;xito";
 					$mensaje_nombre = "mensaje_ok";
-					$url = "admin/noticias";		
+					$url = "admin/proyectos";		
 				}
 				else
 				{
 					$mensaje = "Error de conexi&oacute;n a la base de datos.";
 					$mensaje_nombre = "mensaje_error";
-					$url = "admin/noticias/formulario";	
+					$url = "admin/proyectos/formulario";	
 				}	
 			}
 			else
 			{
 				$mensaje = "T&iacute;tulo y Texto son obligatorios.";
 				$mensaje_nombre = "mensaje_error";
-				$url = "admin/noticias/formulario";
+				$url = "admin/proyectos/formulario";
 			}
 			$this->session->set_userdata($mensaje_nombre,$mensaje);
 			redirect(site_url($url), "refresh");
@@ -149,64 +152,19 @@ class Noticias extends Controller
 		}
 	}
 	
-	public function upload()
-	{
-		$error = "";
-		$ok = "";
-		$noticia_id = $this->input->post("noticia_id");
-		if ($_FILES['imagen']['name']!="")
-		{
-			$this->load->library("archivos");
-			$this->load->library("imageresize");
-			$this->archivos->imageresize = $this->imageresize;
-			$this->archivos->file = $_FILES['imagen']; 
-			$this->archivos->path = 'noticia/'.$noticia_id."/";
-			$this->archivos->tipos = "jpg,png,gif,jpeg";
-			
-			$res = $this->archivos->subir();
-			
-			if ($res['error']=="")
-			{
-				$datos['img'] = $res['img'];
-				$datos['url'] = $this->input->post("link");
-				$datos['target'] = $this->input->post("target");
-				$datos['destacada'] = $this->input->post("destacada");
-				$datos['novedad_id'] = $noticia_id;
-						
-				$this->load->model("noticia","noticia",true);
-				if (!$this->noticia->insertar_imagen($datos))
-					$error = "Error al intentar adjuntar im&aacute;gen. Aseg&uacute;rese estar conectado.";
-			}
-			else
-				$error = $res['error'];
-		}
-		else
-		{
-			$error = "Debe seleccionar una im&aacute;gen.";
-		}
-		
-		if ($error == "")
-		{
-			redirect(site_url("admin/noticias/formulario/".$noticia_id), "refresh");
-		}
-		else
-		{
-			$this->session->set_userdata("mensaje_error",$error);
-			redirect(site_url("admin/tematicas/formulario/".$tematica_id), "refresh");
-		}
-	}
+	
 	
 	public function modificar()
 	{
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
-		$variables['modulo_id'] = 18;
+		$variables['modulo_id'] = 20;
 		$variables['padre_id'] = 15;
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 18);
+		$permiso = $this->permiso->check($user['perfil_id'], 20);
 		if ($permiso['Modificacion'])
 		{
-			$noticia_id = $this->input->post("noticia_id");
+			$proyecto_id = $this->input->post("proyecto_id");
 			$titulo = $this->input->post("titulo");
 			$tipo = $this->input->post("tipo");
 			$servicio_id = $this->input->post("servicio_id");
@@ -222,26 +180,25 @@ class Noticias extends Controller
 				$datos['servicio_id'] = $servicio_id;
 				$datos['texto'] = $texto;
 				$datos['destacada'] = $destacada;
-								
-				$this->load->model("noticia","noticia",true);
-				if ($this->noticia->update($datos,$noticia_id))
+				$this->load->model("proyecto","proyecto",true);
+				if ($this->proyecto->update($datos,$proyecto_id))
 				{
-					$mensaje = "La Noticia fue modificada con &eacute;xito";
+					$mensaje = "La Proyecto fue modificada con &eacute;xito";
 					$mensaje_nombre = "mensaje_ok";
-					$url = "admin/noticias";		
+					$url = "admin/proyectos";		
 				}
 				else
 				{
 					$mensaje = "Error de conexi&oacute;n a la base de datos.";
 					$mensaje_nombre = "mensaje_error";
-					$url = "admin/noticias/formulario/".$noticia_id;	
+					$url = "admin/proyectos/formulario/".$proyecto_id;	
 				}
 			}
 			else
 			{
 				$mensaje = "T&iacute;tulo y Texto son obligatorios.";
 				$mensaje_nombre = "mensaje_error";
-				$url = "admin/noticias/formulario/".$noticia_id;
+				$url = "admin/proyectos/formulario/".$proyecto_id;
 			}
 			$this->session->set_userdata($mensaje_nombre,$mensaje);
 			redirect(site_url($url), "refresh");
@@ -256,34 +213,102 @@ class Noticias extends Controller
 	{
 		$user=$this->session->userdata('logged_in');
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 18);
+		$permiso = $this->permiso->check($user['perfil_id'], 20);
 		if ($permiso['Baja'])
 		{
-			$noticia_id = $this->input->post("noticia_id");
-			$this->load->model("noticia","noticia",true);
-			if ($this->noticia->eliminarNoticia($noticia_id))
-			{
-				echo "ok";
-			}
-			else
+			$proyecto_id = $this->input->post("proyecto_id");
+			$this->load->model("proyecto","proyecto",true);
+			
+			$borro=$this->proyecto->eliminarProyecto($proyecto_id);
+			
+			if ($borro=='si')
+			{	echo "ok";
+			}elseif($borro=='no'){
+				echo "caract";
+			}else
 				echo "ko";
 		}
 		else
 			echo "error_permiso";
 	}
-	
+	/**
+	 * 
+	 * Se carga el formulario de carga de imagenes ajax
+	 */
+ 	public function imagen($p_proyecto_id){
+ 	$variables['proyecto']['id']=$p_proyecto_id;
+ 	$variables['mensaje_error'] = $this->session->userdata("mensaje_error");
+			$variables['mensaje_ok'] = $this->session->userdata("mensaje_ok");
+			$this->session->unset_userdata("mensaje_error");
+			$this->session->unset_userdata("mensaje_ok");
+ 	$this->load->view("admin/proyectos/imagen",$variables);
+ 	
+ }	
+ 
+	public function CreaImg()
+	{
+		$error = "";
+		$ok = "";
+		$proyecto_id = $this->input->post("proyecto_id");
+		if ($_FILES['imagen']['name']!="")
+		{
+			
+			
+			$this->load->library("archivos");
+			$this->load->library("imageresize");
+			$this->archivos->imageresize = $this->imageresize;
+			$this->archivos->file = $_FILES['imagen']; 
+			$this->archivos->path = 'proyecto/'.$proyecto_id."/";
+			$this->archivos->tipos = "jpg,png,gif,jpeg";
+			
+			$res = $this->archivos->subir();
+			
+			if ($res['error']=="")
+			{
+				$datos['img'] = $res['img'];
+				$datos['url'] = $this->input->post("link");
+				$datos['target'] = $this->input->post("target");
+				$datos['proyectos_id'] = $proyecto_id;
+						
+				$this->load->model("proyecto","proyecto",true);
+				if (!$this->proyecto->insertar_imagen($datos))
+					$error = "Error al intentar adjuntar im&aacute;gen. Aseg&uacute;rese estar conectado.";
+				else {
+					
+				//	echo" <script>parent.location.reload();</script>";
+				}	
+			}
+			else
+				$error = $res['error'];
+		}
+		else
+		{
+			$error = "Debe seleccionar una im&aacute;gen.";
+		}
+		
+		if ($error == "")
+		{
+			redirect(site_url("admin/proyectos/imagen/".$proyecto_id), "refresh");
+		}
+		else
+		{
+			$this->session->set_userdata("mensaje_error",$error);
+			redirect(site_url("admin/proyectos/imagen/".$proyecto_id), "refresh");
+		}
+	}
+ 
 	public function borrar_imagen()
 	{
 		$user=$this->session->userdata('logged_in');
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 18);
+		$permiso = $this->permiso->check($user['perfil_id'], 20);
 		if ($permiso['Baja'])
 		{
-			$noticia_id = $this->input->post("noticia_id");
+			$proyecto_id = $this->input->post("proyecto_id");
 			$imagen_id = $this->input->post("imagen_id");
 			$img_borrar = $this->input->post("img");
-			$this->load->model("noticia","noticia",true);
-			if ($this->noticia->quitarImagen($imagen_id, $img_borrar, $noticia_id))
+			$this->load->model("proyecto","proyecto",true);
+			if ($this->proyecto->quitarImagen($imagen_id, $img_borrar, $proyecto_id))
 			{
 				echo "ok";
 			}
@@ -298,19 +323,19 @@ class Noticias extends Controller
 	{
 		$user=$this->session->userdata('logged_in');
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 18);
+		$permiso = $this->permiso->check($user['perfil_id'], 20);
 		if ($permiso['Modificacion'])
 		{
 			if ($imagen_id > 0)
 			{
-				$this->load->model("noticia","noticia",true);
+				$this->load->model("proyecto","proyecto",true);
 				$variables['permiso'] = $permiso['Modificacion'];
-				$variables['imagen'] = $this->noticia->dameImagen($imagen_id);
+				$variables['imagen'] = $this->proyecto->dameImagen($imagen_id);
 				if ($variables['imagen'])
-					$variables['noticia'] = $this->noticia->dameNoticia($variables['imagen']['novedad_id']);
+					$variables['proyecto'] = $this->proyecto->dameProyecto($variables['imagen']['proyectos_id']);
 				else
-					$variables['noticia'] = false;
-				$this->load->view("admin/noticias/editar_imagen",$variables);
+					$variables['proyecto'] = false;
+				$this->load->view("admin/proyectos/editar_imagen",$variables);
 			}
 			else
 				 print "Error. M&eacute;todo no soportado.";
@@ -325,15 +350,15 @@ class Noticias extends Controller
 	{
 		$user=$this->session->userdata('logged_in');
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 18);
+		$permiso = $this->permiso->check($user['perfil_id'], 20);
 		if ($permiso['Modificacion'])
 		{
 			$imagen_id = $this->input->post("imagen_id");
 			$datos['url'] = $this->input->post("url");
 			$datos['target'] = $this->input->post("target");
 			$datos['destacada'] = $this->input->post("destacada");
-			$this->load->model("noticia","noticia",true);
-			if ($this->noticia->updateImagen($imagen_id,$datos))
+			$this->load->model("proyecto","proyecto",true);
+			if ($this->proyecto->updateImagen($imagen_id,$datos))
 				echo "ok";
 			else
 				echo "ko";
@@ -348,20 +373,20 @@ class Noticias extends Controller
 	{
 		$user=$this->session->userdata('logged_in');
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 18);
+		$permiso = $this->permiso->check($user['perfil_id'], 20);
 		if ($permiso['Modificacion'])
 		{
 			if ($imagen_id > 0)
 			{
-				$this->load->model("noticia","noticia",true);
+				$this->load->model("proyecto","proyecto",true);
 				$variables['permiso'] = $permiso['Modificacion'];
-				$variables['imagen'] = $this->noticia->dameImagen($imagen_id);
-				$img = PATH_BASE . "noticia/".$variables['imagen']['novedad_id']."/".$variables['imagen']['img'];
+				$variables['imagen'] = $this->proyecto->dameImagen($imagen_id);
+				$img = PATH_BASE . "proyecto/".$variables['imagen']['proyectos_id']."/".$variables['imagen']['img'];
 				$size = getimagesize($img);
 				$variables['alto'] = $size[1];
 				$variables['ancho'] = $size[0];
 				
-				$this->load->view("admin/noticias/crop_imagen",$variables);
+				$this->load->view("admin/proyectos/crop_imagen",$variables);
 			}
 			else
 				 print "Error. M&eacute;todo no soportado.";
@@ -377,16 +402,16 @@ class Noticias extends Controller
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
 		$this->load->model("permiso","permiso",true);
-		$permiso = $this->permiso->check($user['perfil_id'], 18);
+		$permiso = $this->permiso->check($user['perfil_id'], 20);
 		if ($permiso['Modificacion'])
 		{
-			$noticia_id = $this->input->post("noticia_id");
+			$proyecto_id = $this->input->post("proyecto_id");
 			$valor = $this->input->post("valor");
-			if ($noticia_id > 0)
+			if ($proyecto_id > 0)
 			{
-				$this->load->model("noticia","noticia",true);
+				$this->load->model("proyecto","proyecto",true);
 				$datos['destacada'] = $valor;
-				if ($this->noticia->update($datos,$noticia_id))
+				if ($this->proyecto->update($datos,$proyecto_id))
 					echo "ok";
 				else
 					echo "ko";
@@ -398,8 +423,24 @@ class Noticias extends Controller
 			echo "error_permiso";
 	}
 	
-	/******************* Seccion para asociar Caracteristicas a Noticias ***************/	
-	public function caracteristicas($noticia_id)
+	public function traeGaleria($p_proyecto_id){
+ 	   $user=$this->session->userdata('logged_in');
+		$variables['user'] = $user;	
+		$this->load->model("permiso","permiso",true);
+		$permiso = $this->permiso->check($user['perfil_id'], 20);
+		if ($permiso['Listado'])
+			{
+				 	$this->load->model("proyecto","proyecto",true);	
+				 	$variables['proyecto']['id']=$p_proyecto_id;
+				 	$variables['proyecto']['imagenes'] = $this->proyecto->dameImgProyecto($p_proyecto_id);
+				 	$this->load->view("admin/proyectos/galeria",$variables);
+				 	
+			}else{
+			$this->load->view("admin/error_permiso",$variables);
+			}
+ 		}
+/******************* Seccion para asociar Caracteristicas a Proyecto ***************/	
+	public function caracteristicas($proyecto_id)
 	{
 		$user=$this->session->userdata('logged_in');
 		$variables['user'] = $user;	
@@ -407,14 +448,14 @@ class Noticias extends Controller
 		$perm = $this->permiso->check($user['perfil_id'], 11);
 		if ($perm['Modificacion'])
 		{
-			if ($noticia_id > 0)
+			if ($proyecto_id > 0)
 			{
 				
-				$this->load->model("noticia","noticia",true);
-				$variables['noticia_caracteristicas'] = $this->noticia->dameCaracteristicas($noticia_id);
-				$variables['caracteristicas'] = $this->noticia->dameCaracteristicaAsociar($noticia_id);
-				$variables['noticia_id'] = $noticia_id;
-				$this->load->view("admin/noticias/noticias_caracteristicas",$variables);
+				$this->load->model("proyecto","proyecto",true);
+				$variables['proyecto_caracteristicas'] = $this->proyecto->dameCaracteristicas($proyecto_id);
+				$variables['caracteristicas'] = $this->proyecto->dameCaracteristicaAsociar($proyecto_id);
+				$variables['proyecto_id'] = $proyecto_id;
+				$this->load->view("admin/proyectos/proyectos_caracteristicas",$variables);
 			}
 			else	
 				print "Error. M&eacute;todo no soportado.";
@@ -433,9 +474,9 @@ class Noticias extends Controller
 		$perm = $this->permiso->check($user['perfil_id'], 11);
 		if ($perm['Modificacion'])
 		{
-			$this->load->model("noticia","noticia",true);
+			$this->load->model("proyecto","proyecto",true);
 			$relacion_id = $this->input->post("relacion_id");				
-			if ($this->noticia->deleteCaracteristicas($relacion_id))
+			if ($this->proyecto->deleteCaracteristicas($relacion_id))
 				echo "ok";
 			else
 				echo "ko";
@@ -452,14 +493,14 @@ class Noticias extends Controller
 		$perm = $this->permiso->check($user['perfil_id'], 11);
 		if ($perm['Modificacion'])
 		{
-			$noticia_id = $this->input->post("noticia_id");
+			$proyecto_id = $this->input->post("proyecto_id");
 			$caracteristica_id = $this->input->post("caracteristica_id");
-			if ($noticia_id > 0 and $caracteristica_id > 0)
+			if ($proyecto_id > 0 and $caracteristica_id > 0)
 			{
-				$this->load->model("noticia","noticia",true);
-				$datos['novedades_id'] = $noticia_id;
+				$this->load->model("proyecto","proyecto",true);
+				$datos['proyectos_id'] = $proyecto_id;
 				$datos['caracteristica_id'] = $caracteristica_id;
-				if ($this->noticia->insertarCaracteristicas($datos))
+				if ($this->proyecto->insertarCaracteristicas($datos))
 					echo "ok";
 				else
 					echo "ko";

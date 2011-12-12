@@ -1,18 +1,18 @@
 <?php
-class Noticia extends Model
+class Proyecto extends Model
 {
 	public function listado($busqueda)
 	{
-		 $sql = "select n.id, n.titulo, n.destacada, n.fecha, n.tipo, u.apellido as usuario_apellido, u.nombre as usuario_nombre,
-		 (select nombre from tematica where id = n.tematica_id) as tematica, 
-		 (select nombre from servicio where id = n.servicio_id) as servicio 
-		 from novedades n 
-		 inner join usuario u on (u.id = n.usuario_id)";
+		 $sql = "select p.id, p.titulo, p.destacada, p.fecha,p.tipo, u.apellido as usuario_apellido, u.nombre as usuario_nombre,
+ 		 (select nombre from tematica where id = p.tematica_id) as tematica
+		 
+		 from proyectos p 
+		 inner join usuario u on (u.id = p.usuario_id)";
 		 
 		 if ($busqueda!="")
-		 	$sql .= " where n.titulo like '%$busqueda%'";
+		 	$sql .= " where p.titulo like '%$busqueda%'";
 		 	
-		 $sql .= " order by n.fecha desc";
+		 $sql .= " order by p.fecha desc";
 		 $query = $this->db->query($sql);
 		 if ($query->num_rows() > 0)
 		 {
@@ -23,9 +23,9 @@ class Noticia extends Model
 		 	return false;
 	}
 	
-	public function dameNoticia($noticia_id)
+	public function dameProyecto($proyectos_id)
 	{
-		$sql = "select id, titulo, tematica_id, servicio_id, destacada, texto, tipo from novedades where id = ".$noticia_id;
+		$sql = "select id, titulo, tematica_id, servicio_id, destacada, texto, tipo from proyectos where id = ".$proyectos_id;
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -40,7 +40,7 @@ class Noticia extends Model
 	
 	public function dameImagen($imagen_id)
 	{
-		$sql = "select id, img, url, target, novedad_id, destacada from foto_novedades where id = ".$imagen_id;
+		$sql = "select id, img, url, target, proyectos_id, destacada from proyectos_imagen where id = ".$imagen_id;
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -53,9 +53,9 @@ class Noticia extends Model
 		}
 	}
 	
-	public function dameImgNoticia($noticia_id)
+	public function dameImgProyecto($proyectos_id)
 	{
-		$sql = "select id, img, url, target, destacada, novedad_id from foto_novedades where novedad_id = ".$noticia_id;
+		$sql = "select id, img, url, target, destacada, proyectos_id from proyectos_imagen where proyectos_id = ".$proyectos_id;
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -70,7 +70,7 @@ class Noticia extends Model
 	
 	public function insert($datos)
 	{
-		if ($this->db->insert("novedades",$datos))
+		if ($this->db->insert("proyectos",$datos))
 			return true;
 		else
 			return false;
@@ -78,43 +78,48 @@ class Noticia extends Model
 	
 	public function insertar_imagen($datos)
 	{
-		if ($this->db->insert("foto_novedades",$datos))
+		if ($this->db->insert("proyectos_imagen",$datos))
 			return true;
 		else
 			return false;
 	}
 	
-	public function update($datos,$noticia_id)
+	public function update($datos,$proyecto_id)
 	{
-		$this->db->where("id",$noticia_id);
-		if ($this->db->update("novedades",$datos))
+		$this->db->where("id",$proyecto_id);
+		if ($this->db->update("proyectos",$datos))
 			return true;
 		else
 			return false;
 	}
 	
-	public function eliminarNoticia($noticia_id)
+	public function eliminarProyecto($proyectos_id)
 	{
-		$this->db->where("id",$noticia_id);
-		if ($this->db->delete("novedades"))
-		{
-			$this->borradoImagenesGeneral($noticia_id);
-			return true;
-		}
-		else
-			return false;
+		$caracteristica=$this->dameCaracteristicas($proyectos_id);
+		if($caracteristica){
+			return 'no';
+		}else{
+			$this->db->where("id",$proyectos_id);
+			if ($this->db->delete("proyectos"))
+			{
+				$this->borradoImagenesGeneral($proyectos_id);
+				return 'si';
+			}
+			else
+				return false;
+		}		
 	}
 	
-	public function borradoImagenesGeneral($noticia_id)
+	public function borradoImagenesGeneral($proyectos_id)
 	{
-		$sql = "select id, img from foto_novedades where novedad_id = ".$noticia_id;
+		$sql = "select id, img from proyectos_imagen where proyectos_id = ".$proyectos_id;
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
 			$res = $query->result_array();
 			foreach ($res as $img)
 			{
-				$this->quitarImagen($img['id'],$img['img'],$noticia_id);
+				$this->quitarImagen($img['id'],$img['img'],$proyectos_id);
 			}
 		}
 	}
@@ -132,7 +137,7 @@ class Noticia extends Model
 	public function updateImagen($imagen_id, $datos)
 	{
 		$this->db->where("id",$imagen_id);
-		if ($this->db->update("foto_novedades",$datos))
+		if ($this->db->update("proyectos_imagen",$datos))
 			return true;
 		else
 			return false;
@@ -141,12 +146,12 @@ class Noticia extends Model
 	public function quitarImagen($imagen_id,$img_borrar,$noticia_id)
 	{
 		$this->db->where("id",$imagen_id);
-		if ($this->db->delete("foto_novedades"))
+		if ($this->db->delete("proyectos_imagen"))
 		{
-			$path_img_borrar = PATH_BASE . "noticia/" . $noticia_id . "/" . $img_borrar;
-			$path_img_borrar2 = PATH_BASE . "noticia/" . $noticia_id . "/tam2_" . $img_borrar;
-			$path_img_borrar3 = PATH_BASE . "noticia/" . $noticia_id . "/crop_" . $img_borrar;
-			$path_img_borrar4 = PATH_BASE . "noticia/" . $noticia_id . "/th_" . $img_borrar;
+			$path_img_borrar = PATH_BASE . "proyecto/" . $noticia_id . "/" . $img_borrar;
+			$path_img_borrar2 = PATH_BASE . "proyecto/" . $noticia_id . "/tam2_" . $img_borrar;
+			$path_img_borrar3 = PATH_BASE . "proyecto/" . $noticia_id . "/crop_" . $img_borrar;
+			$path_img_borrar4 = PATH_BASE . "proyecto/" . $noticia_id . "/th_" . $img_borrar;
 							
 			if (file_exists($path_img_borrar))
 				unlink($path_img_borrar);
@@ -162,14 +167,13 @@ class Noticia extends Model
 		else
 			return false;
 	}
-	
-/**************************  Para asociar Noticiass *************************************/
+/**************************  Para asociar Caracteristicas *************************************/
 		
-	public function dameCaracteristicas($noticia_id)
+	public function dameCaracteristicas($proyecto_id)
 	{
 		$sql = "select c.id, c.nombre, pr.id as relacion_id from caracteristica c 
-		inner join novedades_caract pr on (pr.caracteristica_id = c.id) 
-		where pr.novedades_id = ".$noticia_id." order by c.nombre";
+		inner join proyectos_caract pr on (pr.caracteristica_id = c.id) 
+		where pr.proyectos_id = ".$proyecto_id." order by c.nombre";
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -180,10 +184,10 @@ class Noticia extends Model
 			return false;
 	}
 	
-	public function dameCaracteristicaAsociar($noticia_id)
+	public function dameCaracteristicaAsociar($proyecto_id)
 	{
 		$sql = "select c.id, c.nombre from caracteristica c 
-		where c.id not in (select caracteristica_id from novedades_caract where novedades_id = $noticia_id) 
+		where c.id not in (select caracteristica_id from proyectos_caract where proyectos_id = $proyecto_id) 
 		order by c.nombre";
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
@@ -197,7 +201,7 @@ class Noticia extends Model
 	}
 	public function insertarCaracteristicas($datos)
 	{
-		if ($this->db->insert("novedades_caract",$datos))
+		if ($this->db->insert("proyectos_caract",$datos))
 			return true;
 		else
 			return false;
@@ -206,19 +210,16 @@ class Noticia extends Model
 	public function deleteCaracteristicas($relacion_id)
 	{
 		$this->db->where("id",$relacion_id);
-		if ($this->db->delete("novedades_caract"))
+		if ($this->db->delete("proyectos_caract"))
 			return true;
 		else
 			return false;
 	}
 	
-	
-	
-	
 	/*Metodos usados en el front*/
-	public function dameUltimaNota($tipo)
+	public function dameUltimoProyecto($tipo)
 	{
-		$sql = "select id from novedades where tipo = $tipo order by fecha desc limit 1";
+		$sql = "select id from proyectos where tipo = $tipo order by fecha desc limit 1";
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -229,9 +230,9 @@ class Noticia extends Model
 			return 0;
 	}
 	
-	public function dameNotasTipo($tipo)
+	public function dameProyectoTipo($tipo)
 	{
-		$sql = "select id, titulo from novedades where tipo = $tipo order by fecha desc limit 3";
+		$sql = "select id, titulo from proyectos where tipo = $tipo order by fecha desc limit 3";
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{

@@ -7,7 +7,7 @@
 		$("#btn_guardar").click(function(){
 			$("#botones").hide();
 			$("#loading").show();
-			$.post("<?=site_url("admin/paginas/guardar_cambios_imagen")?>",
+			$.post("<?=site_url("admin/proyectos/guardar_cambios_imagen")?>",
 			{
 				imagen_id: <?=$imagen['id'] ?>,
 				url: $("#link").val(),
@@ -16,7 +16,7 @@
 				switch(data)
 				{
 					case "ok":
-						$.post('<?=site_url("admin/paginas/traeGaleria/".$pagina['id'])?>'
+						$.post('<?=site_url("admin/proyectos/traeGaleria/".$proyecto['id'])?>'
 								, function(data){
 							$('#galeria',window.parent.document).html( data);
 						 })
@@ -41,16 +41,16 @@
 	{
 		$("#botones").hide();
 		$("#loading").show();
-		$.post("<?=site_url("admin/paginas/borrar_imagen")?>",
+		$.post("<?=site_url("admin/proyectos/borrar_imagen")?>",
 		{
 			imagen_id: <?=$imagen['id'] ?>,
-			pagina_id: <?=$imagen['pagina_id']?>,
+			proyecto_id: <?=$imagen['proyecto_id']?>,
 			img: "<?=$imagen['img']?>"
 		},function(data){
 			switch(data)
 			{
 				case "ok":
-					$.post('<?=site_url("admin/paginas/traeGaleria/".$pagina['id'])?>'
+					$.post('<?=site_url("admin/proyectos/traeGaleria/".$proyecto['id'])?>'
 							, function(data){
 						$('#galeria',window.parent.document).html( data);
 					 })
@@ -72,7 +72,7 @@
 	
 	function recortar()
 	{
-		parent.SexyLightbox.display('<?=site_url("admin/paginas/crop/".$imagen['id'])?>?TB_iframe=true&modal=1&height=750&width=950');
+		parent.SexyLightbox.display('<?=site_url("admin/proyectos/crop/".$imagen['id'])?>?TB_iframe=true&modal=1&height=750&width=950');
 	}
 	
 	function cerrar()
@@ -115,7 +115,7 @@
 	  		</tr>-->
 	  		<tr>
 	  			<td>Im&aacute;gen </td>
-	  			<td><img src="<?=site_url("upload/pagina/".$imagen['pagina_id']."/th_".$imagen['img'])?>" /></td>
+	  			<td><img src="<?=site_url("upload/proyecto/".$imagen['proyectos_id']."/th_".$imagen['img'])?>" /></td>
 	  		</tr>
 	  		</tbody>
 	  		</table>

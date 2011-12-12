@@ -211,6 +211,56 @@ class Producto extends Model
 			return false;
 	}
 	
+/**************************  Para asociar Caracteristicas *************************************/
+		
+	public function dameCaracteristicas($producto_id)
+	{
+		$sql = "select c.id, c.nombre, pr.id as relacion_id from caracteristica c 
+		inner join producto_caract pr on (pr.caracteristica_id = c.id) 
+		where pr.producto_id = ".$producto_id." order by c.nombre";
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$res = $query->result_array();
+			return $res;
+		}
+		else
+			return false;
+	}
+	
+	public function dameCaracteristicaAsociar($producto_id)
+	{
+		$sql = "select c.id, c.nombre from caracteristica c 
+		where c.id not in (select caracteristica_id from producto_caract where producto_id = $producto_id) 
+		order by c.nombre";
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$res = $query->result_array();
+
+			return $res;
+		}
+		else
+			return false;
+	}
+	
+	public function insertarCaracteristicas($datos)
+	{
+		if ($this->db->insert("producto_caract",$datos))
+			return true;
+		else
+			return false;
+	}
+	
+	public function deleteCaracteristicas($relacion_id)
+	{
+		$this->db->where("id",$relacion_id);
+		if ($this->db->delete("producto_caract"))
+			return true;
+		else
+			return false;
+	}
+	
 	/*Metodos usados en el front*/
 	
 }

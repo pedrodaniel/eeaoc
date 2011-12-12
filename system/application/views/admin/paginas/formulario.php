@@ -50,6 +50,55 @@
 		if (p_id > 0)
 			SexyLightbox.display('<?=site_url("admin/paginas/editar_imagen")?>/'+p_id+'?TB_iframe=true&modal=1&height=400&width=500');
 	}
+	function agregar_caracteristica()
+	{
+		$.post("<?=site_url("admin/proyectos/agregar_caracteristica")?>",
+		{
+			proyecto_id: $("#proyecto_id").val(), 
+			caracteristica_id: $("#caracteristica").val()
+		},function(data){
+			switch(data)
+			{
+				case "ok":
+					location.reload();
+				break;
+				case "ko":
+					jAlert("Error en la conexi&oacute;n. Aseg&uacute;rese estar conectado a internet.","Error");
+				break;
+				case "error_permiso":
+					jAlert("No tiene permiso para realizar la operaci&oacute;n solicitada.","Error");
+				break;
+				case "error_metodo":
+					jAlert("M&eacute;todo no soportado.","Error");
+				break;
+			}
+		})
+	}
+	
+	function eliminar_caracteristica(p_id)
+	{
+		$.post("<?=site_url("admin/proyectos/eliminar_caracteristica")?>",
+		{
+			relacion_id: p_id
+		},
+		function(data){
+			switch(data)
+			{
+				case "ok":
+					location.reload();
+				break;
+				case "ko":
+					jAlert("Error en la conexi&oacute;n. Aseg&uacute;rese estar conectado a internet.","Error");
+				break;
+				case "error_permiso":
+					jAlert("No tiene permiso para realizar la operaci&oacute;n solicitada.","Error");
+				break;
+				case "error_metodo":
+					jAlert("M&eacute;todo no soportado.","Error");
+				break;
+			}
+		});
+	}
 	</script>
 </head>
 <body>	
@@ -63,11 +112,11 @@
 			<? if ($pagina['id'] > 0):?>
 			<img src="<?=site_url("img/admin/page_edit.png")?>" />
 			Editar Pagina
-			<form id="page_form" method="post"  action="<?=site_url("admin/paginas/modificar")?>">
+			<form name="page_form" id="page_form" method="post"  action="<?=site_url("admin/paginas/modificar")?>">
 			<? else:?>
 			<img src="<?=site_url("img/admin/page_add.png")?>" />
 			Nueva Pagina
-			<form id="page_form" method="post"  action="<?=site_url("admin/paginas/guardar")?>">
+			<form name="page_form" id="page_form" method="post"  action="<?=site_url("admin/paginas/guardar")?>">
 			<? endif; ?>
 		</div>
 		<br/>
@@ -152,9 +201,6 @@
 				<? endif; ?>
 	</div>
 			</div>
-	<? else:?>
-
-
 	<? endif; ?>		
 </div>
 			</div>

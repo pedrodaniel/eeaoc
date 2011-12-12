@@ -5,17 +5,17 @@
 	<script type="text/javascript">
 	function buscar()
 	{
-		window.location="<?=site_url("admin/noticias/index")?>/"+$("#search").val();
+		window.location="<?=site_url("admin/proyectos/index")?>/"+$("#search").val();
 	}
 	
 	function destacar(n_id)
 	{
 		var v_valor = 0;
-		if ($("#habilitado_"+n_id).attr('checked'))
+		if ($("#destacada_"+n_id).attr('checked'))
 			v_valor = 1;
-		$.post("<?=site_url("admin/noticias/destacar")?>",
+		$.post("<?=site_url("admin/proyectos/destacar")?>",
 		{
-			noticia_id: n_id,
+			proyecto_id: n_id,
 			valor: v_valor
 		},
 		function(data){
@@ -36,9 +36,9 @@
 	
 	function eliminar(p_id)
 	{
-		$.post("<?=site_url("admin/noticias/borrar")?>",
+		$.post("<?=site_url("admin/proyectos/borrar")?>",
 		{
-			noticia_id: p_id
+			proyecto_id: p_id
 		},function(data){
 			switch(data)
 			{
@@ -46,18 +46,21 @@
 					location.reload();
 				break;
 				case "ko":
-					jAlert("Error al intentar eliminar la noticia. Asegurese estar conectado.","Error");
+					jAlert("Error al intentar eliminar la proyecto. Asegurese estar conectado.","Error");
 				break;
 				case "error_permiso":
 					jAlert("No tiene permiso para realizar la operaci&oacute;n solicitada.","Error");
 				break;
+				case "caract":
+					jAlert("Este Proyecto Tiene Caracteristicas Asociadas.","Error");
+				break;
 			}
 		});
 	}
-	function caracteristicas(p_id)
+	function caracteristica(p_id)
 	{
 		if (p_id > 0)
-			SexyLightbox.display('<?=site_url("admin/noticias/caracteristicas")?>/'+p_id+'?TB_iframe=true&modal=1&height=400&width=500');
+			SexyLightbox.display('<?=site_url("admin/proyectos/caracteristicas")?>/'+p_id+'?TB_iframe=true&modal=1&height=400&width=500');
 	}
 	</script>
 </head>
@@ -67,8 +70,8 @@
 <div style="margin-left: 25px; margin-right: 25px;">
 <br/>
 	<div class="head">
-	<img style="vertical-align: middle;" src="<?=site_url("img/admin/noticias.png")?>" />
-	Noticias &nbsp;&nbsp;<span style="font-size:11px"><a href="<?=site_url("admin/noticias/formulario")?>">Nueva</a></span>
+	<img style="vertical-align: middle; width:32px" src="<?=site_url("img/admin/folder_process.png")?>" />
+	Proyectos &nbsp;&nbsp;<span style="font-size:11px"><a href="<?=site_url("admin/proyectos/formulario")?>">Nuevo</a></span>
 		<div class="setting" style="float:right">
 		<input type="text" id="search" name="search" value="<?=$search?>" style="width:200px" />&nbsp;<button onclick="javascript:buscar()">Buscar</button>
 		</div>
@@ -83,24 +86,27 @@
 			<th>&nbsp;</th>
 			<th>T&iacute;tulo</th>
 			<th>Tipo</th>
+			<th>Tematica</th>
 			<th>Fecha Carga</th>
 			<th>Usuario</th>
 			<th>Destacada</th>
 			<th>Asociar Caracteristicas</th>
+			<th>Eliminar</th>
 			<th></th>
 		</tr>
 		<? if ($listado):?>
-			<? foreach ($listado as $nota):?>
+			<? foreach ($listado as $proyecto):?>
 			<tr bgcolor="#ffffff">
-			<td><?=$nota['id']?></td>
-			<td><a href="<?=site_url("admin/noticias/formulario/".$nota['id'])?>" title="Editar noticia"><?=$nota['titulo']?></a></td>
-			<td><? if ($nota['tipo']==1) echo "Institucional"; elseif ($nota['tipo']==2) echo "Cient&iacute;fica"; else echo "Agroindustrial";?></td>
-			<td><?=$nota['fecha']?></td>
-			<td><?=$nota['usuario_nombre']." ".$nota['usuario_apellido']?></td>
-			<td><input id="habilitado_<?=$nota['id']?>" type="checkbox" <?=($nota['destacada']==1)?"checked":""?> name="habilitado" onclick="javascript:destacar(<?=$nota['id']?>)" /></td>
-			<td align="center"><a href="javascript:caracteristicas(<?=$nota['id']?>)" title="Asociar caracteristicas" ><img width="25" src="<?=site_url("img/admin/link_add.png")?>" /></a></td>
-		
-			<td><a href="javascript:eliminar(<?=$nota['id']?>)" title="Eliminar noticia"><img width="25" src="<?=site_url("img/admin/delete.png")?>" /></a></td>
+			<td><?=$proyecto['id']?></td>
+			<td><a href="<?=site_url("admin/proyectos/formulario/".$proyecto['id'])?>" title="Editar noticia"><?=$proyecto['titulo']?></a></td>
+			<td><? if ($proyecto['tipo']==1) echo "Proyecto"; elseif ($proyecto['tipo']==2) echo "Programa";?></td>
+			<td><?=$proyecto['tematica']?></td>
+			<td><?=$proyecto['fecha']?></td>
+			<td><?=$proyecto['usuario_nombre']." ".$proyecto['usuario_apellido']?></td>
+			<td><input id="destacada_<?=$proyecto['id']?>" type="checkbox" <?=($proyecto['destacada']==1)?"checked":""?> name="habilitado" onclick="javascript:destacar(<?=$proyecto['id']?>)" /></td>
+			<td align="center"><a href="javascript:caracteristica(<?=$proyecto['id']?>)" title="Asociar caracteristica" ><img width="25" src="<?=site_url("img/admin/link_add.png")?>" /></a></td>
+			
+			<td><a href="javascript:eliminar(<?=$proyecto['id']?>)" title="Eliminar noticia"><img width="25" src="<?=site_url("img/admin/delete.png")?>" /></a></td>
 			</tr>
 			<? endforeach; ?>
 		<? endif; ?>
