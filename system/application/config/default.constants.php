@@ -50,8 +50,8 @@ define('PATH_BASE',"C:/AppServ/www/sitio_eeaoc/upload/");
 define('PATH_INICIO',"C:/AppServ/www/sitio_eeaoc");
 
 /*Para Facebook*/
-define('APP_ID', '201312843260601');
-define('APP_SECRET', 'b96882ad6f528c898ecd90fce696fbbb');
+define('APP_ID', '*');
+define('APP_SECRET', '-');
 
 
 /* End of file constants.php */
